@@ -16,9 +16,7 @@ import {
   Mail,
   MapPin,
   Menu,
-  MessageCircle,
   PanelTop,
-  PhoneCall,
   ShieldCheck,
   Sparkles,
   SunMedium,
@@ -101,22 +99,25 @@ function useSiteLanguage(page: SitePageKind) {
   return { language, setLanguage, t: content[language] };
 }
 
-function ProtectedEmail({ className = "", label }: { className?: string; label: string }) {
-  const [revealed, setRevealed] = useState(false);
-  const email = `${company.emailUser}@${company.emailDomain}`;
-
+/*
+ * The address is written out in full and linked with mailto.
+ *
+ * It used to be obfuscated — "sales [at] harvest [dot] cn", revealed on click,
+ * with the parts also in data-u/data-d attributes and in the bundle as
+ * emailUser/emailDomain. That hid nothing: the structured data in index.html
+ * carries "email": "sales@harvest.cn" in plain text, so anything reading the
+ * HTML, the DOM or the JavaScript has the address either way. The obfuscation
+ * only made the address harder for an actual visitor to use, and a button you
+ * must click before a mailto appears is worse than just the mailto.
+ *
+ * The `email-safe` class is kept as the styling hook it has become.
+ */
+function EmailLink({ className = "" }: { className?: string }) {
   return (
-    <button
-      type="button"
-      className={`email-safe ${className}`}
-      aria-label={label}
-      onClick={() => setRevealed(true)}
-      data-u={company.emailUser}
-      data-d={company.emailDomain}
-    >
+    <a className={`email-safe ${className}`.trim()} href={`mailto:${company.email}`}>
       <Mail className="h-4 w-4" aria-hidden="true" />
-      <span>{revealed ? email : "sales [at] harvest [dot] cn"}</span>
-    </button>
+      <span>{company.email}</span>
+    </a>
   );
 }
 
@@ -181,7 +182,6 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
         {page === "contact" && <ContactContent languageBundle={withLanguage} />}
       </main>
 
-      <WhatsAppBubble label={t.a11y.whatsapp} />
       <Footer language={language} />
     </div>
   );
@@ -442,7 +442,7 @@ function ContactContent({ languageBundle }: { languageBundle: ReturnType<typeof 
         <aside className="contact-details" aria-label={t.a11y.contactDetails}>
           <div>
             <p className="detail-label">{t.contact.emailLabel}</p>
-            <ProtectedEmail label={t.a11y.revealEmail} />
+            <EmailLink />
           </div>
           <div>
             <p className="detail-label">{t.contact.addressLabel}</p>
@@ -478,24 +478,11 @@ function Footer({ language }: { language: Language }) {
         <div className="footer-contact">
           <h2>{company.name}</h2>
           <p className="footer-address"><House className="h-4 w-4" aria-hidden="true" /> <span>{company.address}</span></p>
-          <ProtectedEmail className="footer-email" label={t.a11y.revealEmail} />
-        </div>
-        <div className="footer-social">
-          <h2>Social</h2>
-          <a className="footer-social-link" href={company.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle className="h-4 w-4" aria-hidden="true" /> <span>WhatsApp</span></a>
+          <EmailLink className="footer-email" />
         </div>
       </div>
       <div className="container footer-bottom">© {new Date().getFullYear()} Harvest Eco Solutions Limited. {t.footer.rights}</div>
     </footer>
-  );
-}
-
-function WhatsAppBubble({ label }: { label: string }) {
-  return (
-    <a className="whatsapp-bubble" href={company.whatsappUrl} target="_blank" rel="noreferrer" aria-label={label}>
-      <PhoneCall className="h-5 w-5" />
-      <span>WhatsApp</span>
-    </a>
   );
 }
 

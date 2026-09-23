@@ -36,16 +36,24 @@ export const company = {
   year: "2004",
   markets: "50+",
   customers: "1000+",
-  emailUser: "sales",
-  emailDomain: "harvest.cn",
+  /*
+   * Written in full. The address used to be split into emailUser/emailDomain so
+   * the page could obfuscate it; that hid nothing, because the structured data
+   * in index.html carries the whole address in plain text anyway (see the README).
+   */
+  email: "sales@harvest.cn",
   /*
    * The former ownerEmailUser/ownerEmailDomain pair (a personal Gmail address)
    * was removed here. It was only ever read by the server-side mailer, which
    * this static migration drops, and this repository is public — a personal
    * address does not belong in it.
    */
-  whatsappDisplay: "+86 139 1616 9339",
-  whatsappUrl: "https://wa.me/8613916169339",
+  /*
+   * whatsappDisplay and whatsappUrl were removed here, together with the footer's
+   * Social column and the floating bubble. The contact form and the protected
+   * email are now the site's only contact routes. To restore them, add the fields
+   * back and re-add the markup in src/pages/Home.tsx.
+   */
   /*
    * The Facebook entry that was here pointed at facebook.com/iscogmbh.com —
    * ISCO GmbH's page, not this company's. It was inherited from the site this
@@ -60,7 +68,6 @@ export const content = {
   en: {
     nav: { home: "Home", about: "About", products: "Products & Solutions", contact: "Contact" },
     a11y: {
-      revealEmail: "Reveal protected sales email address",
       homeLink: "Harvest Eco Solutions Limited home",
       logo: "Harvest Eco Solutions Limited logo",
       primaryNav: "Primary navigation",
@@ -78,7 +85,6 @@ export const content = {
       essVisual: "Portable power bank and home energy storage system",
       contactDetails: "Company contact details",
       pageVisual: "Harvest Eco Solutions clean energy visual",
-      whatsapp: "Chat with Harvest Eco Solutions on WhatsApp",
     },
     cta: "Request a Quote",
     hero: {
@@ -160,7 +166,11 @@ export const content = {
       send: "Send inquiry",
       sending: "Sending...",
       error: "We could not submit the inquiry right now. Please try again or contact us via WhatsApp.",
-      emailLabel: "Protected email",
+      /*
+       * Was "Protected email". The address is no longer obfuscated, so claiming
+       * it is protected would be false; the labels now just name the field.
+       */
+      emailLabel: "Email",
       addressLabel: "Office address",
       success: "Thank you. Your inquiry has been submitted securely. Our team will follow up shortly.",
     },
@@ -173,7 +183,6 @@ export const content = {
   es: {
     nav: { home: "Inicio", about: "Nosotros", products: "Productos y soluciones", contact: "Contacto" },
     a11y: {
-      revealEmail: "Mostrar la dirección de correo comercial protegida",
       homeLink: "Inicio de Harvest Eco Solutions Limited",
       logo: "Logotipo de Harvest Eco Solutions Limited",
       primaryNav: "Navegación principal",
@@ -191,7 +200,6 @@ export const content = {
       essVisual: "Batería portátil y sistema doméstico de almacenamiento de energía",
       contactDetails: "Datos de contacto de la empresa",
       pageVisual: "Imagen de energía limpia de Harvest Eco Solutions",
-      whatsapp: "Chatear con Harvest Eco Solutions en WhatsApp",
     },
     cta: "Solicitar cotización",
     hero: {
@@ -271,7 +279,7 @@ export const content = {
       send: "Enviar consulta",
       sending: "Enviando...",
       error: "No pudimos enviar la consulta en este momento. Inténtelo de nuevo o contáctenos por WhatsApp.",
-      emailLabel: "Correo protegido",
+      emailLabel: "Correo electrónico",
       addressLabel: "Dirección",
       success: "Gracias. Su consulta se ha enviado de forma segura. Nuestro equipo responderá pronto.",
     },
@@ -281,7 +289,6 @@ export const content = {
   fr: {
     nav: { home: "Accueil", about: "À propos", products: "Produits et solutions", contact: "Contact" },
     a11y: {
-      revealEmail: "Afficher l’adresse e-mail commerciale protégée",
       homeLink: "Accueil de Harvest Eco Solutions Limited",
       logo: "Logo de Harvest Eco Solutions Limited",
       primaryNav: "Navigation principale",
@@ -299,7 +306,6 @@ export const content = {
       essVisual: "Batterie portable et système domestique de stockage d’énergie",
       contactDetails: "Coordonnées de l’entreprise",
       pageVisual: "Visuel d’énergie propre de Harvest Eco Solutions",
-      whatsapp: "Discuter avec Harvest Eco Solutions sur WhatsApp",
     },
     cta: "Demander un devis",
     hero: {
@@ -379,7 +385,7 @@ export const content = {
       send: "Envoyer la demande",
       sending: "Envoi...",
       error: "Nous n’avons pas pu envoyer la demande pour le moment. Réessayez ou contactez-nous via WhatsApp.",
-      emailLabel: "E-mail protégé",
+      emailLabel: "E-mail",
       addressLabel: "Adresse",
       success: "Merci. Votre demande a été envoyée de manière sécurisée. Notre équipe vous répondra bientôt.",
     },

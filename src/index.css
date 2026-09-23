@@ -790,24 +790,6 @@
     font-size: 0.9rem;
   }
 
-  .whatsapp-bubble {
-    position: fixed;
-    left: 1rem;
-    bottom: 1rem;
-    z-index: 60;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    border-radius: 999px;
-    background: #25d366;
-    padding: 0.85rem 1rem;
-    color: #06240f;
-    font-size: 0.9rem;
-    font-weight: 900;
-    text-decoration: none;
-    box-shadow: 0 18px 48px rgba(37, 211, 102, 0.34);
-  }
-
   .not-found-page {
     min-height: 100vh;
     display: grid;
@@ -919,7 +901,7 @@
     }
 
     .footer-grid {
-      grid-template-columns: 1.2fr 1fr 0.7fr;
+      grid-template-columns: 1.2fr 1fr;
     }
 
     .brand-logo {
@@ -1214,8 +1196,7 @@
     line-height: 1.35;
   }
 
-  .footer-contact,
-  .footer-social {
+  .footer-contact {
     justify-self: end;
     max-width: 24rem;
     text-align: right;
@@ -1240,50 +1221,6 @@
     text-align: right;
   }
 
-  .whatsapp-bubble {
-    left: 1.25rem;
-    bottom: 1.25rem;
-    width: 3.75rem;
-    height: 3.75rem;
-    justify-content: center;
-    gap: 0;
-    border: 2px solid rgba(255, 255, 255, 0.7);
-    border-radius: 999px;
-    background: #25d366;
-    padding: 0;
-    color: #052915;
-    box-shadow: 0 18px 45px rgba(37, 211, 102, 0.38), 0 0 0 0 rgba(37, 211, 102, 0.48);
-    animation: whatsapp-float 3.2s ease-in-out infinite, whatsapp-pulse 2.4s ease-out infinite;
-  }
-
-  .whatsapp-bubble svg {
-    width: 1.55rem;
-    height: 1.55rem;
-  }
-
-  .whatsapp-bubble span {
-    position: absolute;
-    left: 4.85rem;
-    top: 50%;
-    transform: translateY(-50%) translateX(-0.35rem);
-    border: 1px solid rgba(13, 43, 40, 0.12);
-    border-radius: 999px;
-    background: rgba(255, 252, 243, 0.96);
-    padding: 0.55rem 0.8rem;
-    color: #10201f;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    box-shadow: 0 12px 36px rgba(16, 32, 31, 0.14);
-    transition: opacity 180ms ease, transform 180ms ease;
-  }
-
-  .whatsapp-bubble:hover span,
-  .whatsapp-bubble:focus-visible span {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
-  }
-
   @media (min-width: 1024px) {
     .brand-logo {
       height: 76px;
@@ -1296,7 +1233,7 @@
     }
 
     .footer-grid {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 0.65fr);
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
     }
   }
 
@@ -1324,24 +1261,12 @@
         padding-left: 4.35rem;
       }
 
-      .footer-contact,
-    .footer-social,
+    .footer-contact,
     .footer-bottom {
       justify-self: end;
       text-align: right;
     }
   }
-}
-
-@keyframes whatsapp-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-0.38rem); }
-}
-
-@keyframes whatsapp-pulse {
-  0% { box-shadow: 0 18px 45px rgba(37, 211, 102, 0.38), 0 0 0 0 rgba(37, 211, 102, 0.5); }
-  72% { box-shadow: 0 18px 45px rgba(37, 211, 102, 0.38), 0 0 0 18px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 18px 45px rgba(37, 211, 102, 0.38), 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
 /* 2026 responsive refinement: Calibri-first typography, compact footer, clearer social/contact alignment, and balanced floating WhatsApp placement. */
@@ -1389,8 +1314,7 @@
     row-gap: 1.55rem;
   }
 
-  .footer-contact,
-  .footer-social {
+  .footer-contact {
     justify-self: end;
     text-align: right;
   }
@@ -1401,8 +1325,7 @@
   }
 
   .footer-address,
-  .footer-contact .email-safe,
-  .footer-social-link {
+  .footer-contact .email-safe {
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
@@ -1418,8 +1341,7 @@
   }
 
   .footer-address svg,
-  .footer-contact .email-safe svg,
-  .footer-social-link svg {
+  .footer-contact .email-safe svg {
     flex: 0 0 auto;
     margin-top: 0.12rem;
     color: #f5d88b;
@@ -1430,18 +1352,6 @@
     font-size: 0.9rem;
   }
 
-  .footer-social-link {
-    width: fit-content;
-    margin-top: 0.48rem !important;
-    margin-left: auto;
-    color: rgba(255, 248, 234, 0.78) !important;
-  }
-
-  .footer-social-link:hover,
-  .footer-social-link:focus-visible {
-    color: #fff8ea !important;
-  }
-
   .footer-bottom {
     margin-top: 1.55rem;
     padding-top: 0.8rem;
@@ -1449,13 +1359,6 @@
     padding-left: clamp(5.8rem, 16vw, 12rem);
     font-size: 0.84rem;
     line-height: 1.35;
-  }
-
-  .whatsapp-bubble {
-    left: 1.25rem;
-    bottom: 2.05rem;
-    width: 3.45rem;
-    height: 3.45rem;
   }
 
   .language-switcher select {
@@ -1587,7 +1490,6 @@
     }
 
     .footer-contact,
-    .footer-social,
     .footer-bottom {
       justify-self: end;
       width: 100%;
@@ -1607,16 +1509,6 @@
       font-size: 0.78rem;
     }
 
-    .whatsapp-bubble {
-      left: 0.9rem;
-      bottom: 1.55rem;
-      width: 3.15rem;
-      height: 3.15rem;
-    }
-
-    .whatsapp-bubble span {
-      display: none;
-    }
   }
 }
 
@@ -1675,32 +1567,6 @@
     box-shadow: 0 0 0 1px rgba(13, 43, 40, 0.16), 0 3px 8px rgba(13, 43, 40, 0.12);
   }
 
-  .footer-social-link,
-  .footer-social a.footer-social-link {
-    display: inline-flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 0.45rem !important;
-    width: auto !important;
-    max-width: max-content;
-    margin-left: auto !important;
-    white-space: nowrap;
-    line-height: 1.2;
-  }
-
-  .footer-social-link svg,
-  .footer-social a.footer-social-link svg {
-    margin-top: 0 !important;
-    flex: 0 0 auto;
-  }
-
-  .footer-social-link span,
-  .footer-social a.footer-social-link span {
-    display: inline-block;
-    white-space: nowrap;
-  }
-
   @media (max-width: 640px) {
     .language-switcher {
       gap: 0.2rem;
@@ -1716,11 +1582,6 @@
     .flag-icon {
       width: 1.05rem;
       height: 0.7rem;
-    }
-
-    .footer-social-link,
-    .footer-social a.footer-social-link {
-      justify-content: flex-end !important;
     }
   }
 }
