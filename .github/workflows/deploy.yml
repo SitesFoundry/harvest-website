@@ -3,16 +3,15 @@ name: Build and deploy to GitHub Pages
 # Publishes dist/ to GitHub Pages. Required one-time setup in the repository:
 #   Settings → Pages → Build and deployment → Source: "GitHub Actions"
 #
-# SITE_BASE is /harvest-website/ while the site is previewed as a GitHub Pages
-# project site, which serves from https://<owner>.github.io/harvest-website/.
-# With "/" the preview loads a blank page and 404s every asset, because the
-# assets would be requested from the domain root where they do not exist.
+# SITE_BASE is "/" because the site is served from the root of www.harvest.cn.
 #
-# AT CUTOVER: once harvest.cn points at GitHub Pages and serves from the domain
-# root, change this to "/" and redeploy. src/App.tsx and src/lib/asset.ts both
-# read this one value, so the router prefix and the asset paths follow it
-# together and cannot disagree. The canonical host is www.harvest.cn — see the
-# README's "Canonical host" section for the DNS work and the redirect direction.
+# The project-site preview (https://<owner>.github.io/harvest-website/) no longer
+# works as a result: with "/" its assets are requested from the domain root, where
+# they do not exist. That preview was a staging device and its job is done.
+#
+# src/App.tsx and src/lib/asset.ts both read this one value, so the router prefix
+# and the asset paths follow it together and cannot disagree. The canonical host
+# is www.harvest.cn — see the README's "Canonical host" section.
 #
 # The Formspree form id is committed in src/lib/form.ts, because it is a public
 # value anyway (it is in the endpoint URL of every submission). Setting this
@@ -34,7 +33,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SITE_BASE: /harvest-website/
+  SITE_BASE: /
   VITE_FORMSPREE_ID: ${{ vars.FORMSPREE_ID }}
 
 jobs:
