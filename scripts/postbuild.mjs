@@ -18,7 +18,7 @@
  * A silent no-op is worse than a failure here: a copy that did not happen, or a
  * scan that inspected zero files, must not report success.
  */
-import { readFile, readdir, stat, writeFile } from "node:fs/promises";
+import { readFile, readdir, mkdir, stat, writeFile } from "node:fs/promises";
 import { join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -130,16 +130,160 @@ if (notFoundStat.size !== indexStat.size) {
 }
 console.log(`  404.html          ${notFoundStat.size} bytes, byte-identical to index.html`);
 
-/* ----------------------------------------------------------------- 3. sitemap */
+/* -------------------------------------------------------- 3. one page per route */
 
+/*
+ * GitHub Pages serves a directory's index.html with status 200 and answers
+ * anything else with 404.html and status 404. A single-page app whose only HTML
+ * file is the root therefore answers 404 for every sub-route: the page renders
+ * for a human, and a crawler drops it. The sitemap then reports errors and the
+ * sub-pages never enter an index — which is exactly what happened here before
+ * this step existed.
+ *
+ * So every route gets its own directory page: a copy of the root document with
+ * the head rewritten for that route. No application code changes — the same
+ * script tag mounts the same app, and the router reads the path as it always did.
+ *
+ * The route list and the per-route text come from src/data/pageMeta.json, the
+ * same file the client uses, so the two cannot drift apart.
+ */
+const ORIGIN = "https://www.harvest.cn";
+const pageMeta = JSON.parse(await readFile(join(ROOT, "src/data/pageMeta.json"), "utf8"));
+
+function rewriteHead(html, { path, title, description }) {
+  const url = `${ORIGIN}${path}`;
+  let out = html;
+  /* Every swap asserts it matched. A silent no-op here would publish a page
+   * declaring the wrong canonical, which is the defect this step exists to fix. */
+  const swap = (pattern, replacement, label) => {
+    const before = out;
+    out = out.replace(pattern, replacement);
+    if (out === before) {
+      fail(`rewriting ${label} for ${path} did not match — index.html's head changed shape`);
+    }
+  };
+  swap(/<title>[^<]*<\/title>/, `<title>${title}</title>`, "<title>");
+  swap(
+    /(<meta name="description" content=")[^"]*(")/,
+    `$1${description}$2`,
+    "meta description",
+  );
+  swap(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`, "canonical");
+  swap(/(<meta property="og:url" content=")[^"]*(")/, `$1${url}$2`, "og:url");
+  swap(/(<meta property="og:title" content=")[^"]*(")/, `$1${title}$2`, "og:title");
+  swap(
+    /(<meta property="og:description" content=")[^"]*(")/,
+    `$1${description}$2`,
+    "og:description",
+  );
+  swap(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${title}$2`, "twitter:title");
+  swap(
+    /(<meta name="twitter:description" content=")[^"]*(")/,
+    `$1${description}$2`,
+    "twitter:description",
+  );
+  for (const lang of ["en", "es", "fr"]) {
+    swap(
+      new RegExp(`(<link rel="alternate" hreflang="${lang}" href=")[^"]*(")`),
+      `$1${url}?lang=${lang}$2`,
+      `hreflang=${lang}`,
+    );
+  }
+  swap(
+    /(<link rel="alternate" hreflang="x-default" href=")[^"]*(")/,
+    `$1${url}$2`,
+    "hreflang=x-default",
+  );
+  return out;
+}
+
+const generatedRoutes = [];
+for (const [key, route] of Object.entries(pageMeta)) {
+  if (route.path === "/") continue; // the root document already is this page
+  const en = route.meta.en;
+  const page = rewriteHead(indexHtml, {
+    path: route.path,
+    title: en.title,
+    description: en.description,
+  });
+
+  /* Assert the rewrite landed, and that the root canonical is gone: a
+   * sub-page still claiming to be the home page is the bug being fixed. */
+  const canonical = `${ORIGIN}${route.path}`;
+  if (!page.includes(`<link rel="canonical" href="${canonical}" />`)) {
+    fail(`${key}: generated page does not declare canonical ${canonical}`);
+  }
+  if (!page.includes(`<title>${en.title}</title>`)) {
+    fail(`${key}: generated page does not carry its own <title>`);
+  }
+  if (page.includes(`href="${ORIGIN}/" />`) && route.path !== "/") {
+    fail(`${key}: generated page still contains the root canonical`);
+  }
+
+  const dir = join(DIST, route.path.replace(/^\/+/, "").replace(/\/+$/, ""));
+  await mkdir(dir, { recursive: true });
+  await writeFile(join(dir, "index.html"), page);
+  /* Compare BYTES. String.length counts UTF-16 code units and the document
+   * contains multi-byte characters (em dashes in its comments), so comparing
+   * length to stat().size reports a mismatch for a write that landed fine. */
+  const expectedBytes = Buffer.byteLength(page, "utf8");
+  const written = await stat(join(dir, "index.html"));
+  if (written.size !== expectedBytes) {
+    fail(`${key}: wrote ${written.size} bytes but the page is ${expectedBytes} bytes`);
+  }
+  generatedRoutes.push(`${route.path} (${written.size} bytes)`);
+}
+if (generatedRoutes.length === 0) {
+  fail("generated no route pages — the sitemap would advertise 404s again.");
+}
+console.log(`  route pages       ${generatedRoutes.join(", ")}`);
+
+/* ------------------------------------------- 4. sitemap, checked against disk */
+
+/*
+ * Every URL the sitemap advertises must resolve to a real file. A sitemap that
+ * lists URLs the host answers with 404 is worse than no sitemap: it spends crawl
+ * budget, and Search Console reports it as broken. This check would have caught
+ * the state of this site before the step above existed.
+ */
 const sitemapPath = join(DIST, "sitemap.xml");
 const sitemap = await readFile(sitemapPath, "utf8").catch(() => null);
 if (sitemap === null) fail("dist/sitemap.xml is missing (expected from public/).");
-const urlCount = (sitemap.match(/<url>/g) ?? []).length;
-if (urlCount === 0) fail("dist/sitemap.xml contains no <url> entries.");
-console.log(`  sitemap.xml       ${urlCount} URLs`);
+const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+if (locations.length === 0) fail("dist/sitemap.xml contains no <loc> entries.");
 
-/* -------------------------------------------------- 4. migration invariants */
+const unresolved = [];
+for (const loc of locations) {
+  if (!loc.startsWith(ORIGIN)) {
+    unresolved.push(`${loc} (not on ${ORIGIN})`);
+    continue;
+  }
+  const path = loc.slice(ORIGIN.length).split("?")[0];
+  const candidates =
+    path === "/"
+      ? [join(DIST, "index.html")]
+      : path.endsWith("/")
+        ? [join(DIST, path, "index.html")]
+        : [join(DIST, path), join(DIST, path, "index.html")];
+  let found = false;
+  for (const candidate of candidates) {
+    const s = await stat(candidate).catch(() => null);
+    if (s?.isFile()) {
+      found = true;
+      break;
+    }
+  }
+  if (!found) unresolved.push(`${loc} (no file in dist/ serves it)`);
+}
+if (unresolved.length > 0) {
+  fail(
+    `the sitemap lists ${unresolved.length} URL(s) that nothing serves, so the host\n` +
+      `  would answer 404 for them:\n    ${unresolved.join("\n    ")}`,
+  );
+}
+console.log(`  sitemap.xml       ${locations.length} URLs, every one backed by a file`);
+
+/* -------------------------------------------------- 5. migration invariants */
 
 const files = await walk(DIST);
 const textFiles = files.filter((f) => TEXT_EXT.has(extname(f)));
@@ -183,7 +327,7 @@ console.log(
   `  invariants        ${textFiles.length} files scanned, no Manus host / storage path / backend endpoint / non-company email`,
 );
 
-/* ----------------------------------------------------------------- 5. images */
+/* ----------------------------------------------------------------- 6. images */
 
 /*
  * Every image the page asks for must be a file that ships.
@@ -225,7 +369,7 @@ console.log(
     (unusedImages.length ? ` (unused: ${unusedImages.join(", ")})` : ""),
 );
 
-/* ------------------------------------------------------------- 6. form wiring */
+/* ------------------------------------------------------------- 7. form wiring */
 
 /*
  * Check the BUILD CONFIGURATION, not the bundle text.

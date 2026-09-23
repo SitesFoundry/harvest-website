@@ -4,6 +4,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { assets, company, content, languages, type Language } from "@/lib/siteContent";
 import { submitInquiry } from "@/lib/form";
+/*
+ * Page paths and per-language head metadata live in one JSON file so that the
+ * pre-rendered HTML written by scripts/postbuild.mjs and the client-side title
+ * updates here cannot drift apart. See that script for why it matters.
+ */
+import pageMeta from "@/data/pageMeta.json";
 import {
   ArrowRight,
   BadgeCheck,
@@ -38,37 +44,13 @@ type ContactFormState = {
   website: string;
 };
 
-const pageMeta: Record<SitePageKind, Record<Language, { title: string; description: string }>> = {
-  home: {
-    en: {
-      title: "Harvest Eco Solutions Limited | Solar Systems & AI Energy Saving Solutions",
-      description: "Harvest Eco Solutions Limited provides solar systems, ESS storage and AI smart control solutions for global clean-energy markets.",
-    },
-    es: {
-      title: "Harvest Eco Solutions Limited | Sistemas solares y soluciones IA",
-      description: "Harvest Eco Solutions Limited ofrece sistemas solares, almacenamiento ESS y soluciones inteligentes de ahorro energético para mercados globales.",
-    },
-    fr: {
-      title: "Harvest Eco Solutions Limited | Systèmes solaires et solutions IA",
-      description: "Harvest Eco Solutions Limited fournit des systèmes solaires, du stockage ESS et des solutions intelligentes d’économie d’énergie pour les marchés mondiaux.",
-    },
-  },
-  about: {
-    en: { title: "About Harvest Eco Solutions Limited", description: "Learn about Harvest Eco Solutions Limited, founded in 2004 and serving customers across more than 50 countries and regions." },
-    es: { title: "Nosotros | Harvest Eco Solutions Limited", description: "Conozca Harvest Eco Solutions Limited, fundada en 2004 y presente en más de 50 países y regiones." },
-    fr: { title: "À propos | Harvest Eco Solutions Limited", description: "Découvrez Harvest Eco Solutions Limited, fondée en 2004 et active dans plus de 50 pays et régions." },
-  },
-  products: {
-    en: { title: "Products & Solutions | Solar, ESS and AI Smart Control", description: "Explore solar panels, inverters, ESS storage, PV accessories and AI smart control solutions from Harvest Eco Solutions Limited." },
-    es: { title: "Productos y soluciones | Solar, ESS e IA", description: "Explore paneles solares, inversores, almacenamiento ESS, accesorios FV y soluciones inteligentes con IA." },
-    fr: { title: "Produits et solutions | Solaire, ESS et IA", description: "Explorez panneaux solaires, onduleurs, stockage ESS, accessoires PV et solutions intelligentes IA." },
-  },
-  contact: {
-    en: { title: "Contact Harvest Eco Solutions Limited", description: "Contact Harvest Eco Solutions Limited for solar systems, AI energy saving solutions and customized procurement support." },
-    es: { title: "Contacto | Harvest Eco Solutions Limited", description: "Contacte con Harvest Eco Solutions Limited para sistemas solares, soluciones IA y compras personalizadas." },
-    fr: { title: "Contact | Harvest Eco Solutions Limited", description: "Contactez Harvest Eco Solutions Limited pour systèmes solaires, solutions IA et approvisionnement personnalisé." },
-  },
-};
+/*
+ * The per-route titles and descriptions that used to sit here now live in
+ * src/data/pageMeta.json, together with each route's canonical path. The build
+ * script reads the same file to write route-specific <title>, <meta> and
+ * <link rel="canonical"> into each pre-rendered page, which is what makes the
+ * sub-pages indexable at all — see the README.
+ */
 
 function detectLanguage(): Language {
   if (typeof window === "undefined") return "en";
@@ -89,7 +71,7 @@ function useSiteLanguage(page: SitePageKind) {
   };
 
   useEffect(() => {
-    const meta = pageMeta[page][language];
+    const meta = pageMeta[page].meta[language];
     document.documentElement.lang = language;
     document.title = meta.title;
     const description = document.querySelector('meta[name="description"]');
@@ -128,10 +110,21 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
 
   const navItems = [
     { href: "/", label: t.nav.home, key: "home" },
-    { href: "/about", label: t.nav.about, key: "about" },
-    { href: "/products", label: t.nav.products, key: "products" },
-    { href: "/contact", label: t.nav.contact, key: "contact" },
+    { href: "/about/", label: t.nav.about, key: "about" },
+    { href: "/products/", label: t.nav.products, key: "products" },
+    { href: "/contact/", label: t.nav.contact, key: "contact" },
   ];
+
+  /*
+   * Compare without trailing slashes.
+   *
+   * The canonical URLs end in a slash — that is the form the host returns 200
+   * for, because each route is a directory with an index.html. A visitor can
+   * still arrive at the bare form and be redirected, so matching only on the
+   * exact string would leave the current page unhighlighted.
+   */
+  const isCurrent = (href: string) =>
+    location.replace(/\/+$/, "") === href.replace(/\/+$/, "");
 
   const withLanguage = useMemo(() => ({ language, setLanguage, t }), [language, t]);
 
@@ -146,7 +139,7 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
 
           <nav className="desktop-nav" aria-label={t.a11y.primaryNav}>
             {navItems.map((item) => (
-              <Link key={item.key} href={item.href} className={location === item.href ? "nav-link active" : "nav-link"}>
+              <Link key={item.key} href={item.href} className={isCurrent(item.href) ? "nav-link active" : "nav-link"}>
                 {item.label}
               </Link>
             ))}
@@ -155,7 +148,7 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
           <div className="header-actions">
             <LanguageSwitcher language={language} setLanguage={setLanguage} ariaLabel={t.a11y.language} />
             <Button asChild className="hidden rounded-full bg-[#0d2b28] px-5 text-[#fff8ea] hover:bg-[#173f3b] lg:inline-flex">
-              <Link href="/contact">{t.cta}</Link>
+              <Link href="/contact/">{t.cta}</Link>
             </Button>
             <button className="mobile-toggle" type="button" onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen} aria-label={t.a11y.openMenu}>
               {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -206,12 +199,12 @@ function HomeContent({ languageBundle }: { languageBundle: ReturnType<typeof use
             <p>{t.hero.subtitle}</p>
             <div className="hero-buttons">
               <Button asChild className="rounded-full bg-[#d5a84f] px-7 py-6 text-base font-extrabold text-[#10201f] hover:bg-[#efc871]">
-                <Link href="/products">
+                <Link href="/products/">
                   {t.hero.primary} <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" className="rounded-full border-white/40 bg-white/10 px-7 py-6 text-base text-white backdrop-blur hover:bg-white/20">
-                <Link href="/contact">{t.hero.secondary}</Link>
+                <Link href="/contact/">{t.hero.secondary}</Link>
               </Button>
             </div>
           </div>
@@ -261,7 +254,7 @@ function HomeContent({ languageBundle }: { languageBundle: ReturnType<typeof use
               ))}
             </div>
             <Button asChild variant="outline" className="rounded-full border-[#0d2b28] text-[#0d2b28] hover:bg-[#efe4c8]">
-              <Link href="/products">{t.hero.primary}</Link>
+              <Link href="/products/">{t.hero.primary}</Link>
             </Button>
           </div>
         </div>

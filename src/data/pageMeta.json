@@ -1,0 +1,70 @@
+{
+  "home": {
+    "path": "/",
+    "meta": {
+      "en": {
+        "title": "Harvest Eco Solutions Limited | Solar Systems & AI Energy Saving Solutions",
+        "description": "Harvest Eco Solutions Limited provides solar systems, ESS storage and AI smart control solutions for global clean-energy markets."
+      },
+      "es": {
+        "title": "Harvest Eco Solutions Limited | Sistemas solares y soluciones IA",
+        "description": "Harvest Eco Solutions Limited ofrece sistemas solares, almacenamiento ESS y soluciones inteligentes de ahorro energético para mercados globales."
+      },
+      "fr": {
+        "title": "Harvest Eco Solutions Limited | Systèmes solaires et solutions IA",
+        "description": "Harvest Eco Solutions Limited fournit des systèmes solaires, du stockage ESS et des solutions intelligentes d’économie d’énergie pour les marchés mondiaux."
+      }
+    }
+  },
+  "about": {
+    "path": "/about/",
+    "meta": {
+      "en": {
+        "title": "About Harvest Eco Solutions Limited",
+        "description": "Learn about Harvest Eco Solutions Limited, founded in 2004 and serving customers across more than 50 countries and regions."
+      },
+      "es": {
+        "title": "Nosotros | Harvest Eco Solutions Limited",
+        "description": "Conozca Harvest Eco Solutions Limited, fundada en 2004 y presente en más de 50 países y regiones."
+      },
+      "fr": {
+        "title": "À propos | Harvest Eco Solutions Limited",
+        "description": "Découvrez Harvest Eco Solutions Limited, fondée en 2004 et active dans plus de 50 pays et régions."
+      }
+    }
+  },
+  "products": {
+    "path": "/products/",
+    "meta": {
+      "en": {
+        "title": "Products & Solutions | Solar, ESS and AI Smart Control",
+        "description": "Explore solar panels, inverters, ESS storage, PV accessories and AI smart control solutions from Harvest Eco Solutions Limited."
+      },
+      "es": {
+        "title": "Productos y soluciones | Solar, ESS e IA",
+        "description": "Explore paneles solares, inversores, almacenamiento ESS, accesorios FV y soluciones inteligentes con IA."
+      },
+      "fr": {
+        "title": "Produits et solutions | Solaire, ESS et IA",
+        "description": "Explorez panneaux solaires, onduleurs, stockage ESS, accessoires PV et solutions intelligentes IA."
+      }
+    }
+  },
+  "contact": {
+    "path": "/contact/",
+    "meta": {
+      "en": {
+        "title": "Contact Harvest Eco Solutions Limited",
+        "description": "Contact Harvest Eco Solutions Limited for solar systems, AI energy saving solutions and customized procurement support."
+      },
+      "es": {
+        "title": "Contacto | Harvest Eco Solutions Limited",
+        "description": "Contacte con Harvest Eco Solutions Limited para sistemas solares, soluciones IA y compras personalizadas."
+      },
+      "fr": {
+        "title": "Contact | Harvest Eco Solutions Limited",
+        "description": "Contactez Harvest Eco Solutions Limited pour systèmes solaires, solutions IA et approvisionnement personnalisé."
+      }
+    }
+  }
+}
