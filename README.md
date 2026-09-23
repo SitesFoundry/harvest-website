@@ -229,7 +229,8 @@ original source were then corrected on request:
    `src/lib/siteContent.ts` records how to restore it if a Harvest page exists.
 2. **Corrected the address** from "Industria Development Zone" to "Industrial
    Development Zone", in both `src/lib/siteContent.ts` and the structured data.
-   The rest of the address (no street or number) was left as found.
+   The address has no street or number, and that is **deliberate** — the owner
+   confirmed it stays that way. Do not "complete" it.
 
 ## Canonical host: `harvest.cn`, the bare domain
 
