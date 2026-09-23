@@ -53,6 +53,29 @@ const FORBIDDEN = [
   { pattern: /\/api\/trpc/i, why: "removed Manus backend endpoint" },
 ];
 
+/*
+ * Email addresses are checked against an ALLOWLIST of domains rather than a list
+ * of forbidden addresses.
+ *
+ * Naming a personal address here would publish it — in a regex that spells it out
+ * in full — which is precisely what the check exists to prevent. The first
+ * version of this file did exactly that. An allowlist catches that address and
+ * every other stray one without ever writing one down.
+ */
+const ALLOWED_EMAIL_DOMAINS = ["harvest.cn"];
+
+function findDisallowedEmails(text) {
+  const found = new Set();
+  for (const match of text.matchAll(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g)) {
+    const domain = (match[0].split("@")[1] ?? "").toLowerCase();
+    const allowed = ALLOWED_EMAIL_DOMAINS.some(
+      (d) => domain === d || domain.endsWith(`.${d}`),
+    );
+    if (!allowed) found.add(match[0]);
+  }
+  return [...found];
+}
+
 const TEXT_EXT = new Set([
   ".html",
   ".js",
@@ -137,6 +160,15 @@ for (const file of textFiles) {
       context: body.slice(Math.max(0, at - 60), at + 60).replace(/\s+/g, " "),
     });
   }
+  for (const address of findDisallowedEmails(body)) {
+    const at = body.indexOf(address);
+    findings.push({
+      file: file.replace(DIST, ""),
+      found: address,
+      why: `email address outside ${ALLOWED_EMAIL_DOMAINS.join(", ")}`,
+      context: body.slice(Math.max(0, at - 60), at + 60).replace(/\s+/g, " "),
+    });
+  }
 }
 
 if (findings.length > 0) {
@@ -147,7 +179,7 @@ if (findings.length > 0) {
   process.exit(1);
 }
 console.log(
-  `  invariants        ${textFiles.length} files scanned, no Manus host / storage path / backend endpoint / personal address`,
+  `  invariants        ${textFiles.length} files scanned, no Manus host / storage path / backend endpoint / non-company email`,
 );
 
 /* ----------------------------------------------------------------- 5. images */
