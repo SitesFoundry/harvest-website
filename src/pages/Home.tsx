@@ -9,7 +9,6 @@ import {
   BadgeCheck,
   Bot,
   CheckCircle2,
-  Facebook,
   CircuitBoard,
   Globe2,
   House,
@@ -483,7 +482,6 @@ function Footer({ language }: { language: Language }) {
         </div>
         <div className="footer-social">
           <h2>Social</h2>
-          <a className="footer-social-link" href={company.facebook} target="_blank" rel="noreferrer"><Facebook className="h-4 w-4" aria-hidden="true" /> <span>Facebook</span></a>
           <a className="footer-social-link" href={company.whatsappUrl} target="_blank" rel="noreferrer"><MessageCircle className="h-4 w-4" aria-hidden="true" /> <span>WhatsApp</span></a>
         </div>
       </div>

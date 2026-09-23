@@ -190,22 +190,29 @@ links such as `/products` start the app and the client-side router renders the
 right page. The cost is an HTTP 404 status on those responses, which crawlers
 see. Accepted in exchange for staying a single-page app.
 
-## Content notes carried over from the original
+## Content changes made after the migration
 
-Two things were found in the source and **deliberately left as they are** — this
-migration copies the site, it does not edit its content:
+The migration first copied the content unchanged. Two defects inherited from the
+original source were then corrected on request:
 
-1. **The Facebook link points at ISCO's page** (`facebook.com/iscogmbh.com`), not
-   one belonging to Harvest. It appears in the footer, the social column and the
-   structured data.
-2. **The address looks incomplete** — `Industria Development Zone, Fengxian
-   Dist., Shanghai 201404, China` has no street or number, and `Industria` may be
-   a misspelling of `Industrial`.
+1. **Removed the Facebook link.** It pointed at ISCO GmbH's page rather than one
+   belonging to Harvest, and it appeared both in the footer social column and in
+   the structured data. Only WhatsApp remains under Social.
+   `src/lib/siteContent.ts` records how to restore it if a Harvest page exists.
+2. **Corrected the address** from "Industria Development Zone" to "Industrial
+   Development Zone", in both `src/lib/siteContent.ts` and the structured data.
+   The rest of the address (no street or number) was left as found.
 
-Also note that `rel=canonical` and `og:url` name `https://www.harvest.cn/`, while
-`www.harvest.cn` currently **redirects to the bare domain** `harvest.cn`. The two
-disagree. The values were kept as found; decide which host is canonical before the
-domain cutover.
+## Still open: which host is canonical
+
+`rel=canonical`, `og:url`, the `hreflang` alternates, `sitemap.xml` and
+`robots.txt` all name `https://www.harvest.cn/`, but `www.harvest.cn` currently
+**301-redirects to the bare domain** `harvest.cn` — which is the host that
+answers 200. The declarations contradict the redirect.
+
+This has to be settled before the domain cutover, because GitHub Pages serves one
+host and redirects the other. See HANDOFF.md for the analysis and the DNS work
+it implies.
 
 ## Licence
 

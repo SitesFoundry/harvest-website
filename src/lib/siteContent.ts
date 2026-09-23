@@ -46,8 +46,14 @@ export const company = {
    */
   whatsappDisplay: "+86 139 1616 9339",
   whatsappUrl: "https://wa.me/8613916169339",
-  facebook: "https://www.facebook.com/iscogmbh.com",
-  address: "Industria Development Zone, Fengxian Dist., Shanghai 201404, China",
+  /*
+   * The Facebook entry that was here pointed at facebook.com/iscogmbh.com —
+   * ISCO GmbH's page, not this company's. It was inherited from the site this
+   * one was modelled on, and it was removed rather than guessed at. To restore
+   * a footer link, add back a `facebook` field here and the anchor in
+   * src/pages/Home.tsx (footer-social), plus the sameAs entry in index.html.
+   */
+  address: "Industrial Development Zone, Fengxian Dist., Shanghai 201404, China",
 };
 
 export const content = {
