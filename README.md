@@ -203,16 +203,48 @@ original source were then corrected on request:
    Development Zone", in both `src/lib/siteContent.ts` and the structured data.
    The rest of the address (no street or number) was left as found.
 
-## Still open: which host is canonical
+## Canonical host: `harvest.cn`, the bare domain
 
 `rel=canonical`, `og:url`, the `hreflang` alternates, `sitemap.xml` and
-`robots.txt` all name `https://www.harvest.cn/`, but `www.harvest.cn` currently
-**301-redirects to the bare domain** `harvest.cn` — which is the host that
-answers 200. The declarations contradict the redirect.
+`robots.txt` all name `https://harvest.cn/`.
 
-This has to be settled before the domain cutover, because GitHub Pages serves one
-host and redirects the other. See HANDOFF.md for the analysis and the DNS work
-it implies.
+The original source declared `https://www.harvest.cn/` as canonical while
+`www.harvest.cn` 301-redirected to the bare domain — the declarations pointed at a
+host that sent visitors somewhere else. Search engines resolve redirects before
+they honour a canonical hint, so the bare domain was already the host being
+served; naming it as canonical makes the declarations agree with reality and
+leaves the visitor-visible behaviour untouched. Paths are preserved through the
+redirect.
+
+### Domain cutover — not done yet
+
+Manus still serves the site. Two DNS records carry that dependency:
+`www.harvest.cn` is a **CNAME to `cname.manus.space`**, and the bare domain's A
+records point at **Cloudflare addresses belonging to Manus**. Both stop working
+when the subscription ends, so there is no "leave it alone" option.
+
+At the DNS provider (GoDaddy):
+
+| Name | Type | Action | Note |
+| --- | --- | --- | --- |
+| `www` | AAAA | **delete first** | A CNAME cannot coexist with AAAA at the same name |
+| `www` | CNAME | set to `sitesfoundry.github.io` | replaces `cname.manus.space` |
+| `@` | A | set to `185.199.108.153`, `.109.153`, `.110.153`, `.111.153` | replaces the two Cloudflare addresses |
+
+**Leave MX and TXT alone.** Email runs on 263 (`mx.263.net`); the SPF and
+site-verification TXT records have nothing to do with web hosting. The rule when
+editing DNS here: only look at the `Type` column, and never touch a row whose type
+is `MX` or `TXT`.
+
+Then set the custom domain in `Settings → Pages`. **In that order**: entering the
+custom domain while DNS still points at Manus fails GitHub's DNS check, GitHub
+does not retry it on its own, and the TLS certificate is never issued. Recovering
+means removing and re-adding the domain.
+
+Finally change `SITE_BASE` to `/` and redeploy.
+
+Configuring the bare domain as GitHub's custom domain makes GitHub redirect
+`www` to it — the same direction as today, so visitors see no change.
 
 ## Licence
 
