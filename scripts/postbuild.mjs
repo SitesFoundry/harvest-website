@@ -182,18 +182,13 @@ function rewriteHead(html, { path, title, description }) {
     `$1${description}$2`,
     "twitter:description",
   );
-  for (const lang of ["en", "es", "fr"]) {
-    swap(
-      new RegExp(`(<link rel="alternate" hreflang="${lang}" href=")[^"]*(")`),
-      `$1${url}?lang=${lang}$2`,
-      `hreflang=${lang}`,
-    );
-  }
-  swap(
-    /(<link rel="alternate" hreflang="x-default" href=")[^"]*(")/,
-    `$1${url}$2`,
-    "hreflang=x-default",
-  );
+  /*
+   * No hreflang alternates are rewritten here. They were removed rather than
+   * carried over: the three languages share one URL, no code ever read the
+   * ?lang= parameter, and each alternate canonicalised back to the plain URL —
+   * the exact conflict Google warns about, so the set was ignored at best.
+   * See the note in index.html.
+   */
   return out;
 }
 

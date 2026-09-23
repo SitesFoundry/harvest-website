@@ -209,11 +209,18 @@ canonical — see "One page per route" above.
 ### Language is client-side, and one URL serves all three
 
 Language is client state (`localStorage`, seeded from the browser, switchable in
-the header) shared by all three translations on one URL. The `?lang=` alternates
-in the head and the sitemap are the site's original convention and do not create
-separately crawlable pages: the same document answers for every language and the
-canonical points at the language-less URL. Per-language indexing would need
-separate URLs per language, which this site does not have.
+the header) shared by all three translations on one URL. **Nothing reads a
+`?lang=` parameter** — not the app, not the router.
+
+The site previously declared `hreflang` alternates pointing at `?lang=` URLs.
+Those were removed, because each one canonicalised back to the plain URL, and
+Google requires an hreflang target to be self-canonical: the set was ignored at
+best, and at worst produced "hreflang conflicts with canonical" warnings while
+adding three duplicate URLs per page to the crawl queue.
+
+Per-language indexing would need genuinely separate URLs (`/en/`, `/es/`, `/fr/`)
+and a router that reads the language from the path. That is an architecture
+change, not a meta-tag change, and it has not been made.
 
 ### Why `asset()` exists
 
@@ -270,8 +277,8 @@ original source were then corrected on request:
 
 ## Canonical host: `www.harvest.cn`
 
-`rel=canonical`, `og:url`, the `hreflang` alternates, `sitemap.xml` and
-`robots.txt` all name `https://www.harvest.cn/`.
+`rel=canonical`, `og:url`, `sitemap.xml` and `robots.txt` all name
+`https://www.harvest.cn/`.
 
 The owner chose this host deliberately, for consistency with how the company
 presents itself elsewhere. It is also what the original source declared.

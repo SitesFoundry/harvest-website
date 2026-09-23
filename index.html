@@ -10,10 +10,21 @@
     <meta name="keywords" content="Harvest Eco Solutions, solar panels, Tier 1 solar panels, solar inverter, ESS storage, portable power bank, home energy storage, AI energy saving, smart control solutions, photovoltaic cable, MC4 connector" />
     <meta name="author" content="Harvest Eco Solutions Limited" />
     <link rel="canonical" href="https://www.harvest.cn/" />
-    <link rel="alternate" hreflang="en" href="https://www.harvest.cn/?lang=en" />
-    <link rel="alternate" hreflang="es" href="https://www.harvest.cn/?lang=es" />
-    <link rel="alternate" hreflang="fr" href="https://www.harvest.cn/?lang=fr" />
-    <link rel="alternate" hreflang="x-default" href="https://www.harvest.cn/" />
+    <!--
+      No hreflang alternates, deliberately.
+
+      All three languages are served by this one URL. The language is client
+      state — chosen from localStorage, seeded from the browser's own
+      preference — and nothing in the application ever read a ?lang= parameter,
+      so the alternates that used to sit here pointed at URLs that behaved
+      identically to this one AND canonicalised back to it. Google requires an
+      hreflang target to be self-canonical; these were not, so at best they were
+      ignored and at worst they produced "hreflang conflicts with canonical"
+      warnings while adding three duplicate URLs per page to the crawl queue.
+
+      Genuine alternates need genuinely separate URLs (/en/, /es/, /fr/), which
+      is an architecture change, not a meta-tag change.
+    -->
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Harvest Eco Solutions Limited" />
