@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.harvest.cn/sitemap.xml
+Host: https://www.harvest.cn

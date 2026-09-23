@@ -1,0 +1,78 @@
+name: Build and deploy to GitHub Pages
+
+# Publishes dist/ to GitHub Pages. Required one-time setup in the repository:
+#   Settings → Pages → Build and deployment → Source: "GitHub Actions"
+#
+# SITE_BASE is /harvest-website/ while the site is previewed as a GitHub Pages
+# project site, which serves from https://<owner>.github.io/harvest-website/.
+# With "/" the preview loads a blank page and 404s every asset, because the
+# assets would be requested from the domain root where they do not exist.
+#
+# AT CUTOVER: once harvest.cn points at GitHub Pages and serves from the domain
+# root, change this to "/" and redeploy. src/App.tsx and src/lib/asset.ts both
+# read this one value, so the router prefix and the asset paths follow it
+# together and cannot disagree.
+#
+# VITE_FORMSPREE_ID comes from the repository variable FORMSPREE_ID
+# (Settings → Secrets and variables → Actions → Variables). Without it the
+# contact form builds unwired and shows an error to visitors rather than
+# pretending the inquiry was sent.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+env:
+  SITE_BASE: /harvest-website/
+  VITE_FORMSPREE_ID: ${{ vars.FORMSPREE_ID }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Build the site
+        run: npm run build
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload the build output
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

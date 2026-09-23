@@ -1,0 +1,18 @@
+{
+  "id": "/",
+  "name": "Harvest Eco Solutions Limited",
+  "short_name": "Harvest Eco Solutions",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d2b28",
+  "theme_color": "#0d2b28",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
