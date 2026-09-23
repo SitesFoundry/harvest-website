@@ -26,7 +26,10 @@ Two steps:
 2. `scripts/postbuild.mjs` completes `dist/`:
    - copies `index.html` to `404.html`, which is what makes deep links work on
      GitHub Pages (see below);
-   - **asserts** the migration invariants — see "Build-time assertions" below.
+   - writes a directory page per route (`about/index.html` and so on) with that
+     route's own `<title>`, description, canonical and social tags, so the
+     sub-pages are served with status **200** and are indexable;
+   - **asserts** the result — see "Build-time assertions" below.
 
 `dist/` is the only folder that gets deployed. It is generated in CI and is not
 committed.
@@ -155,6 +158,8 @@ re-dependency site. It checks, in order:
 | --- | --- |
 | `dist/index.html` exists, non-empty, has `#root` | A build that emits nothing is better caught than deployed |
 | `404.html` is byte-identical to `index.html` | The copy is what makes deep links work; a silent no-op copy is worse than no copy |
+| Every route has a generated page carrying **its own** canonical and `<title>` | A sub-page that declares the home page as its canonical is invisible to search even when it is reachable; each rewrite asserts it matched |
+| Every `<loc>` in `sitemap.xml` has a file behind it | A sitemap listing URLs the host answers with 404 spends crawl budget and is reported as broken in Search Console. This check would have caught the state the site was in before route pages existed |
 | `sitemap.xml` has ≥1 `<url>` | Publishing an empty sitemap is a silent regression |
 | No Manus host, storage path, `__manus` path, `/api/trpc` endpoint anywhere in `dist/` | This repository exists to remove those dependencies; one pasted URL would restore one |
 | Every email address in `dist/` is on the `harvest.cn` allowlist | Catches a personal or stray address without this file having to name one — a blocklist of addresses would publish the very address it guards |
@@ -182,6 +187,7 @@ used to supply and are now repository files.
 index.html                     metadata, OG tags, structured data, fonts
 src/main.tsx                   mount
 src/App.tsx                    providers and routes; sets the wouter base
+src/data/pageMeta.json         ★ route paths + per-language titles/descriptions
 src/lib/asset.ts               ★ applies the deployment prefix to image paths
 src/lib/form.ts                ★ contact-form delivery; holds the form id
 src/lib/siteContent.ts         all copy, 3 languages, company details, assets
@@ -192,14 +198,22 @@ src/components/                ErrorBoundary, LanguageSwitcher, ui/* (button,
                                input, textarea, dialog, tooltip)
 src/contexts/ThemeContext.tsx  light/dark provider (light only in use)
 src/hooks/                     useComposition, usePersistFn
-scripts/postbuild.mjs          completes and asserts dist/
+scripts/postbuild.mjs          completes and asserts dist/; writes route pages
 public/images/                 the six site images
 ```
 
-Routes are `/`, `/about`, `/products` and `/contact`. All four are rendered by
-`src/pages/Home.tsx`; the router picks the sections. Language is client-side
-state (`localStorage`, `?lang=` in the canonical links) shared by all three
-translations on one URL.
+Routes are `/`, `/about/`, `/products/` and `/contact/`. All four are rendered by
+`src/pages/Home.tsx`; the router picks the sections. The trailing-slash form is
+canonical — see "One page per route" above.
+
+### Language is client-side, and one URL serves all three
+
+Language is client state (`localStorage`, seeded from the browser, switchable in
+the header) shared by all three translations on one URL. The `?lang=` alternates
+in the head and the sitemap are the site's original convention and do not create
+separately crawlable pages: the same document answers for every language and the
+canonical points at the language-less URL. Per-language indexing would need
+separate URLs per language, which this site does not have.
 
 ### Why `asset()` exists
 
@@ -211,12 +225,34 @@ resolves on the live domain, and every structural check still passes. All image
 paths go through `asset()` for that reason, applied in one place in
 `siteContent.ts`.
 
-### Why `404.html` is a copy of `index.html`
+### One page per route
 
-GitHub Pages answers an unknown path with the *contents* of `404.html`, so deep
-links such as `/products` start the app and the client-side router renders the
-right page. The cost is an HTTP 404 status on those responses, which crawlers
-see. Accepted in exchange for staying a single-page app.
+GitHub Pages serves a directory's `index.html` with status 200, and answers
+anything else with the contents of `404.html` **and status 404**. So a
+single-page app whose only HTML file is the root answers 404 for every sub-route:
+the page renders for a human, and a crawler drops it.
+
+`scripts/postbuild.mjs` therefore writes `about/index.html`, `products/index.html`
+and `contact/index.html` — the same document with the head rewritten for the
+route. The app itself is untouched; the same script mounts it and the router
+reads the path as it always did. Paths and per-route text come from
+`src/data/pageMeta.json`, which the client imports too.
+
+| URL | Response |
+| --- | --- |
+| `/` | 200 |
+| `/about/` | 200 — the canonical form |
+| `/about` | 301 → `/about/` (GitHub Pages redirects a directory path without its slash) |
+
+Navigation links use the canonical form, and the active-link check ignores
+trailing slashes so either form highlights correctly.
+
+### Why `404.html` is still a copy of `index.html`
+
+Unknown paths still get GitHub Pages' 404-with-content behaviour, and copying
+`index.html` to `404.html` keeps the app mounting for them. What changed is that
+the real routes no longer depend on it: they have their own files and answer 200.
+So a genuine 404 now means a genuinely unknown path, which is the point.
 
 ## Content changes made after the migration
 
