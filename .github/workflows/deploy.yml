@@ -11,7 +11,8 @@ name: Build and deploy to GitHub Pages
 # AT CUTOVER: once harvest.cn points at GitHub Pages and serves from the domain
 # root, change this to "/" and redeploy. src/App.tsx and src/lib/asset.ts both
 # read this one value, so the router prefix and the asset paths follow it
-# together and cannot disagree.
+# together and cannot disagree. The canonical host is www.harvest.cn — see the
+# README's "Canonical host" section for the DNS work and the redirect direction.
 #
 # The Formspree form id is committed in src/lib/form.ts, because it is a public
 # value anyway (it is in the endpoint URL of every submission). Setting this
