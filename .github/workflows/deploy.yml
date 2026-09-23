@@ -13,10 +13,10 @@ name: Build and deploy to GitHub Pages
 # read this one value, so the router prefix and the asset paths follow it
 # together and cannot disagree.
 #
-# VITE_FORMSPREE_ID comes from the repository variable FORMSPREE_ID
-# (Settings → Secrets and variables → Actions → Variables). Without it the
-# contact form builds unwired and shows an error to visitors rather than
-# pretending the inquiry was sent.
+# The Formspree form id is committed in src/lib/form.ts, because it is a public
+# value anyway (it is in the endpoint URL of every submission). Setting this
+# variable is OPTIONAL and only overrides that default — for pointing a build at
+# a separate test form. Leaving FORMSPREE_ID unset is the normal case.
 
 on:
   push:

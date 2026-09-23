@@ -37,8 +37,9 @@ committed.
 `dist/` to GitHub Pages. One-time repository settings:
 
 - `Settings → Pages → Build and deployment → Source`: **GitHub Actions**
-- `Settings → Secrets and variables → Actions → Variables`: `FORMSPREE_ID`
-  (see "Contact form")
+
+Nothing else has to be configured — the contact form's endpoint is committed (see
+below).
 
 ### The `SITE_BASE` variable
 
@@ -68,11 +69,15 @@ Manus-hosted Express server, which relayed the inquiry over SMTP. GitHub Pages
 has no backend, so the form now posts to **Formspree** — the same arrangement as
 the ISCO site.
 
-- `src/lib/form.ts` holds the delivery logic.
-- The form id comes from `VITE_FORMSPREE_ID` at build time and is routed to the
-  build from the repository variable `FORMSPREE_ID`.
-- Suggested receiving address: `sales@harvest.cn` (the address the site itself
-  publishes).
+- `src/lib/form.ts` holds the delivery logic **and the form id**.
+- The id is a committed default (`DEFAULT_FORMSPREE_ID`). It is a public value —
+  it is the last segment of the endpoint URL in every submission — so putting it
+  in a repository variable would add a way for the form to be unwired (a missed
+  setup step, a fork, a preview) without protecting anything.
+  `VITE_FORMSPREE_ID` still overrides it, which is how the failure-path test
+  points a build at a form that does not exist.
+- The receiving address is configured in Formspree, not here. The site publishes
+  `sales@harvest.cn`.
 
 ### It fails loudly, on purpose
 
@@ -85,11 +90,23 @@ For the same reason `postbuild.mjs` prints a prominent warning when
 `VITE_FORMSPREE_ID` was not set. It does not fail the build — the site is worth
 deploying without a form — but it never passes silently.
 
-### ⚠️ Formspree's free plan is 50 submissions per month
+### ⚠️ Know what the free plan is
 
-That is a **production limit, not a suggestion**. When the quota is exhausted,
-submissions stop being delivered. Check the Formspree dashboard's usage monthly,
-and upgrade before inquiry volume approaches it.
+```
+free:         account_monthly_submissions: 50     "For testing and development"
+Personal:                               200     $15/month
+Professional:                         2,000
+```
+
+Read from Formspree's own plans page. The 50/month cap is real, but the more
+important part is that Formspree describes the free plan as **"For testing and
+development"**, with a 30-day submission archive. It is not a production tier —
+plan to upgrade once inquiry volume is steady, and check usage monthly.
+
+I could not verify what Formspree returns when the quota is exhausted. If it is a
+non-2xx status the visitor sees the error message (that path is tested against a
+real rejection); if it is a 200 with the submission dropped, a visitor would see a
+success nobody receives. Worth confirming deliberately once.
 
 ### The honeypot
 
@@ -109,15 +126,25 @@ keep that unlikely.
 local failure mode — the page renders, every check passes, and the submission can
 still be dropped by a spent quota, a renamed endpoint or a spam filter.
 
-With the site running locally (or the preview deployed) and `FORMSPREE_ID` set:
+Three probes, each needing a differently-built site:
 
 ```bash
-node ../_tools/form-test.mjs <url>
+# 1. Honeypot — works against any build. No request must be sent, and the
+#    visitor must still be told it succeeded, so the filter stays hidden.
+node ../_tools/form-test.mjs <url>/contact
+
+# 2. Success path — sends a REAL email and spends one submission.
+node ../_tools/form-success-test.mjs <url>/contact
+
+# 3. Failure path — build a site whose endpoint really rejects, then check the
+#    visitor is told the truth and their text is not cleared.
+#    (in the repo)  VITE_FORMSPREE_ID=this-form-does-not-exist SITE_BASE=/harvest-website/ npm run build
+node ../_tools/form-failure-test.mjs <url>/contact
 ```
 
-The probe also covers the two paths that need no live endpoint: the unwired build
-must show an error and keep the visitor's text, and the honeypot must send
-nothing while still reporting success.
+All three passed on 2026-09-23: the real endpoint answered 200 and the success
+branch ran; a bogus id produced a 404 and the page raised the error while keeping
+the visitor's text; the honeypot sent nothing.
 
 ## Build-time assertions
 
@@ -129,9 +156,10 @@ re-dependency site. It checks, in order:
 | `dist/index.html` exists, non-empty, has `#root` | A build that emits nothing is better caught than deployed |
 | `404.html` is byte-identical to `index.html` | The copy is what makes deep links work; a silent no-op copy is worse than no copy |
 | `sitemap.xml` has ≥1 `<url>` | Publishing an empty sitemap is a silent regression |
-| No Manus host, storage path, `__manus` path, `/api/trpc` endpoint or personal address anywhere in `dist/` | This repository exists to remove those dependencies; one pasted URL would restore one |
+| No Manus host, storage path, `__manus` path, `/api/trpc` endpoint anywhere in `dist/` | This repository exists to remove those dependencies; one pasted URL would restore one |
+| Every email address in `dist/` is on the `harvest.cn` allowlist | Catches a personal or stray address without this file having to name one — a blocklist of addresses would publish the very address it guards |
 | Every `/images/…` reference resolves to a shipped file | A wrong filename renders as a broken icon while every other check passes |
-| `VITE_FORMSPREE_ID` present (warning only) | A silently unwired form drops every inquiry |
+| The contact form id is present in the built JavaScript | Fails the build if the wiring does not survive; a form that posts nowhere is not a form |
 
 The invariant scan matches **hosts and paths**, not the bare word "manus", so
 that source comments explaining the migration do not produce noise — a check that
@@ -155,7 +183,7 @@ index.html                     metadata, OG tags, structured data, fonts
 src/main.tsx                   mount
 src/App.tsx                    providers and routes; sets the wouter base
 src/lib/asset.ts               ★ applies the deployment prefix to image paths
-src/lib/form.ts                contact-form delivery (Formspree)
+src/lib/form.ts                ★ contact-form delivery; holds the form id
 src/lib/siteContent.ts         all copy, 3 languages, company details, assets
 src/index.css                  design tokens and all layout/responsive rules
 src/pages/Home.tsx             every page section, all four routes

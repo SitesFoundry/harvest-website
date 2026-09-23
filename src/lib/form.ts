@@ -24,12 +24,17 @@ export type Inquiry = {
 };
 
 /*
- * The Formspree form id (the "xxxxxxx" in https://formspree.io/f/xxxxxxx),
- * injected at build time. It is not a secret — it is visible in the page's own
- * network requests — but keeping it in configuration rather than source means a
- * missing value is detectable instead of looking like working code.
+ * The form id is a PUBLIC value: it is the last segment of the endpoint URL that
+ * every submission posts to, so anyone can read it out of their own browser's
+ * network tab. Keeping it in a repository variable would add a way for the form
+ * to end up unwired — after a forgotten setup step, on a fork, in a preview —
+ * without keeping anything secret. So it is committed, and
+ * VITE_FORMSPREE_ID remains as an override for pointing a build at a different
+ * form (a test form, for instance).
  */
-const FORMSPREE_ID = (import.meta.env.VITE_FORMSPREE_ID ?? "").trim();
+const DEFAULT_FORMSPREE_ID = "xppwrqlg";
+
+const FORMSPREE_ID = (import.meta.env.VITE_FORMSPREE_ID || DEFAULT_FORMSPREE_ID).trim();
 
 export const formEndpoint = FORMSPREE_ID
   ? `https://formspree.io/f/${FORMSPREE_ID}`

@@ -32,6 +32,7 @@ import { fileURLToPath } from "node:url";
  * would be green in Actions and broken only on the machine doing the work.
  */
 const DIST = fileURLToPath(new URL("../dist/", import.meta.url));
+const ROOT = fileURLToPath(new URL("../", import.meta.url));
 
 /*
  * References that must not survive into the published output. Manus hosted this
@@ -240,16 +241,43 @@ console.log(
  * because a form that drops every inquiry is the failure this project exists to
  * prevent.
  */
-const formspreeId = (process.env.VITE_FORMSPREE_ID ?? "").trim();
-if (formspreeId) {
-  console.log(`  contact form      wired to Formspree form ${formspreeId}`);
-} else {
-  console.warn(
-    "\n  ⚠️  contact form    NOT wired: VITE_FORMSPREE_ID was not set at build time.\n" +
-      "      The page will show its error message to visitors instead of\n" +
-      "      pretending the inquiry was sent. Set the repository variable and\n" +
-      "      rebuild before pointing the real domain at this site.\n",
+/*
+ * Check the form against the artifact, not against the environment.
+ *
+ * The id lives in src/lib/form.ts as a committed default (it is a public value —
+ * it is in the endpoint URL of every submission), with VITE_FORMSPREE_ID as an
+ * optional override. An earlier version of this check read the environment
+ * variable only, so it reported "NOT wired" on a build whose form was wired
+ * perfectly well. A check that lies in either direction is worse than none.
+ *
+ * So: read the declared default out of the source, pick the override when one is
+ * set, and then require that id to be present in the built JavaScript. That
+ * proves the wiring survived the build rather than assuming it did.
+ */
+const formSource = await readFile(join(ROOT, "src/lib/form.ts"), "utf8");
+const declaredId = formSource.match(/DEFAULT_FORMSPREE_ID\s*=\s*"([^"]+)"/)?.[1];
+if (!declaredId) {
+  fail(
+    'could not read DEFAULT_FORMSPREE_ID from src/lib/form.ts — if the form id\n' +
+      "  moved, update this check rather than deleting it.",
   );
 }
+const overrideId = (process.env.VITE_FORMSPREE_ID ?? "").trim();
+const expectedFormId = overrideId || declaredId;
+
+const jsFiles = textFiles.filter((f) => f.endsWith(".js"));
+if (jsFiles.length === 0) fail("dist/ contains no JavaScript to check the form wiring in.");
+const jsText = (await Promise.all(jsFiles.map((f) => readFile(f, "utf8")))).join("\n");
+
+if (!jsText.includes(expectedFormId)) {
+  fail(
+    `the form id "${expectedFormId}" is not present in the built JavaScript — the\n` +
+      "  contact form would post nowhere. Check src/lib/form.ts.",
+  );
+}
+console.log(
+  `  contact form      wired to Formspree form ${expectedFormId}` +
+    (overrideId ? " (from VITE_FORMSPREE_ID)" : " (committed default)"),
+);
 
 console.log("\n✓ dist/ is complete\n");
