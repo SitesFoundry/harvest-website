@@ -1609,3 +1609,154 @@
     white-space: nowrap;
   }
 }
+
+/* ==========================================================================
+   Solar panel technical data (added 2026-09)
+
+   Two cards on the products page, one per panel type. The class names are new
+   and self-contained: nothing here depends on, or perturbs, the earlier layers
+   of this stylesheet, and because this block comes last it wins where the
+   properties overlap.
+
+   Colours are copied from the final override layer above so the cards match the
+   rest of the site rather than re-deriving the palette.
+   ========================================================================== */
+
+.panel-specs-section {
+  padding-bottom: 5rem;
+}
+
+/*
+ * The section subtitle. It gets its own class rather than a `.section-heading p`
+ * rule, because SectionEyebrow renders a <p> inside the same heading: an element
+ * selector would have restyled every existing eyebrow on the site. (It did, in
+ * the first version of this block — the products section grew 8px.)
+ */
+.section-subtitle {
+  margin: 0.9rem 0 0;
+  color: #536560;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.panel-specs {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .panel-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+.panel-spec-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  border: 1px solid rgba(82, 67, 38, 0.12);
+  border-radius: 1.7rem;
+  background: rgba(255, 252, 243, 0.84);
+  box-shadow: 0 28px 90px rgba(52, 41, 22, 0.1);
+  padding: 1.6rem;
+}
+
+/*
+ * A tinted well behind the module photo. The photos carry transparency, so the
+ * card background shows through them; this gives the module a surface to stand
+ * on instead of leaving it floating on the card.
+ */
+.panel-spec-media {
+  display: grid;
+  place-items: center;
+  min-height: 260px;
+  border-radius: 1.25rem;
+  background: linear-gradient(165deg, #f7f8f4 0%, #e6efe8 100%);
+  padding: 1.1rem;
+}
+
+.panel-spec-media img {
+  display: block;
+  width: 100%;
+  max-width: 330px;
+  height: auto;
+}
+
+.panel-spec-card h3 {
+  margin: 0;
+  font-family: 'Sora', 'Manrope', system-ui, sans-serif;
+  color: #10201f;
+  font-size: 1.35rem;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.panel-spec-tagline {
+  margin: 0.4rem 0 0;
+  color: #0d6b54;
+  font-weight: 750;
+  font-size: 0.95rem;
+}
+
+.panel-spec-table {
+  margin: 0;
+  display: grid;
+}
+
+.panel-spec-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(82, 67, 38, 0.1);
+}
+
+.panel-spec-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.panel-spec-row dt {
+  color: #536560;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.panel-spec-row dd {
+  margin: 0;
+  color: #10201f;
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.panel-spec-note {
+  max-width: 70ch;
+  margin: 1.5rem 0 0;
+  color: #6b7a74;
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .panel-spec-media {
+    min-height: 200px;
+  }
+
+  .panel-spec-media img {
+    max-width: 240px;
+  }
+
+  /* Stack label over value: at this width a two-column row wraps badly. */
+  .panel-spec-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.15rem;
+  }
+
+  .panel-spec-row dd {
+    text-align: left;
+  }
+}

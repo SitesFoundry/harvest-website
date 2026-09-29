@@ -29,6 +29,13 @@ export const assets = {
   ai: asset("/images/harvest-ai-control.webp"),
   ess: asset("/images/harvest-ess-storage.webp"),
   logistics: asset("/images/harvest-global-logistics.webp"),
+  /*
+   * Product shots for the two solar panel types, extracted from the
+   * manufacturer's specification sheets (RGB rebuilt through a colour-managed
+   * render, alpha from the sheet's own mask). No branding is visible in them.
+   */
+  panelStandard: asset("/images/solar-panel-standard.webp"),
+  panelAllBlack: asset("/images/solar-panel-all-black.webp"),
 };
 
 export const company = {
@@ -393,3 +400,165 @@ export const content = {
     notFound: { title: "Page introuvable", text: "La page recherchée a peut-être été déplacée ou n’est plus disponible.", action: "Retour à l’accueil" },
   },
 } as const;
+
+/*
+ * Technical data for the two solar panel types shown on the products page.
+ *
+ * Both types come from one manufacturer platform and are nearly identical, so the
+ * rows repeat deliberately: each card has to read as a complete specification
+ * rather than sending the reader to the other card to fill in the blanks. If a
+ * datasheet is revised, update BOTH cards for every language.
+ *
+ * Brand and model numbers are deliberately absent — the site describes a Tier 1
+ * supply network without naming suppliers (see 03-关键决策记录).
+ *
+ * Source: manufacturer datasheets, revision HAITAI20250329EN.
+ */
+export type PanelSpecRow = { label: string; value: string };
+export type PanelCardSpec = {
+  name: string;
+  tagline: string;
+  imageAlt: string;
+  specs: PanelSpecRow[];
+};
+
+export const panelSpecs: Record<
+  Language,
+  { eyebrow: string; title: string; subtitle: string; note: string; cards: PanelCardSpec[] }
+> = {
+  en: {
+    eyebrow: "Solar Modules",
+    title: "Technical data for our solar panels",
+    subtitle:
+      "Both types share one bifacial TOPCon platform and the same dimensions. The only difference is the finish: a white ceramic grid on the standard panel, a fully black one on the all-black panel.",
+    note: "Certifications: IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. 30-year linear power warranty: under 1.0% degradation in year one, then 0.40% per year or less.",
+    cards: [
+      {
+        name: "Standard solar panels",
+        tagline: "N-type TOPCon bifacial · 430–450 W",
+        imageAlt:
+          "Standard bifacial solar panel: dark cells with white grid lines in a silver frame",
+        specs: [
+          { label: "Power range", value: "430 – 450 W" },
+          { label: "Max. module efficiency", value: "23.04 %" },
+          { label: "Cell technology", value: "N-type TOPCon · 108 half-cut" },
+          { label: "Module dimensions", value: "1722 × 1134 × 30 mm" },
+          { label: "Weight", value: "24.0 kg" },
+          { label: "Front glass", value: "2.0 mm tempered, high transmittance" },
+          { label: "Frame", value: "Anodised aluminium alloy" },
+          { label: "Rear side", value: "White ceramic grid (bifacial)" },
+          { label: "Bifacial gain", value: "up to +25 %" },
+          { label: "Temperature coefficient (Pmax)", value: "−0.290 %/°C" },
+        ],
+      },
+      {
+        name: "All-black solar panels",
+        tagline: "N-type TOPCon bifacial · 425–445 W",
+        imageAlt:
+          "All-black bifacial solar panel: black cells and frame with no visible grid lines",
+        specs: [
+          { label: "Power range", value: "425 – 445 W" },
+          { label: "Max. module efficiency", value: "22.79 %" },
+          { label: "Cell technology", value: "N-type TOPCon · 108 half-cut" },
+          { label: "Module dimensions", value: "1722 × 1134 × 30 mm" },
+          { label: "Weight", value: "24.0 kg" },
+          { label: "Front glass", value: "2.0 mm tempered, high transmittance" },
+          { label: "Frame", value: "Anodised aluminium alloy" },
+          { label: "Rear side", value: "Black ceramic grid (bifacial)" },
+          { label: "Bifacial gain", value: "up to +25 %" },
+          { label: "Temperature coefficient (Pmax)", value: "−0.290 %/°C" },
+        ],
+      },
+    ],
+  },
+  es: {
+    eyebrow: "Módulos solares",
+    title: "Datos técnicos de nuestros paneles solares",
+    subtitle:
+      "Ambos tipos comparten una misma plataforma bifacial TOPCon y las mismas dimensiones. La única diferencia es el acabado: rejilla cerámica blanca en el panel estándar y totalmente negra en el all-black.",
+    note: "Certificaciones: IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. Garantía de potencia lineal de 30 años: menos del 1,0 % el primer año y 0,40 % anual o menos a partir del segundo.",
+    cards: [
+      {
+        name: "Paneles solares estándar",
+        tagline: "TOPCon tipo N bifacial · 430–450 W",
+        imageAlt:
+          "Panel solar bifacial estándar: células oscuras con líneas de rejilla blancas y marco plateado",
+        specs: [
+          { label: "Rango de potencia", value: "430 – 450 W" },
+          { label: "Eficiencia máxima del módulo", value: "23,04 %" },
+          { label: "Tecnología de células", value: "TOPCon tipo N · 108 medias células" },
+          { label: "Dimensiones del módulo", value: "1722 × 1134 × 30 mm" },
+          { label: "Peso", value: "24,0 kg" },
+          { label: "Vidrio frontal", value: "Templado de 2,0 mm, alta transmitancia" },
+          { label: "Marco", value: "Aleación de aluminio anodizado" },
+          { label: "Cara posterior", value: "Rejilla cerámica blanca (bifacial)" },
+          { label: "Ganancia bifacial", value: "hasta +25 %" },
+          { label: "Coeficiente de temperatura (Pmax)", value: "−0,290 %/°C" },
+        ],
+      },
+      {
+        name: "Paneles solares all-black",
+        tagline: "TOPCon tipo N bifacial · 425–445 W",
+        imageAlt:
+          "Panel solar bifacial all-black: células y marco negros, sin líneas de rejilla visibles",
+        specs: [
+          { label: "Rango de potencia", value: "425 – 445 W" },
+          { label: "Eficiencia máxima del módulo", value: "22,79 %" },
+          { label: "Tecnología de células", value: "TOPCon tipo N · 108 medias células" },
+          { label: "Dimensiones del módulo", value: "1722 × 1134 × 30 mm" },
+          { label: "Peso", value: "24,0 kg" },
+          { label: "Vidrio frontal", value: "Templado de 2,0 mm, alta transmitancia" },
+          { label: "Marco", value: "Aleación de aluminio anodizado" },
+          { label: "Cara posterior", value: "Rejilla cerámica negra (bifacial)" },
+          { label: "Ganancia bifacial", value: "hasta +25 %" },
+          { label: "Coeficiente de temperatura (Pmax)", value: "−0,290 %/°C" },
+        ],
+      },
+    ],
+  },
+  fr: {
+    eyebrow: "Modules solaires",
+    title: "Données techniques de nos panneaux solaires",
+    subtitle:
+      "Les deux types partagent la même plateforme bifaciale TOPCon et les mêmes dimensions. Seule la finition diffère : grille céramique blanche pour le panneau standard, entièrement noire pour le tout noir.",
+    note: "Certifications : IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. Garantie de puissance linéaire de 30 ans : moins de 1,0 % la première année, puis 0,40 % par an au maximum.",
+    cards: [
+      {
+        name: "Panneaux solaires standard",
+        tagline: "TOPCon de type N bifacial · 430–450 W",
+        imageAlt:
+          "Panneau solaire bifacial standard : cellules sombres à lignes de grille blanches, cadre argenté",
+        specs: [
+          { label: "Plage de puissance", value: "430 – 450 W" },
+          { label: "Rendement maximal du module", value: "23,04 %" },
+          { label: "Technologie des cellules", value: "TOPCon de type N · 108 demi-cellules" },
+          { label: "Dimensions du module", value: "1722 × 1134 × 30 mm" },
+          { label: "Poids", value: "24,0 kg" },
+          { label: "Verre avant", value: "Trempé 2,0 mm, haute transmission" },
+          { label: "Cadre", value: "Alliage d’aluminium anodisé" },
+          { label: "Face arrière", value: "Grille céramique blanche (bifaciale)" },
+          { label: "Gain bifacial", value: "jusqu’à +25 %" },
+          { label: "Coefficient de température (Pmax)", value: "−0,290 %/°C" },
+        ],
+      },
+      {
+        name: "Panneaux solaires entièrement noirs",
+        tagline: "TOPCon de type N bifacial · 425–445 W",
+        imageAlt:
+          "Panneau solaire bifacial entièrement noir : cellules et cadre noirs, sans lignes de grille visibles",
+        specs: [
+          { label: "Plage de puissance", value: "425 – 445 W" },
+          { label: "Rendement maximal du module", value: "22,79 %" },
+          { label: "Technologie des cellules", value: "TOPCon de type N · 108 demi-cellules" },
+          { label: "Dimensions du module", value: "1722 × 1134 × 30 mm" },
+          { label: "Poids", value: "24,0 kg" },
+          { label: "Verre avant", value: "Trempé 2,0 mm, haute transmission" },
+          { label: "Cadre", value: "Alliage d’aluminium anodisé" },
+          { label: "Face arrière", value: "Grille céramique noire (bifaciale)" },
+          { label: "Gain bifacial", value: "jusqu’à +25 %" },
+          { label: "Coefficient de température (Pmax)", value: "−0,290 %/°C" },
+        ],
+      },
+    ],
+  },
+};

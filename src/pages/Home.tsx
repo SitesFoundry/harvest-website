@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { assets, company, content, languages, type Language } from "@/lib/siteContent";
+import { assets, company, content, languages, panelSpecs, type Language } from "@/lib/siteContent";
 import { submitInquiry } from "@/lib/form";
 /*
  * Page paths and per-language head metadata live in one JSON file so that the
@@ -10,6 +10,13 @@ import { submitInquiry } from "@/lib/form";
  * updates here cannot drift apart. See that script for why it matters.
  */
 import pageMeta from "@/data/pageMeta.json";
+
+/*
+ * Product images for the two solar panel types, in the same order as the cards in
+ * panelSpecs. Kept here rather than in the translated content because an image is
+ * the same in every language.
+ */
+const panelImages = [assets.panelStandard, assets.panelAllBlack];
 import {
   ArrowRight,
   BadgeCheck,
@@ -311,7 +318,8 @@ function AboutContent({ languageBundle }: { languageBundle: ReturnType<typeof us
 }
 
 function ProductsContent({ languageBundle }: { languageBundle: ReturnType<typeof useSiteLanguage> }) {
-  const { t } = languageBundle;
+  const { language, t } = languageBundle;
+  const panels = panelSpecs[language];
   return (
     <>
       <PageHero eyebrow={t.products.eyebrow} title={t.products.title} subtitle={t.products.subtitle} image={assets.solar} alt={t.a11y.pageVisual} />
@@ -338,6 +346,41 @@ function ProductsContent({ languageBundle }: { languageBundle: ReturnType<typeof
           })}
         </div>
       </section>
+
+      {/*
+        Technical data for the two panel types. The copy says nothing about brands
+        or model numbers — see the note in src/lib/siteContent.ts.
+      */}
+      <section className="container panel-specs-section" aria-labelledby="panel-specs-title">
+        <div className="section-heading">
+          <SectionEyebrow>{panels.eyebrow}</SectionEyebrow>
+          <h2 id="panel-specs-title">{panels.title}</h2>
+          <p className="section-subtitle">{panels.subtitle}</p>
+        </div>
+        <div className="panel-specs">
+          {panels.cards.map((card, index) => (
+            <article className="panel-spec-card" key={card.name}>
+              <div className="panel-spec-media">
+                <img src={panelImages[index]} alt={card.imageAlt} loading="lazy" decoding="async" />
+              </div>
+              <div>
+                <h3>{card.name}</h3>
+                <p className="panel-spec-tagline">{card.tagline}</p>
+              </div>
+              <dl className="panel-spec-table">
+                {card.specs.map((spec) => (
+                  <div className="panel-spec-row" key={spec.label}>
+                    <dt>{spec.label}</dt>
+                    <dd>{spec.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </article>
+          ))}
+        </div>
+        <p className="panel-spec-note">{panels.note}</p>
+      </section>
+
       <section className="container ai-solution-panel" aria-labelledby="ai-solutions-title">
         <img src={assets.ai} alt={t.a11y.aiControl} />
         <div>
