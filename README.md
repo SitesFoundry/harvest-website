@@ -190,7 +190,8 @@ src/App.tsx                    providers and routes; sets the wouter base
 src/data/pageMeta.json         ★ route paths + per-language titles/descriptions
 src/lib/asset.ts               ★ applies the deployment prefix to image paths
 src/lib/form.ts                ★ contact-form delivery; holds the form id
-src/lib/siteContent.ts         all copy, 3 languages, company details, assets
+src/lib/siteContent.ts         all copy, 3 languages, company details, assets,
+                               and the solar panel technical data (panelSpecs)
 src/index.css                  design tokens and all layout/responsive rules
 src/pages/Home.tsx             every page section, all four routes
 src/pages/NotFound.tsx         404
@@ -199,8 +200,15 @@ src/components/                ErrorBoundary, LanguageSwitcher, ui/* (button,
 src/contexts/ThemeContext.tsx  light/dark provider (light only in use)
 src/hooks/                     useComposition, usePersistFn
 scripts/postbuild.mjs          completes and asserts dist/; writes route pages
-public/images/                 the six site images
+public/images/                 the eight site images, including the two panel
+                               product shots extracted from the datasheets
 ```
+
+The products page carries a technical-data section for the standard and
+all-black panel types. Both come from one manufacturer platform, so they share
+nearly every value; only the power class, the efficiency and the rear grid
+differ. Brand and model numbers are deliberately absent — the site describes a
+Tier 1 supply network without naming suppliers.
 
 Routes are `/`, `/about/`, `/products/` and `/contact/`. All four are rendered by
 `src/pages/Home.tsx`; the router picks the sections. The trailing-slash form is
