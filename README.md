@@ -204,15 +204,28 @@ public/images/                 the eight site images, including the two panel
                                product shots extracted from the datasheets
 ```
 
-The products page carries a technical-data section for the standard and
-all-black panel types. Both come from one manufacturer platform, so they share
-nearly every value; only the power class, the efficiency and the rear grid
-differ. Brand and model numbers are deliberately absent — the site describes a
-Tier 1 supply network without naming suppliers.
+The module range has its own page, `/products/solar-modules/`, reached from a
+submenu on Products & Solutions and from a link on the products overview. It
+covers four types in two groups:
 
-Routes are `/`, `/about/`, `/products/` and `/contact/`. All four are rendered by
-`src/pages/Home.tsx`; the router picks the sections. The trailing-slash form is
-canonical — see "One page per route" above.
+| Group | Types |
+| --- | --- |
+| Standard solar modules | 630 – 650 W (182 mm platform) and 710 – 730 W (210 mm platform) |
+| All-black solar modules | 425 – 445 W (all-black rear grid) and 430 – 450 W (white rear grid) |
+
+Each type carries five specification rows: power range, maximum efficiency, cell
+technology, dimensions and weight. The standard group's two types sit on
+different platforms and so share few values; within the all-black group the two
+types are one platform in two rear-grid finishes, and the black grid costs one
+power bin.
+
+Brand and model numbers are deliberately absent — the site describes a Tier 1
+supply network without naming suppliers — and the figures come from the
+manufacturer's datasheets, so they carry a "confirm the exact power bin" note.
+
+Routes are `/`, `/about/`, `/products/`, `/products/solar-modules/` and
+`/contact/`. All are rendered by `src/pages/Home.tsx`; the router picks the
+sections. The trailing-slash form is canonical — see "One page per route" above.
 
 ### Language is client-side, and one URL serves all three
 
