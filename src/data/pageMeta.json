@@ -38,15 +38,32 @@
     "meta": {
       "en": {
         "title": "Products & Solutions | Solar, ESS and AI Smart Control",
-        "description": "Explore solar panels, inverters, ESS storage, PV accessories and AI smart control solutions from Harvest Eco Solutions Limited."
+        "description": "Explore solar modules, inverters, ESS storage, PV accessories and AI smart control solutions from Harvest Eco Solutions Limited."
       },
       "es": {
         "title": "Productos y soluciones | Solar, ESS e IA",
-        "description": "Explore paneles solares, inversores, almacenamiento ESS, accesorios FV y soluciones inteligentes con IA."
+        "description": "Explore módulos solares, inversores, almacenamiento ESS, accesorios FV y soluciones inteligentes con IA."
       },
       "fr": {
         "title": "Produits et solutions | Solaire, ESS et IA",
-        "description": "Explorez panneaux solaires, onduleurs, stockage ESS, accessoires PV et solutions intelligentes IA."
+        "description": "Explorez modules solaires, onduleurs, stockage ESS, accessoires PV et solutions intelligentes IA."
+      }
+    }
+  },
+  "solarModules": {
+    "path": "/products/solar-modules/",
+    "meta": {
+      "en": {
+        "title": "Solar Modules | Technical Data and Specifications",
+        "description": "Technical data for our solar modules: standard and all-black N-type TOPCon bifacial modules from 425 W to 730 W, with power, efficiency, dimensions and weight for each type."
+      },
+      "es": {
+        "title": "Módulos solares | Datos técnicos y especificaciones",
+        "description": "Datos técnicos de nuestros módulos solares: módulos bifaciales TOPCon tipo N estándar y all-black de 425 W a 730 W, con potencia, eficiencia, dimensiones y peso de cada tipo."
+      },
+      "fr": {
+        "title": "Modules solaires | Données techniques et spécifications",
+        "description": "Données techniques de nos modules solaires : modules bifaciaux TOPCon de type N standard et tout noir de 425 W à 730 W, avec puissance, rendement, dimensions et poids pour chaque type."
       }
     }
   },

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { assets, company, content, languages, panelSpecs, type Language } from "@/lib/siteContent";
+import { assets, company, content, languages, moduleSpecs, type Language } from "@/lib/siteContent";
 import { submitInquiry } from "@/lib/form";
 /*
  * Page paths and per-language head metadata live in one JSON file so that the
@@ -12,11 +12,14 @@ import { submitInquiry } from "@/lib/form";
 import pageMeta from "@/data/pageMeta.json";
 
 /*
- * Product images for the two solar panel types, in the same order as the cards in
- * panelSpecs. Kept here rather than in the translated content because an image is
+ * Product images for the four module variants, indexed [group][variant] to match
+ * moduleSpecs. Kept here rather than in the translated content because an image is
  * the same in every language.
  */
-const panelImages = [assets.panelStandard, assets.panelAllBlack];
+const moduleImages = [
+  [assets.module630, assets.module710],
+  [assets.module425, assets.module430],
+];
 import {
   ArrowRight,
   BadgeCheck,
@@ -36,10 +39,10 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "wouter";
 
-type SitePageKind = "home" | "about" | "products" | "contact";
+type SitePageKind = "home" | "about" | "products" | "solarModules" | "contact";
 
 type ContactFormState = {
   name: string;
@@ -115,11 +118,21 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
   const [location] = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
 
+  /*
+   * The Products & Solutions entry carries one child, the module page. It stays a
+   * link to /products/ first and a menu second: the submenu is a convenience, and
+   * every page remains reachable without it (keyboard, touch, or no CSS at all).
+   */
   const navItems = [
-    { href: "/", label: t.nav.home, key: "home" },
-    { href: "/about/", label: t.nav.about, key: "about" },
-    { href: "/products/", label: t.nav.products, key: "products" },
-    { href: "/contact/", label: t.nav.contact, key: "contact" },
+    { href: "/", label: t.nav.home, key: "home", children: [] as { href: string; label: string }[] },
+    { href: "/about/", label: t.nav.about, key: "about", children: [] as { href: string; label: string }[] },
+    {
+      href: "/products/",
+      label: t.nav.products,
+      key: "products",
+      children: [{ href: "/products/solar-modules/", label: t.products.categories[0].group }],
+    },
+    { href: "/contact/", label: t.nav.contact, key: "contact", children: [] as { href: string; label: string }[] },
   ];
 
   /*
@@ -145,11 +158,33 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
           </Link>
 
           <nav className="desktop-nav" aria-label={t.a11y.primaryNav}>
-            {navItems.map((item) => (
-              <Link key={item.key} href={item.href} className={isCurrent(item.href) ? "nav-link active" : "nav-link"}>
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              item.children.length > 0 ? (
+                <div className="nav-item has-children" key={item.key}>
+                  <Link
+                    href={item.href}
+                    className={
+                      isCurrent(item.href) || item.children.some((child) => isCurrent(child.href))
+                        ? "nav-link active"
+                        : "nav-link"
+                    }
+                  >
+                    {item.label}
+                  </Link>
+                  <div className="nav-submenu">
+                    {item.children.map((child) => (
+                      <Link key={child.href} href={child.href} className="nav-submenu-link">
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link key={item.key} href={item.href} className={isCurrent(item.href) ? "nav-link active" : "nav-link"}>
+                  {item.label}
+                </Link>
+              ),
+            )}
           </nav>
 
           <div className="header-actions">
@@ -166,9 +201,21 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
         {menuOpen && (
           <div className="mobile-nav container" aria-label={t.a11y.mobileNav}>
             {navItems.map((item) => (
-              <Link key={item.key} href={item.href} className="mobile-nav-link" onClick={() => setMenuOpen(false)}>
-                {item.label}
-              </Link>
+              <Fragment key={item.key}>
+                <Link href={item.href} className="mobile-nav-link" onClick={() => setMenuOpen(false)}>
+                  {item.label}
+                </Link>
+                {item.children.map((child) => (
+                  <Link
+                    key={child.href}
+                    href={child.href}
+                    className="mobile-nav-link mobile-nav-child"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {child.label}
+                  </Link>
+                ))}
+              </Fragment>
             ))}
           </div>
         )}
@@ -179,6 +226,7 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
         {page === "home" && <HomeContent languageBundle={withLanguage} />}
         {page === "about" && <AboutContent languageBundle={withLanguage} />}
         {page === "products" && <ProductsContent languageBundle={withLanguage} />}
+        {page === "solarModules" && <SolarModulesContent languageBundle={withLanguage} />}
         {page === "contact" && <ContactContent languageBundle={withLanguage} />}
       </main>
 
@@ -318,8 +366,7 @@ function AboutContent({ languageBundle }: { languageBundle: ReturnType<typeof us
 }
 
 function ProductsContent({ languageBundle }: { languageBundle: ReturnType<typeof useSiteLanguage> }) {
-  const { language, t } = languageBundle;
-  const panels = panelSpecs[language];
+  const { t } = languageBundle;
   return (
     <>
       <PageHero eyebrow={t.products.eyebrow} title={t.products.title} subtitle={t.products.subtitle} image={assets.solar} alt={t.a11y.pageVisual} />
@@ -345,40 +392,13 @@ function ProductsContent({ languageBundle }: { languageBundle: ReturnType<typeof
             );
           })}
         </div>
-      </section>
 
-      {/*
-        Technical data for the two panel types. The copy says nothing about brands
-        or model numbers — see the note in src/lib/siteContent.ts.
-      */}
-      <section className="container panel-specs-section" aria-labelledby="panel-specs-title">
-        <div className="section-heading">
-          <SectionEyebrow>{panels.eyebrow}</SectionEyebrow>
-          <h2 id="panel-specs-title">{panels.title}</h2>
-          <p className="section-subtitle">{panels.subtitle}</p>
-        </div>
-        <div className="panel-specs">
-          {panels.cards.map((card, index) => (
-            <article className="panel-spec-card" key={card.name}>
-              <div className="panel-spec-media">
-                <img src={panelImages[index]} alt={card.imageAlt} loading="lazy" decoding="async" />
-              </div>
-              <div>
-                <h3>{card.name}</h3>
-                <p className="panel-spec-tagline">{card.tagline}</p>
-              </div>
-              <dl className="panel-spec-table">
-                {card.specs.map((spec) => (
-                  <div className="panel-spec-row" key={spec.label}>
-                    <dt>{spec.label}</dt>
-                    <dd>{spec.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </article>
-          ))}
-        </div>
-        <p className="panel-spec-note">{panels.note}</p>
+        {/* The module data lives on its own page; the nav submenu and this link
+            are how a visitor gets there from the overview. Kept inside the
+            section so it inherits the container's padding. */}
+        <p className="product-more">
+          <Link href="/products/solar-modules/">{t.products.modulesLink}</Link>
+        </p>
       </section>
 
       <section className="container ai-solution-panel" aria-labelledby="ai-solutions-title">
@@ -522,12 +542,77 @@ function Footer({ language }: { language: Language }) {
   );
 }
 
+/*
+ * The solar module page: two product groups, each with its variants side by side.
+ *
+ * The rows repeat between variants on purpose (see the note in siteContent.ts),
+ * and the shared certifications/warranty line sits once at the bottom rather than
+ * on every card.
+ */
+function SolarModulesContent({ languageBundle }: { languageBundle: ReturnType<typeof useSiteLanguage> }) {
+  const { language, t } = languageBundle;
+  const modules = moduleSpecs[language];
+
+  return (
+    <>
+      <PageHero
+        eyebrow={modules.eyebrow}
+        title={modules.title}
+        subtitle={modules.subtitle}
+        image={assets.solar}
+        alt={t.a11y.pageVisual}
+      />
+      <section className="container module-specs-section">
+        {modules.groups.map((group, groupIndex) => (
+          <div className="module-group" key={group.name}>
+            <div className="section-heading">
+              <h2>{group.name}</h2>
+              <p className="section-subtitle">{group.intro}</p>
+            </div>
+            <div className="module-variants">
+              {group.variants.map((variant, variantIndex) => (
+                <article className="module-spec-card" key={variant.power}>
+                  <div className="module-spec-media">
+                    <img
+                      src={moduleImages[groupIndex][variantIndex]}
+                      alt={variant.imageAlt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div>
+                    <h3>{variant.power}</h3>
+                    <p className="module-spec-tagline">{variant.finish}</p>
+                  </div>
+                  <dl className="module-spec-table">
+                    {variant.specs.map((spec) => (
+                      <div className="module-spec-row" key={spec.label}>
+                        <dt>{spec.label}</dt>
+                        <dd>{spec.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </article>
+              ))}
+            </div>
+          </div>
+        ))}
+        <p className="module-spec-note">{modules.note}</p>
+      </section>
+    </>
+  );
+}
+
 export function AboutPage() {
   return <SiteShell page="about"> </SiteShell>;
 }
 
 export function ProductsPage() {
   return <SiteShell page="products"> </SiteShell>;
+}
+
+export function SolarModulesPage() {
+  return <SiteShell page="solarModules"> </SiteShell>;
 }
 
 export function ContactPage() {

@@ -1,5 +1,5 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Home, { AboutPage, ContactPage, ProductsPage } from "@/pages/Home";
+import Home, { AboutPage, ContactPage, ProductsPage, SolarModulesPage } from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
 import { Route, Router as WouterRouter, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -19,6 +19,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/about" component={AboutPage} />
+      <Route path="/products/solar-modules" component={SolarModulesPage} />
       <Route path="/products" component={ProductsPage} />
       <Route path="/contact" component={ContactPage} />
       <Route path="/404" component={NotFound} />

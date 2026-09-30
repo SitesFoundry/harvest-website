@@ -1611,7 +1611,7 @@
 }
 
 /* ==========================================================================
-   Solar panel technical data (added 2026-09)
+   Solar module technical data (added 2026-09)
 
    Two cards on the products page, one per panel type. The class names are new
    and self-contained: nothing here depends on, or perturbs, the earlier layers
@@ -1622,7 +1622,7 @@
    rest of the site rather than re-deriving the palette.
    ========================================================================== */
 
-.panel-specs-section {
+.module-specs-section {
   padding-bottom: 5rem;
 }
 
@@ -1639,19 +1639,19 @@
   line-height: 1.7;
 }
 
-.panel-specs {
+.module-variants {
   display: grid;
   gap: 1.5rem;
 }
 
 @media (min-width: 900px) {
-  .panel-specs {
+  .module-variants {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
   }
 }
 
-.panel-spec-card {
+.module-spec-card {
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
@@ -1667,7 +1667,7 @@
  * card background shows through them; this gives the module a surface to stand
  * on instead of leaving it floating on the card.
  */
-.panel-spec-media {
+.module-spec-media {
   display: grid;
   place-items: center;
   min-height: 260px;
@@ -1676,14 +1676,14 @@
   padding: 1.1rem;
 }
 
-.panel-spec-media img {
+.module-spec-media img {
   display: block;
   width: 100%;
   max-width: 330px;
   height: auto;
 }
 
-.panel-spec-card h3 {
+.module-spec-card h3 {
   margin: 0;
   font-family: 'Sora', 'Manrope', system-ui, sans-serif;
   color: #10201f;
@@ -1692,19 +1692,19 @@
   line-height: 1.25;
 }
 
-.panel-spec-tagline {
+.module-spec-tagline {
   margin: 0.4rem 0 0;
   color: #0d6b54;
   font-weight: 750;
   font-size: 0.95rem;
 }
 
-.panel-spec-table {
+.module-spec-table {
   margin: 0;
   display: grid;
 }
 
-.panel-spec-row {
+.module-spec-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, auto);
   gap: 1rem;
@@ -1713,18 +1713,18 @@
   border-bottom: 1px solid rgba(82, 67, 38, 0.1);
 }
 
-.panel-spec-row:last-child {
+.module-spec-row:last-child {
   border-bottom: 0;
   padding-bottom: 0;
 }
 
-.panel-spec-row dt {
+.module-spec-row dt {
   color: #536560;
   font-size: 0.92rem;
   line-height: 1.45;
 }
 
-.panel-spec-row dd {
+.module-spec-row dd {
   margin: 0;
   color: #10201f;
   font-size: 0.92rem;
@@ -1733,7 +1733,7 @@
   text-align: right;
 }
 
-.panel-spec-note {
+.module-spec-note {
   max-width: 70ch;
   margin: 1.5rem 0 0;
   color: #6b7a74;
@@ -1742,21 +1742,105 @@
 }
 
 @media (max-width: 640px) {
-  .panel-spec-media {
+  .module-spec-media {
     min-height: 200px;
   }
 
-  .panel-spec-media img {
+  .module-spec-media img {
     max-width: 240px;
   }
 
   /* Stack label over value: at this width a two-column row wraps badly. */
-  .panel-spec-row {
+  .module-spec-row {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.15rem;
   }
 
-  .panel-spec-row dd {
+  .module-spec-row dd {
     text-align: left;
   }
+}
+
+/* Space between the two product groups on the module page. */
+.module-group + .module-group {
+  margin-top: 3.5rem;
+}
+
+/* Link from the products overview to the module page. The grid above carries a
+   5rem bottom padding, so this pulls up into that gap rather than adding to it. */
+.product-more {
+  margin: -3.6rem 0 3.5rem;
+}
+
+.product-more a {
+  border-bottom: 2px solid rgba(13, 107, 84, 0.25);
+  padding-bottom: 0.15rem;
+  color: #0d6b54;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.product-more a:hover,
+.product-more a:focus-visible {
+  border-bottom-color: #0d6b54;
+}
+
+/* ==========================================================================
+   Products & Solutions submenu
+
+   The parent stays a link to /products/; the submenu is added convenience, not
+   the only route to the page. It opens on hover AND on focus-within so it is
+   reachable by keyboard, and the same links appear in the mobile menu — hover
+   does not exist on touch, so the menu cannot be the only way in.
+   ========================================================================== */
+
+.nav-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-submenu {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 0;
+  z-index: 40;
+  display: grid;
+  gap: 0.15rem;
+  min-width: 13rem;
+  padding: 0.45rem;
+  border: 1px solid rgba(13, 43, 40, 0.12);
+  border-radius: 1.1rem;
+  background: rgba(255, 252, 243, 0.98);
+  box-shadow: 0 20px 55px rgba(52, 41, 22, 0.16);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.3rem);
+  transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
+}
+
+.nav-item.has-children:hover .nav-submenu,
+.nav-item.has-children:focus-within .nav-submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.nav-submenu-link {
+  border-radius: 0.75rem;
+  padding: 0.55rem 0.7rem;
+  color: #10201f;
+  font-size: 0.92rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.nav-submenu-link:hover,
+.nav-submenu-link:focus-visible {
+  background: #efe4c8;
+}
+
+.mobile-nav-child {
+  padding-left: 1.9rem;
+  font-weight: 700;
 }

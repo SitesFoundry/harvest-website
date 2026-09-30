@@ -30,12 +30,15 @@ export const assets = {
   ess: asset("/images/harvest-ess-storage.webp"),
   logistics: asset("/images/harvest-global-logistics.webp"),
   /*
-   * Product shots for the two solar panel types, extracted from the
-   * manufacturer's specification sheets (RGB rebuilt through a colour-managed
-   * render, alpha from the sheet's own mask). No branding is visible in them.
+   * Product shots for the four module types, extracted from the manufacturer's
+   * datasheets by _tools/extract-pdf-figure.py — colour from a colour-managed
+   * render of the page, transparency from the sheet's own alpha mask. No
+   * branding is visible in them.
    */
-  panelStandard: asset("/images/solar-panel-standard.webp"),
-  panelAllBlack: asset("/images/solar-panel-all-black.webp"),
+  module630: asset("/images/solar-module-630-650.webp"),
+  module710: asset("/images/solar-module-710-730.webp"),
+  module425: asset("/images/solar-module-425-445.webp"),
+  module430: asset("/images/solar-module-430-450.webp"),
 };
 
 export const company = {
@@ -83,7 +86,7 @@ export const content = {
       mobileNav: "Mobile navigation",
       highlights: "Company highlights",
       advantages: "Core advantages",
-      solarVisual: "Solar panels, inverters, photovoltaic cables and MC4 connectors",
+      solarVisual: "Solar modules, inverters, photovoltaic cables and MC4 connectors",
       aiDashboard: "AI smart energy control dashboard connected to solar and storage systems",
       capabilities: "Company capabilities",
       timeline: "Company timeline and service model",
@@ -106,7 +109,7 @@ export const content = {
       { value: "20+", label: "Years of international trade experience" },
       { value: "50+", label: "Countries and regions served" },
       { value: "1000+", label: "Customers supported worldwide" },
-      { value: "Tier 1", label: "Solar panel brand supply network" },
+      { value: "Tier 1", label: "Solar module brand supply network" },
     ],
     intro: {
       title: "More than products: integrated design, procurement and after-sales support.",
@@ -134,7 +137,7 @@ export const content = {
         "Personalized service for customer-specific market requirements",
         "One-stop procurement with competitive pricing and full-scope warranty support",
         "Professional trade and logistics execution for cross-border delivery",
-        "Solar panels sourced from Tier 1 brands and qualified suppliers",
+        "Solar modules sourced from Tier 1 brands and qualified suppliers",
       ],
       logisticsTitle: "International execution with local attention to detail",
       logisticsText:
@@ -150,12 +153,14 @@ export const content = {
       subtitle:
         "A focused portfolio covering solar generation, inverter systems, compact storage, installation accessories and AI-enabled control solutions.",
       solarTitle: "Solar System Portfolio",
+      /* Label for the link from the products overview to the module page. */
+      modulesLink: "Technical data for our solar modules",
       aiTitle: "AI Smart Control Solutions",
       categories: [
-        { group: "Solar Panels", items: ["Standard solar panels", "All-black solar panels", "Flexible solar panels", "Foldable solar panels"] },
+        { group: "Solar Modules", items: ["Standard solar modules", "All-black solar modules", "Flexible solar modules", "Foldable solar modules"] },
         { group: "Inverters", items: ["Off-grid inverters", "Hybrid inverters"] },
         { group: "ESS", items: ["Portable power banks", "Home energy storage systems"] },
-        { group: "System Accessories", items: ["FRP composite solar panel frames", "PV cables and MC4 connectors"] },
+        { group: "System Accessories", items: ["FRP composite solar module frames", "PV cables and MC4 connectors"] },
       ],
       aiItems: [
         { title: "Self-developed AI energy-saving products", text: "Intelligent control logic designed for practical energy efficiency and remote visibility." },
@@ -169,7 +174,7 @@ export const content = {
       subtitle: "Tell us about your market, product requirement or project scope. Our team will respond with a practical next step.",
       formTitle: "Request information",
       fields: { name: "Full name", email: "Business email", company: "Company", country: "Country / Region", type: "Requirement type", message: "Project details" },
-      options: ["Solar panel sourcing", "Inverters", "ESS / Storage", "AI smart control", "Custom solution", "Other"],
+      options: ["Solar module sourcing", "Inverters", "ESS / Storage", "AI smart control", "Custom solution", "Other"],
       send: "Send inquiry",
       sending: "Sending...",
       error: "We could not submit the inquiry right now. Please try again or contact us via WhatsApp.",
@@ -198,7 +203,7 @@ export const content = {
       mobileNav: "Navegación móvil",
       highlights: "Datos destacados de la empresa",
       advantages: "Ventajas principales",
-      solarVisual: "Paneles solares, inversores, cables fotovoltaicos y conectores MC4",
+      solarVisual: "Módulos solares, inversores, cables fotovoltaicos y conectores MC4",
       aiDashboard: "Panel de control inteligente de energía con IA conectado a sistemas solares y de almacenamiento",
       capabilities: "Capacidades de la empresa",
       timeline: "Cronología de la empresa y modelo de servicio",
@@ -221,7 +226,7 @@ export const content = {
       { value: "20+", label: "Años de experiencia en comercio internacional" },
       { value: "50+", label: "Países y regiones atendidos" },
       { value: "1000+", label: "Clientes apoyados mundialmente" },
-      { value: "Tier 1", label: "Red de marcas de paneles solares" },
+      { value: "Tier 1", label: "Red de marcas de módulos solares" },
     ],
     intro: {
       title: "Más que productos: diseño, compras y soporte posventa integrados.",
@@ -248,7 +253,7 @@ export const content = {
         "Servicio personalizado para requisitos específicos de mercado",
         "Compras integrales con precios competitivos y soporte de garantía",
         "Ejecución profesional de comercio y logística transfronteriza",
-        "Paneles solares de marcas Tier 1 y proveedores calificados",
+        "Módulos solares de marcas Tier 1 y proveedores calificados",
       ],
       logisticsTitle: "Ejecución internacional con atención local al detalle",
       logisticsText:
@@ -263,9 +268,10 @@ export const content = {
       title: "Productos y soluciones energéticas inteligentes",
       subtitle: "Una cartera enfocada en generación solar, inversores, almacenamiento compacto, accesorios e inteligencia de control con IA.",
       solarTitle: "Portafolio de sistemas solares",
+      modulesLink: "Datos técnicos de nuestros módulos solares",
       aiTitle: "Soluciones de control inteligente con IA",
       categories: [
-        { group: "Paneles solares", items: ["Paneles solares estándar", "Paneles solares all-black", "Paneles solares flexibles", "Paneles solares plegables"] },
+        { group: "Módulos solares", items: ["Módulos solares estándar", "Módulos solares all-black", "Módulos solares flexibles", "Módulos solares plegables"] },
         { group: "Inversores", items: ["Inversores fuera de red", "Inversores híbridos"] },
         { group: "ESS", items: ["Baterías portátiles", "Sistemas domésticos de almacenamiento"] },
         { group: "Accesorios", items: ["Marcos compuestos FRP", "Cables FV y conectores MC4"] },
@@ -282,7 +288,7 @@ export const content = {
       subtitle: "Cuéntenos su mercado, necesidad de producto o alcance del proyecto. Responderemos con un siguiente paso práctico.",
       formTitle: "Solicitar información",
       fields: { name: "Nombre completo", email: "Correo empresarial", company: "Empresa", country: "País / Región", type: "Tipo de necesidad", message: "Detalles del proyecto" },
-      options: ["Paneles solares", "Inversores", "ESS / Almacenamiento", "Control inteligente IA", "Solución personalizada", "Otro"],
+      options: ["Módulos solares", "Inversores", "ESS / Almacenamiento", "Control inteligente IA", "Solución personalizada", "Otro"],
       send: "Enviar consulta",
       sending: "Enviando...",
       error: "No pudimos enviar la consulta en este momento. Inténtelo de nuevo o contáctenos por WhatsApp.",
@@ -304,7 +310,7 @@ export const content = {
       mobileNav: "Navigation mobile",
       highlights: "Points forts de l’entreprise",
       advantages: "Avantages principaux",
-      solarVisual: "Panneaux solaires, onduleurs, câbles photovoltaïques et connecteurs MC4",
+      solarVisual: "Modules solaires, onduleurs, câbles photovoltaïques et connecteurs MC4",
       aiDashboard: "Tableau de bord énergétique intelligent avec IA connecté aux systèmes solaires et de stockage",
       capabilities: "Capacités de l’entreprise",
       timeline: "Chronologie de l’entreprise et modèle de service",
@@ -327,7 +333,7 @@ export const content = {
       { value: "20+", label: "Ans d’expérience en commerce international" },
       { value: "50+", label: "Pays et régions desservis" },
       { value: "1000+", label: "Clients accompagnés dans le monde" },
-      { value: "Tier 1", label: "Réseau de marques de panneaux solaires" },
+      { value: "Tier 1", label: "Réseau de marques de modules solaires" },
     ],
     intro: {
       title: "Plus que des produits : conception, achat et support après-vente intégrés.",
@@ -354,7 +360,7 @@ export const content = {
         "Service personnalisé pour les exigences propres à chaque marché",
         "Approvisionnement complet avec prix compétitifs et support de garantie",
         "Exécution professionnelle du commerce et de la logistique transfrontaliers",
-        "Panneaux solaires issus de marques Tier 1 et de fournisseurs qualifiés",
+        "Modules solaires issus de marques Tier 1 et de fournisseurs qualifiés",
       ],
       logisticsTitle: "Exécution internationale avec attention locale aux détails",
       logisticsText:
@@ -369,9 +375,10 @@ export const content = {
       title: "Produits et solutions énergétiques intelligentes",
       subtitle: "Un portefeuille ciblé couvrant génération solaire, onduleurs, stockage, accessoires et contrôle intelligent par IA.",
       solarTitle: "Portefeuille de systèmes solaires",
+      modulesLink: "Données techniques de nos modules solaires",
       aiTitle: "Solutions de contrôle intelligent IA",
       categories: [
-        { group: "Panneaux solaires", items: ["Panneaux solaires standard", "Panneaux solaires entièrement noirs", "Panneaux solaires flexibles", "Panneaux solaires pliables"] },
+        { group: "Modules solaires", items: ["Modules solaires standard", "Modules solaires entièrement noirs", "Modules solaires flexibles", "Modules solaires pliables"] },
         { group: "Onduleurs", items: ["Onduleurs hors réseau", "Onduleurs hybrides"] },
         { group: "ESS", items: ["Batteries portables", "Systèmes domestiques de stockage"] },
         { group: "Accessoires", items: ["Cadres composites FRP", "Câbles PV et connecteurs MC4"] },
@@ -388,7 +395,7 @@ export const content = {
       subtitle: "Décrivez votre marché, vos besoins produit ou votre projet. Notre équipe proposera une prochaine étape concrète.",
       formTitle: "Demander des informations",
       fields: { name: "Nom complet", email: "E-mail professionnel", company: "Entreprise", country: "Pays / Région", type: "Type de besoin", message: "Détails du projet" },
-      options: ["Panneaux solaires", "Onduleurs", "ESS / Stockage", "Contrôle intelligent IA", "Solution personnalisée", "Autre"],
+      options: ["Modules solaires", "Onduleurs", "ESS / Stockage", "Contrôle intelligent IA", "Solution personnalisée", "Autre"],
       send: "Envoyer la demande",
       sending: "Envoi...",
       error: "Nous n’avons pas pu envoyer la demande pour le moment. Réessayez ou contactez-nous via WhatsApp.",
@@ -402,161 +409,266 @@ export const content = {
 } as const;
 
 /*
- * Technical data for the two solar panel types shown on the products page.
+ * Technical data for the solar module range, shown on its own page
+ * (/products/solar-modules/).
  *
- * Both types come from one manufacturer platform and are nearly identical, so the
- * rows repeat deliberately: each card has to read as a complete specification
- * rather than sending the reader to the other card to fill in the blanks. If a
- * datasheet is revised, update BOTH cards for every language.
+ * Two groups, two variants each:
+ *
+ *   Standard   - two power classes on different platforms (182 mm / 78 half-cut
+ *                and 210 mm / 66 half-cut), both with a white ceramic rear grid.
+ *   All-black  - one residential platform (182 mm / 108 half-cut) in two
+ *                rear-grid finishes; the fully black grid costs one power bin.
+ *
+ * The rows repeat between variants on purpose: each card has to read as a
+ * complete specification rather than sending the reader to another card to fill
+ * in the blanks. If a datasheet is revised, update every variant that shares the
+ * value.
  *
  * Brand and model numbers are deliberately absent — the site describes a Tier 1
  * supply network without naming suppliers (see 03-关键决策记录).
  *
- * Source: manufacturer datasheets, revision HAITAI20250329EN.
+ * Source: manufacturer datasheets, revision HAITAI20250329EN (plus the 710-730 W
+ * sheet of the same generation). Packaging figures are NOT included: they are
+ * garbled in the source PDFs and need confirming with the supplier first.
  */
-export type PanelSpecRow = { label: string; value: string };
-export type PanelCardSpec = {
-  name: string;
-  tagline: string;
+export type ModuleSpecRow = { label: string; value: string };
+export type ModuleVariant = {
+  power: string;
+  finish: string;
   imageAlt: string;
-  specs: PanelSpecRow[];
+  specs: ModuleSpecRow[];
+};
+export type ModuleGroup = {
+  name: string;
+  intro: string;
+  variants: ModuleVariant[];
 };
 
-export const panelSpecs: Record<
+export const moduleSpecs: Record<
   Language,
-  { eyebrow: string; title: string; subtitle: string; note: string; cards: PanelCardSpec[] }
+  { eyebrow: string; title: string; subtitle: string; note: string; groups: ModuleGroup[] }
 > = {
   en: {
     eyebrow: "Solar Modules",
-    title: "Technical data for our solar panels",
+    title: "Technical data for our solar modules",
     subtitle:
-      "Both types share one bifacial TOPCon platform and the same dimensions. The only difference is the finish: a white ceramic grid on the standard panel, a fully black one on the all-black panel.",
-    note: "Certifications: IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. 30-year linear power warranty: under 1.0% degradation in year one, then 0.40% per year or less.",
-    cards: [
+      "Four module types in two product groups: high-power standard modules for utility and commercial installations, and a residential platform offered in an all-black finish.",
+    note: "Certifications: IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. 30-year linear power warranty: under 1.0% degradation in year one, then 0.40% per year or less. Data taken from the manufacturer's datasheets and subject to change — confirm the exact power bin before ordering.",
+    groups: [
       {
-        name: "Standard solar panels",
-        tagline: "N-type TOPCon bifacial · 430–450 W",
-        imageAlt:
-          "Standard bifacial solar panel: dark cells with white grid lines in a silver frame",
-        specs: [
-          { label: "Power range", value: "430 – 450 W" },
-          { label: "Max. module efficiency", value: "23.04 %" },
-          { label: "Cell technology", value: "N-type TOPCon · 108 half-cut" },
-          { label: "Module dimensions", value: "1722 × 1134 × 30 mm" },
-          { label: "Weight", value: "24.0 kg" },
-          { label: "Front glass", value: "2.0 mm tempered, high transmittance" },
-          { label: "Frame", value: "Anodised aluminium alloy" },
-          { label: "Rear side", value: "White ceramic grid (bifacial)" },
-          { label: "Bifacial gain", value: "up to +25 %" },
-          { label: "Temperature coefficient (Pmax)", value: "−0.290 %/°C" },
+        name: "Standard solar modules",
+        intro:
+          "Two power classes on different platforms, both N-type TOPCon bifacial with a white ceramic rear grid and the same 30-year linear power warranty.",
+        variants: [
+          {
+            power: "630 – 650 W",
+            finish: "182 mm platform · 78 half-cut cells",
+            imageAlt:
+              "Standard bifacial solar module, 630 to 650 watts, with white grid lines and a silver frame",
+            specs: [
+              { label: "Power range", value: "630 – 650 W" },
+              { label: "Max. module efficiency", value: "23.25 %" },
+              { label: "Cell technology", value: "N-type TOPCon · 156 half-cut (6×26)" },
+              { label: "Module dimensions", value: "2465 × 1134 × 30 mm" },
+              { label: "Weight", value: "34.5 kg" },
+            ],
+          },
+          {
+            power: "710 – 730 W",
+            finish: "210 mm platform · 66 half-cut cells",
+            imageAlt:
+              "Standard bifacial solar module, 710 to 730 watts, with large 210 mm cells and a silver frame",
+            specs: [
+              { label: "Power range", value: "710 – 730 W" },
+              { label: "Max. module efficiency", value: "23.50 %" },
+              { label: "Cell technology", value: "N-type TOPCon · 132 half-cut (6×22) · 210 mm cells" },
+              { label: "Module dimensions", value: "2384 × 1303 × 33 mm" },
+              { label: "Weight", value: "37.5 kg" },
+            ],
+          },
         ],
       },
       {
-        name: "All-black solar panels",
-        tagline: "N-type TOPCon bifacial · 425–445 W",
-        imageAlt:
-          "All-black bifacial solar panel: black cells and frame with no visible grid lines",
-        specs: [
-          { label: "Power range", value: "425 – 445 W" },
-          { label: "Max. module efficiency", value: "22.79 %" },
-          { label: "Cell technology", value: "N-type TOPCon · 108 half-cut" },
-          { label: "Module dimensions", value: "1722 × 1134 × 30 mm" },
-          { label: "Weight", value: "24.0 kg" },
-          { label: "Front glass", value: "2.0 mm tempered, high transmittance" },
-          { label: "Frame", value: "Anodised aluminium alloy" },
-          { label: "Rear side", value: "Black ceramic grid (bifacial)" },
-          { label: "Bifacial gain", value: "up to +25 %" },
-          { label: "Temperature coefficient (Pmax)", value: "−0.290 %/°C" },
+        name: "All-black solar modules",
+        intro:
+          "One residential platform in two rear-grid finishes. The fully black grid gives a uniform dark appearance; the white grid returns one power bin.",
+        variants: [
+          {
+            power: "425 – 445 W",
+            finish: "All-black rear grid · 182 mm platform",
+            imageAlt:
+              "All-black bifacial solar module, 425 to 445 watts, with black cells and frame and no visible grid lines",
+            specs: [
+              { label: "Power range", value: "425 – 445 W" },
+              { label: "Max. module efficiency", value: "22.79 %" },
+              { label: "Cell technology", value: "N-type TOPCon · 108 half-cut (6×18)" },
+              { label: "Module dimensions", value: "1722 × 1134 × 30 mm" },
+              { label: "Weight", value: "24.0 kg" },
+            ],
+          },
+          {
+            power: "430 – 450 W",
+            finish: "White rear grid · 182 mm platform",
+            imageAlt:
+              "Bifacial solar module, 430 to 450 watts, with white grid lines and a silver frame",
+            specs: [
+              { label: "Power range", value: "430 – 450 W" },
+              { label: "Max. module efficiency", value: "23.04 %" },
+              { label: "Cell technology", value: "N-type TOPCon · 108 half-cut (6×18)" },
+              { label: "Module dimensions", value: "1722 × 1134 × 30 mm" },
+              { label: "Weight", value: "24.0 kg" },
+            ],
+          },
         ],
       },
     ],
   },
   es: {
     eyebrow: "Módulos solares",
-    title: "Datos técnicos de nuestros paneles solares",
+    title: "Datos técnicos de nuestros módulos solares",
     subtitle:
-      "Ambos tipos comparten una misma plataforma bifacial TOPCon y las mismas dimensiones. La única diferencia es el acabado: rejilla cerámica blanca en el panel estándar y totalmente negra en el all-black.",
-    note: "Certificaciones: IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. Garantía de potencia lineal de 30 años: menos del 1,0 % el primer año y 0,40 % anual o menos a partir del segundo.",
-    cards: [
+      "Cuatro tipos de módulo en dos grupos de producto: módulos estándar de alta potencia para instalaciones industriales y comerciales, y una plataforma residencial con acabado all-black.",
+    note: "Certificaciones: IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. Garantía de potencia lineal de 30 años: menos del 1,0 % el primer año y 0,40 % anual o menos a partir del segundo. Datos tomados de las fichas del fabricante y sujetos a cambios: confirme el bin de potencia exacto antes de pedir.",
+    groups: [
       {
-        name: "Paneles solares estándar",
-        tagline: "TOPCon tipo N bifacial · 430–450 W",
-        imageAlt:
-          "Panel solar bifacial estándar: células oscuras con líneas de rejilla blancas y marco plateado",
-        specs: [
-          { label: "Rango de potencia", value: "430 – 450 W" },
-          { label: "Eficiencia máxima del módulo", value: "23,04 %" },
-          { label: "Tecnología de células", value: "TOPCon tipo N · 108 medias células" },
-          { label: "Dimensiones del módulo", value: "1722 × 1134 × 30 mm" },
-          { label: "Peso", value: "24,0 kg" },
-          { label: "Vidrio frontal", value: "Templado de 2,0 mm, alta transmitancia" },
-          { label: "Marco", value: "Aleación de aluminio anodizado" },
-          { label: "Cara posterior", value: "Rejilla cerámica blanca (bifacial)" },
-          { label: "Ganancia bifacial", value: "hasta +25 %" },
-          { label: "Coeficiente de temperatura (Pmax)", value: "−0,290 %/°C" },
+        name: "Módulos solares estándar",
+        intro:
+          "Dos clases de potencia en plataformas distintas, ambas TOPCon tipo N bifaciales con rejilla cerámica blanca y la misma garantía de potencia lineal de 30 años.",
+        variants: [
+          {
+            power: "630 – 650 W",
+            finish: "Plataforma de 182 mm · 78 medias células",
+            imageAlt:
+              "Módulo solar bifacial estándar, de 630 a 650 vatios, con líneas de rejilla blancas y marco plateado",
+            specs: [
+              { label: "Rango de potencia", value: "630 – 650 W" },
+              { label: "Eficiencia máxima del módulo", value: "23,25 %" },
+              { label: "Tecnología de células", value: "TOPCon tipo N · 156 medias células (6×26)" },
+              { label: "Dimensiones del módulo", value: "2465 × 1134 × 30 mm" },
+              { label: "Peso", value: "34,5 kg" },
+            ],
+          },
+          {
+            power: "710 – 730 W",
+            finish: "Plataforma de 210 mm · 66 medias células",
+            imageAlt:
+              "Módulo solar bifacial estándar, de 710 a 730 vatios, con células grandes de 210 mm y marco plateado",
+            specs: [
+              { label: "Rango de potencia", value: "710 – 730 W" },
+              { label: "Eficiencia máxima del módulo", value: "23,50 %" },
+              { label: "Tecnología de células", value: "TOPCon tipo N · 132 medias células (6×22) · células de 210 mm" },
+              { label: "Dimensiones del módulo", value: "2384 × 1303 × 33 mm" },
+              { label: "Peso", value: "37,5 kg" },
+            ],
+          },
         ],
       },
       {
-        name: "Paneles solares all-black",
-        tagline: "TOPCon tipo N bifacial · 425–445 W",
-        imageAlt:
-          "Panel solar bifacial all-black: células y marco negros, sin líneas de rejilla visibles",
-        specs: [
-          { label: "Rango de potencia", value: "425 – 445 W" },
-          { label: "Eficiencia máxima del módulo", value: "22,79 %" },
-          { label: "Tecnología de células", value: "TOPCon tipo N · 108 medias células" },
-          { label: "Dimensiones del módulo", value: "1722 × 1134 × 30 mm" },
-          { label: "Peso", value: "24,0 kg" },
-          { label: "Vidrio frontal", value: "Templado de 2,0 mm, alta transmitancia" },
-          { label: "Marco", value: "Aleación de aluminio anodizado" },
-          { label: "Cara posterior", value: "Rejilla cerámica negra (bifacial)" },
-          { label: "Ganancia bifacial", value: "hasta +25 %" },
-          { label: "Coeficiente de temperatura (Pmax)", value: "−0,290 %/°C" },
+        name: "Módulos solares all-black",
+        intro:
+          "Una plataforma residencial con dos acabados de rejilla posterior. La rejilla totalmente negra da un aspecto oscuro uniforme; la blanca devuelve un escalón de potencia.",
+        variants: [
+          {
+            power: "425 – 445 W",
+            finish: "Rejilla posterior negra · plataforma de 182 mm",
+            imageAlt:
+              "Módulo solar bifacial all-black, de 425 a 445 vatios, con células y marco negros y sin líneas de rejilla visibles",
+            specs: [
+              { label: "Rango de potencia", value: "425 – 445 W" },
+              { label: "Eficiencia máxima del módulo", value: "22,79 %" },
+              { label: "Tecnología de células", value: "TOPCon tipo N · 108 medias células (6×18)" },
+              { label: "Dimensiones del módulo", value: "1722 × 1134 × 30 mm" },
+              { label: "Peso", value: "24,0 kg" },
+            ],
+          },
+          {
+            power: "430 – 450 W",
+            finish: "Rejilla posterior blanca · plataforma de 182 mm",
+            imageAlt:
+              "Módulo solar bifacial, de 430 a 450 vatios, con líneas de rejilla blancas y marco plateado",
+            specs: [
+              { label: "Rango de potencia", value: "430 – 450 W" },
+              { label: "Eficiencia máxima del módulo", value: "23,04 %" },
+              { label: "Tecnología de células", value: "TOPCon tipo N · 108 medias células (6×18)" },
+              { label: "Dimensiones del módulo", value: "1722 × 1134 × 30 mm" },
+              { label: "Peso", value: "24,0 kg" },
+            ],
+          },
         ],
       },
     ],
   },
   fr: {
     eyebrow: "Modules solaires",
-    title: "Données techniques de nos panneaux solaires",
+    title: "Données techniques de nos modules solaires",
     subtitle:
-      "Les deux types partagent la même plateforme bifaciale TOPCon et les mêmes dimensions. Seule la finition diffère : grille céramique blanche pour le panneau standard, entièrement noire pour le tout noir.",
-    note: "Certifications : IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. Garantie de puissance linéaire de 30 ans : moins de 1,0 % la première année, puis 0,40 % par an au maximum.",
-    cards: [
+      "Quatre types de modules en deux groupes de produits : des modules standard de forte puissance pour les installations industrielles et commerciales, et une plateforme résidentielle déclinée en finition tout noir.",
+    note: "Certifications : IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. Garantie de puissance linéaire de 30 ans : moins de 1,0 % la première année, puis 0,40 % par an au maximum. Données issues des fiches du fabricant et susceptibles d’évoluer : confirmez le bin de puissance exact avant commande.",
+    groups: [
       {
-        name: "Panneaux solaires standard",
-        tagline: "TOPCon de type N bifacial · 430–450 W",
-        imageAlt:
-          "Panneau solaire bifacial standard : cellules sombres à lignes de grille blanches, cadre argenté",
-        specs: [
-          { label: "Plage de puissance", value: "430 – 450 W" },
-          { label: "Rendement maximal du module", value: "23,04 %" },
-          { label: "Technologie des cellules", value: "TOPCon de type N · 108 demi-cellules" },
-          { label: "Dimensions du module", value: "1722 × 1134 × 30 mm" },
-          { label: "Poids", value: "24,0 kg" },
-          { label: "Verre avant", value: "Trempé 2,0 mm, haute transmission" },
-          { label: "Cadre", value: "Alliage d’aluminium anodisé" },
-          { label: "Face arrière", value: "Grille céramique blanche (bifaciale)" },
-          { label: "Gain bifacial", value: "jusqu’à +25 %" },
-          { label: "Coefficient de température (Pmax)", value: "−0,290 %/°C" },
+        name: "Modules solaires standard",
+        intro:
+          "Deux classes de puissance sur des plateformes différentes, toutes deux TOPCon de type N bifaciales avec une grille céramique blanche et la même garantie de puissance linéaire de 30 ans.",
+        variants: [
+          {
+            power: "630 – 650 W",
+            finish: "Plateforme 182 mm · 78 demi-cellules",
+            imageAlt:
+              "Module solaire bifacial standard, de 630 à 650 watts, à lignes de grille blanches et cadre argenté",
+            specs: [
+              { label: "Plage de puissance", value: "630 – 650 W" },
+              { label: "Rendement maximal du module", value: "23,25 %" },
+              { label: "Technologie des cellules", value: "TOPCon de type N · 156 demi-cellules (6×26)" },
+              { label: "Dimensions du module", value: "2465 × 1134 × 30 mm" },
+              { label: "Poids", value: "34,5 kg" },
+            ],
+          },
+          {
+            power: "710 – 730 W",
+            finish: "Plateforme 210 mm · 66 demi-cellules",
+            imageAlt:
+              "Module solaire bifacial standard, de 710 à 730 watts, à grandes cellules 210 mm et cadre argenté",
+            specs: [
+              { label: "Plage de puissance", value: "710 – 730 W" },
+              { label: "Rendement maximal du module", value: "23,50 %" },
+              { label: "Technologie des cellules", value: "TOPCon de type N · 132 demi-cellules (6×22) · cellules 210 mm" },
+              { label: "Dimensions du module", value: "2384 × 1303 × 33 mm" },
+              { label: "Poids", value: "37,5 kg" },
+            ],
+          },
         ],
       },
       {
-        name: "Panneaux solaires entièrement noirs",
-        tagline: "TOPCon de type N bifacial · 425–445 W",
-        imageAlt:
-          "Panneau solaire bifacial entièrement noir : cellules et cadre noirs, sans lignes de grille visibles",
-        specs: [
-          { label: "Plage de puissance", value: "425 – 445 W" },
-          { label: "Rendement maximal du module", value: "22,79 %" },
-          { label: "Technologie des cellules", value: "TOPCon de type N · 108 demi-cellules" },
-          { label: "Dimensions du module", value: "1722 × 1134 × 30 mm" },
-          { label: "Poids", value: "24,0 kg" },
-          { label: "Verre avant", value: "Trempé 2,0 mm, haute transmission" },
-          { label: "Cadre", value: "Alliage d’aluminium anodisé" },
-          { label: "Face arrière", value: "Grille céramique noire (bifaciale)" },
-          { label: "Gain bifacial", value: "jusqu’à +25 %" },
-          { label: "Coefficient de température (Pmax)", value: "−0,290 %/°C" },
+        name: "Modules solaires entièrement noirs",
+        intro:
+          "Une plateforme résidentielle en deux finitions de grille arrière. La grille entièrement noire donne un aspect sombre uniforme ; la blanche rend un cran de puissance.",
+        variants: [
+          {
+            power: "425 – 445 W",
+            finish: "Grille arrière noire · plateforme 182 mm",
+            imageAlt:
+              "Module solaire bifacial entièrement noir, de 425 à 445 watts, cellules et cadre noirs, sans lignes de grille visibles",
+            specs: [
+              { label: "Plage de puissance", value: "425 – 445 W" },
+              { label: "Rendement maximal du module", value: "22,79 %" },
+              { label: "Technologie des cellules", value: "TOPCon de type N · 108 demi-cellules (6×18)" },
+              { label: "Dimensions du module", value: "1722 × 1134 × 30 mm" },
+              { label: "Poids", value: "24,0 kg" },
+            ],
+          },
+          {
+            power: "430 – 450 W",
+            finish: "Grille arrière blanche · plateforme 182 mm",
+            imageAlt:
+              "Module solaire bifacial, de 430 à 450 watts, à lignes de grille blanches et cadre argenté",
+            specs: [
+              { label: "Plage de puissance", value: "430 – 450 W" },
+              { label: "Rendement maximal du module", value: "23,04 %" },
+              { label: "Technologie des cellules", value: "TOPCon de type N · 108 demi-cellules (6×18)" },
+              { label: "Dimensions du module", value: "1722 × 1134 × 30 mm" },
+              { label: "Poids", value: "24,0 kg" },
+            ],
+          },
         ],
       },
     ],
