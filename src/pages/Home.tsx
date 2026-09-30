@@ -17,7 +17,7 @@ import pageMeta from "@/data/pageMeta.json";
  * the same in every language.
  */
 const moduleImages = [
-  [assets.module630, assets.module710],
+  [assets.module630, assets.module715],
   [assets.module425, assets.module430],
 ];
 import {

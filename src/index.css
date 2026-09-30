@@ -1663,24 +1663,33 @@
 }
 
 /*
- * A tinted well behind the module photo. The photos carry transparency, so the
- * card background shows through them; this gives the module a surface to stand
- * on instead of leaving it floating on the card.
+ * A fixed-height well behind the module photo.
+ *
+ * The photos carry transparency and come from different datasheets, so their
+ * aspect ratios differ (0.57 to 0.74). Sized by width alone they would be
+ * different heights, and the two cards side by side would have their titles and
+ * tables starting at different points. A fixed height with the photo contained
+ * inside puts both on the same horizontal level and lines up everything below.
+ *
+ * The photo is absolutely positioned against the well rather than sized with
+ * height:100%. The well is a centred grid, so its row is content-sized: a
+ * percentage height on the image resolves against an auto height, falls back to
+ * the natural size, and the photo spills over the text underneath. With the box
+ * pinned by insets it has a definite size for object-fit to work against, and it
+ * cannot overflow whatever the source aspect ratio.
  */
 .module-spec-media {
-  display: grid;
-  place-items: center;
-  min-height: 260px;
+  position: relative;
+  height: clamp(260px, 26vw, 400px);
   border-radius: 1.25rem;
   background: linear-gradient(165deg, #f7f8f4 0%, #e6efe8 100%);
-  padding: 1.1rem;
+  overflow: hidden;
 }
 
 .module-spec-media img {
-  display: block;
-  width: 100%;
-  max-width: 330px;
-  height: auto;
+  position: absolute;
+  inset: 1rem;
+  object-fit: contain;
 }
 
 .module-spec-card h3 {
@@ -1743,11 +1752,7 @@
 
 @media (max-width: 640px) {
   .module-spec-media {
-    min-height: 200px;
-  }
-
-  .module-spec-media img {
-    max-width: 240px;
+    height: 240px;
   }
 
   /* Stack label over value: at this width a two-column row wraps badly. */

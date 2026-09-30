@@ -36,7 +36,7 @@ export const assets = {
    * branding is visible in them.
    */
   module630: asset("/images/solar-module-630-650.webp"),
-  module710: asset("/images/solar-module-710-730.webp"),
+  module715: asset("/images/solar-module-715-735.webp"),
   module425: asset("/images/solar-module-425-445.webp"),
   module430: asset("/images/solar-module-430-450.webp"),
 };
@@ -427,8 +427,9 @@ export const content = {
  * Brand and model numbers are deliberately absent — the site describes a Tier 1
  * supply network without naming suppliers (see 03-关键决策记录).
  *
- * Source: manufacturer datasheets, revision HAITAI20250329EN (plus the 710-730 W
- * sheet of the same generation). Packaging figures are NOT included: they are
+ * Source: manufacturer datasheets, revision HAITAI20250329EN (plus the 715-735 W
+ * sheet of the same generation, which carries a higher-resolution figure).
+ * Packaging figures are NOT included: they are
  * garbled in the source PDFs and need confirming with the supplier first.
  */
 export type ModuleSpecRow = { label: string; value: string };
@@ -474,13 +475,13 @@ export const moduleSpecs: Record<
             ],
           },
           {
-            power: "710 – 730 W",
+            power: "715 – 735 W",
             finish: "210 mm platform · 66 half-cut cells",
             imageAlt:
-              "Standard bifacial solar module, 710 to 730 watts, with large 210 mm cells and a silver frame",
+              "Standard bifacial solar module, 715 to 735 watts, with large 210 mm cells and a silver frame",
             specs: [
-              { label: "Power range", value: "710 – 730 W" },
-              { label: "Max. module efficiency", value: "23.50 %" },
+              { label: "Power range", value: "715 – 735 W" },
+              { label: "Max. module efficiency", value: "23.66 %" },
               { label: "Cell technology", value: "N-type TOPCon · 132 half-cut (6×22) · 210 mm cells" },
               { label: "Module dimensions", value: "2384 × 1303 × 33 mm" },
               { label: "Weight", value: "37.5 kg" },
@@ -549,13 +550,13 @@ export const moduleSpecs: Record<
             ],
           },
           {
-            power: "710 – 730 W",
+            power: "715 – 735 W",
             finish: "Plataforma de 210 mm · 66 medias células",
             imageAlt:
-              "Módulo solar bifacial estándar, de 710 a 730 vatios, con células grandes de 210 mm y marco plateado",
+              "Módulo solar bifacial estándar, de 715 a 735 vatios, con células grandes de 210 mm y marco plateado",
             specs: [
-              { label: "Rango de potencia", value: "710 – 730 W" },
-              { label: "Eficiencia máxima del módulo", value: "23,50 %" },
+              { label: "Rango de potencia", value: "715 – 735 W" },
+              { label: "Eficiencia máxima del módulo", value: "23,66 %" },
               { label: "Tecnología de células", value: "TOPCon tipo N · 132 medias células (6×22) · células de 210 mm" },
               { label: "Dimensiones del módulo", value: "2384 × 1303 × 33 mm" },
               { label: "Peso", value: "37,5 kg" },
@@ -624,13 +625,13 @@ export const moduleSpecs: Record<
             ],
           },
           {
-            power: "710 – 730 W",
+            power: "715 – 735 W",
             finish: "Plateforme 210 mm · 66 demi-cellules",
             imageAlt:
-              "Module solaire bifacial standard, de 710 à 730 watts, à grandes cellules 210 mm et cadre argenté",
+              "Module solaire bifacial standard, de 715 à 735 watts, à grandes cellules 210 mm et cadre argenté",
             specs: [
-              { label: "Plage de puissance", value: "710 – 730 W" },
-              { label: "Rendement maximal du module", value: "23,50 %" },
+              { label: "Plage de puissance", value: "715 – 735 W" },
+              { label: "Rendement maximal du module", value: "23,66 %" },
               { label: "Technologie des cellules", value: "TOPCon de type N · 132 demi-cellules (6×22) · cellules 210 mm" },
               { label: "Dimensions du module", value: "2384 × 1303 × 33 mm" },
               { label: "Poids", value: "37,5 kg" },
