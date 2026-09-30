@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { assets, company, content, languages, moduleSpecs, type Language } from "@/lib/siteContent";
+import { assets, company, content, languages, moduleSpecs, productCardImages, productLines, type Language, type ProductLineKey } from "@/lib/siteContent";
 import { submitInquiry } from "@/lib/form";
 /*
  * Page paths and per-language head metadata live in one JSON file so that the
@@ -42,7 +42,7 @@ import {
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "wouter";
 
-type SitePageKind = "home" | "about" | "products" | "solarModules" | "contact";
+type SitePageKind = "home" | "about" | "products" | "solarModules" | "inverters" | "ess" | "accessories" | "contact";
 
 type ContactFormState = {
   name: string;
@@ -119,10 +119,20 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
   const [menuOpen, setMenuOpen] = useState(false);
 
   /*
-   * The Products & Solutions entry carries one child, the module page. It stays a
+   * The Products & Solutions entry carries the four product pages. It stays a
    * link to /products/ first and a menu second: the submenu is a convenience, and
    * every page remains reachable without it (keyboard, touch, or no CSS at all).
+   *
+   * Each label is the page's own eyebrow, so the entry and the page it opens use
+   * the same words.
    */
+  const productLinks = [
+    { href: "/products/solar-modules/", label: moduleSpecs[language].eyebrow },
+    { href: "/products/inverters/", label: productLines.inverters[language].eyebrow },
+    { href: "/products/ess/", label: productLines.ess[language].eyebrow },
+    { href: "/products/system-accessories/", label: productLines.accessories[language].eyebrow },
+  ];
+
   const navItems = [
     { href: "/", label: t.nav.home, key: "home", children: [] as { href: string; label: string }[] },
     { href: "/about/", label: t.nav.about, key: "about", children: [] as { href: string; label: string }[] },
@@ -130,7 +140,7 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
       href: "/products/",
       label: t.nav.products,
       key: "products",
-      children: [{ href: "/products/solar-modules/", label: t.products.categories[0].group }],
+      children: productLinks,
     },
     { href: "/contact/", label: t.nav.contact, key: "contact", children: [] as { href: string; label: string }[] },
   ];
@@ -227,6 +237,9 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
         {page === "about" && <AboutContent languageBundle={withLanguage} />}
         {page === "products" && <ProductsContent languageBundle={withLanguage} />}
         {page === "solarModules" && <SolarModulesContent languageBundle={withLanguage} />}
+        {page === "inverters" && <ProductLineContent lineKey="inverters" languageBundle={withLanguage} />}
+        {page === "ess" && <ProductLineContent lineKey="ess" languageBundle={withLanguage} />}
+        {page === "accessories" && <ProductLineContent lineKey="accessories" languageBundle={withLanguage} />}
         {page === "contact" && <ContactContent languageBundle={withLanguage} />}
       </main>
 
@@ -603,6 +616,72 @@ function SolarModulesContent({ languageBundle }: { languageBundle: ReturnType<ty
   );
 }
 
+/*
+ * A product category page: the hero, then one group of product cards.
+ *
+ * The card is the module page's card, reused class for class, with two
+ * differences the material forces:
+ *
+ *   * Some cards have no photograph yet. The well is then not rendered at all,
+ *     so the card starts at the product name instead of holding open an empty
+ *     frame that reads as a broken image.
+ *   * The specification table appears only when a card actually carries rows.
+ *     Cards without a confirmed datasheet therefore read as a product name, not
+ *     as a table full of blanks (see the note in siteContent.ts).
+ */
+function ProductLineContent({ lineKey, languageBundle }: { lineKey: ProductLineKey; languageBundle: ReturnType<typeof useSiteLanguage> }) {
+  const { language, t } = languageBundle;
+  const line = productLines[lineKey][language];
+
+  return (
+    <>
+      <PageHero
+        eyebrow={line.eyebrow}
+        title={line.title}
+        subtitle={line.subtitle}
+        image={assets.solar}
+        alt={t.a11y.pageVisual}
+      />
+      <section className="container product-line-section">
+        {line.groups.map((group) => (
+          <div className="product-line-group" key={group.name}>
+            <div className="section-heading">
+              <h2>{group.name}</h2>
+              <p className="section-subtitle">{group.intro}</p>
+            </div>
+            <div className="product-line-cards">
+              {group.cards.map((card) => {
+                const image = productCardImages[card.key];
+                return (
+                  <article className="product-line-card" key={card.key}>
+                    {image && (
+                      <div className="product-line-media">
+                        <img src={image} alt={card.imageAlt ?? ""} loading="lazy" decoding="async" />
+                      </div>
+                    )}
+                    <h3>{card.name}</h3>
+                    {card.specs && card.specs.length > 0 && (
+                      <dl className="module-spec-table">
+                        {card.specs.map((spec) => (
+                          <div className="module-spec-row" key={spec.label}>
+                            <dt>{spec.label}</dt>
+                            <dd>{spec.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+        <p className="product-line-note">{line.note}</p>
+      </section>
+    </>
+  );
+}
+
 export function AboutPage() {
   return <SiteShell page="about"> </SiteShell>;
 }
@@ -613,6 +692,18 @@ export function ProductsPage() {
 
 export function SolarModulesPage() {
   return <SiteShell page="solarModules"> </SiteShell>;
+}
+
+export function InvertersPage() {
+  return <SiteShell page="inverters"> </SiteShell>;
+}
+
+export function EssPage() {
+  return <SiteShell page="ess"> </SiteShell>;
+}
+
+export function SystemAccessoriesPage() {
+  return <SiteShell page="accessories"> </SiteShell>;
 }
 
 export function ContactPage() {

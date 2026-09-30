@@ -67,6 +67,57 @@
       }
     }
   },
+  "inverters": {
+    "path": "/products/inverters/",
+    "meta": {
+      "en": {
+        "title": "Solar Inverters | Hybrid and Off-grid | Harvest Eco Solutions Limited",
+        "description": "Hybrid single-phase and three-phase inverters, plus off-grid inverters, supplied by Harvest Eco Solutions Limited for residential and commercial solar systems."
+      },
+      "es": {
+        "title": "Inversores solares | Híbridos y fuera de red | Harvest Eco Solutions Limited",
+        "description": "Inversores híbridos monofásicos y trifásicos, además de inversores fuera de red, suministrados por Harvest Eco Solutions Limited para sistemas solares residenciales y comerciales."
+      },
+      "fr": {
+        "title": "Onduleurs solaires | Hybrides et hors réseau | Harvest Eco Solutions Limited",
+        "description": "Onduleurs hybrides monophasés et triphasés, ainsi que des onduleurs hors réseau fournis par Harvest Eco Solutions Limited pour les installations solaires résidentielles et commerciales."
+      }
+    }
+  },
+  "ess": {
+    "path": "/products/ess/",
+    "meta": {
+      "en": {
+        "title": "Energy Storage | Home Batteries and Portable Power | Harvest Eco Solutions Limited",
+        "description": "Stackable low-voltage home batteries and portable power stations from Harvest Eco Solutions Limited, for residential solar systems and for power away from a fixed installation."
+      },
+      "es": {
+        "title": "Almacenamiento de energía | Baterías domésticas y energía portátil | Harvest Eco Solutions Limited",
+        "description": "Baterías domésticas apilables de baja tensión y estaciones de energía portátiles de Harvest Eco Solutions Limited, para instalaciones solares residenciales y para corriente fuera de una instalación fija."
+      },
+      "fr": {
+        "title": "Stockage d’énergie | Batteries domestiques et énergie portable | Harvest Eco Solutions Limited",
+        "description": "Batteries domestiques empilables basse tension et stations d’énergie portables de Harvest Eco Solutions Limited, pour les installations solaires résidentielles et pour l’alimentation hors installation fixe."
+      }
+    }
+  },
+  "accessories": {
+    "path": "/products/system-accessories/",
+    "meta": {
+      "en": {
+        "title": "System Accessories | Module Frames, PV Cables and MC4 Connectors",
+        "description": "FRP composite solar module frames, PV cables and MC4 connectors supplied by Harvest Eco Solutions Limited to complete a solar installation."
+      },
+      "es": {
+        "title": "Accesorios | Marcos de módulo, cables FV y conectores MC4",
+        "description": "Marcos compuestos FRP para módulos solares, cables FV y conectores MC4 de Harvest Eco Solutions Limited para completar una instalación solar."
+      },
+      "fr": {
+        "title": "Accessoires | Cadres de module, câbles PV et connecteurs MC4",
+        "description": "Cadres composites FRP pour modules solaires, câbles PV et connecteurs MC4 fournis par Harvest Eco Solutions Limited pour compléter une installation solaire."
+      }
+    }
+  },
   "contact": {
     "path": "/contact/",
     "meta": {

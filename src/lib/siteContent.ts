@@ -39,6 +39,17 @@ export const assets = {
   module715: asset("/images/solar-module-715-735.webp"),
   module425: asset("/images/solar-module-425-445.webp"),
   module430: asset("/images/solar-module-430-450.webp"),
+  /*
+   * Product shots for the category pages (/products/inverters/, /products/ess/,
+   * /products/system-accessories/). Extracted from the manufacturer's single-sheet
+   * datasheets with _tools/extract-pdf-figure.py, then cleared of the visible
+   * supplier mark with _tools/erase-region.py — the site describes a Tier 1
+   * supply network without naming suppliers, so the mark on the case had to go.
+   */
+  inverterSinglePhase: asset("/images/hybrid-inverter-single-phase.webp"),
+  inverterThreePhase: asset("/images/hybrid-inverter-three-phase.webp"),
+  homeStorage: asset("/images/home-storage-stackable.webp"),
+  portablePower: asset("/images/portable-power-station.webp"),
 };
 
 export const company = {
@@ -673,5 +684,297 @@ export const moduleSpecs: Record<
         ],
       },
     ],
+  },
+};
+
+/*
+ * The three category pages under /products/: inverters, energy storage and system
+ * accessories.
+ *
+ * Each page shows one group of product cards. A card carries:
+ *
+ *   name   - the product name, in the same words the products overview uses, so
+ *            the two pages describe the same catalogue;
+ *   image  - looked up by key in productCardImages below, never written here,
+ *            because a photo is the same in every language;
+ *   specs  - OPTIONAL, and the card renders the table only when it is present.
+ *
+ * The specs rows are deliberately absent for now. Only the hybrid inverters and
+ * the home storage range have confirmed datasheets, so a table on two cards out
+ * of seven would read as an accident. When a datasheet is confirmed, add the
+ * rows to that card in all three languages and the table appears — no component
+ * change needed. The shape is ModuleSpecRow, the same one the module page uses,
+ * so the tables match.
+ *
+ * Where no datasheet exists, the card shows the product name and nothing else:
+ * no invented figures, and no "coming soon" placeholder. That is why some cards
+ * have no image and no table, which the card layout handles (it does not reserve
+ * space for either).
+ */
+export type ProductCardKey =
+  | "hybridSinglePhase"
+  | "hybridThreePhase"
+  | "offGrid"
+  | "homeStorage"
+  | "portablePower"
+  | "moduleFrames"
+  | "pvCables";
+
+export type ProductCard = {
+  key: ProductCardKey;
+  name: string;
+  imageAlt?: string;
+  specs?: ModuleSpecRow[];
+};
+
+export type ProductGroup = { name: string; intro: string; cards: ProductCard[] };
+export type ProductLine = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  note: string;
+  groups: ProductGroup[];
+};
+export type ProductLineKey = "inverters" | "ess" | "accessories";
+
+/* Cards without an entry here are the ones with no confirmed material. */
+export const productCardImages: Partial<Record<ProductCardKey, string>> = {
+  hybridSinglePhase: assets.inverterSinglePhase,
+  hybridThreePhase: assets.inverterThreePhase,
+  homeStorage: assets.homeStorage,
+  portablePower: assets.portablePower,
+};
+
+export const productLines: Record<ProductLineKey, Record<Language, ProductLine>> = {
+  inverters: {
+    en: {
+      eyebrow: "Inverters",
+      title: "Hybrid and off-grid inverters",
+      subtitle:
+        "Hybrid units manage solar input, battery charging and the grid connection together; off-grid units run a site that has no utility connection at all.",
+      note: "Model-level datasheets for the units we supply are available on request.",
+      groups: [
+        {
+          name: "Inverters",
+          intro:
+            "Two hybrid platforms — single-phase for residential systems, three-phase for larger installations — and off-grid inverters for sites that run on a battery bank alone.",
+          cards: [
+            {
+              key: "hybridSinglePhase",
+              name: "Single-phase hybrid inverter",
+              imageAlt:
+                "Single-phase hybrid inverter in a wall-mounted white housing, with a display on the front",
+            },
+            {
+              key: "hybridThreePhase",
+              name: "Three-phase hybrid inverter",
+              imageAlt:
+                "Three-phase hybrid inverter in a wall-mounted white housing, with a control panel on the front",
+            },
+            { key: "offGrid", name: "Off-grid inverters" },
+          ],
+        },
+      ],
+    },
+    es: {
+      eyebrow: "Inversores",
+      title: "Inversores híbridos y fuera de red",
+      subtitle:
+        "Los equipos híbridos gestionan a la vez la entrada solar, la carga de baterías y la conexión a red; los equipos fuera de red alimentan instalaciones sin conexión alguna a la red.",
+      note: "Las fichas técnicas por modelo de los equipos que suministramos están disponibles a petición.",
+      groups: [
+        {
+          name: "Inversores",
+          intro:
+            "Dos plataformas híbridas —monofásica para instalaciones residenciales y trifásica para instalaciones mayores— e inversores fuera de red para emplazamientos que funcionan solo con banco de baterías.",
+          cards: [
+            {
+              key: "hybridSinglePhase",
+              name: "Inversor híbrido monofásico",
+              imageAlt:
+                "Inversor híbrido monofásico en carcasa blanca de montaje en pared, con pantalla en el frontal",
+            },
+            {
+              key: "hybridThreePhase",
+              name: "Inversor híbrido trifásico",
+              imageAlt:
+                "Inversor híbrido trifásico en carcasa blanca de montaje en pared, con panel de control en el frontal",
+            },
+            { key: "offGrid", name: "Inversores fuera de red" },
+          ],
+        },
+      ],
+    },
+    fr: {
+      eyebrow: "Onduleurs",
+      title: "Onduleurs hybrides et hors réseau",
+      subtitle:
+        "Les appareils hybrides gèrent ensemble l’entrée solaire, la charge des batteries et le raccordement au réseau ; les appareils hors réseau alimentent un site dépourvu de tout raccordement.",
+      note: "Les fiches techniques par modèle des appareils que nous fournissons sont disponibles sur demande.",
+      groups: [
+        {
+          name: "Onduleurs",
+          intro:
+            "Deux plateformes hybrides — monophasée pour le résidentiel, triphasée pour les installations plus importantes — et des onduleurs hors réseau pour les sites alimentés uniquement par un parc de batteries.",
+          cards: [
+            {
+              key: "hybridSinglePhase",
+              name: "Onduleur hybride monophasé",
+              imageAlt:
+                "Onduleur hybride monophasé en boîtier blanc mural, avec écran en façade",
+            },
+            {
+              key: "hybridThreePhase",
+              name: "Onduleur hybride triphasé",
+              imageAlt:
+                "Onduleur hybride triphasé en boîtier blanc mural, avec panneau de commande en façade",
+            },
+            { key: "offGrid", name: "Onduleurs hors réseau" },
+          ],
+        },
+      ],
+    },
+  },
+  ess: {
+    en: {
+      eyebrow: "ESS & Storage",
+      title: "Portable and residential energy storage",
+      subtitle:
+        "Stackable low-voltage batteries for residential solar systems, and portable power stations for outdoor work, emergency backup and travel.",
+      note: "Capacity options for both ranges, and their datasheets, are available on request.",
+      groups: [
+        {
+          name: "Energy storage",
+          intro:
+            "Home storage that grows from a single battery module to a multi-module bank, and portable stations that bring mains power to sites away from a fixed installation.",
+          cards: [
+            {
+              key: "homeStorage",
+              name: "Home energy storage systems",
+              imageAlt:
+                "Stackable home battery modules, shown as a two-module and a three-module stack",
+            },
+            {
+              key: "portablePower",
+              name: "Portable power banks",
+              imageAlt:
+                "Portable power station with a carry handle, a display and AC outlets",
+            },
+          ],
+        },
+      ],
+    },
+    es: {
+      eyebrow: "ESS y almacenamiento",
+      title: "Almacenamiento portátil y residencial",
+      subtitle:
+        "Baterías apilables de baja tensión para instalaciones solares residenciales y estaciones portátiles para trabajo en exteriores, respaldo de emergencia y viajes.",
+      note: "Las capacidades disponibles en ambas gamas, y sus fichas técnicas, están disponibles a petición.",
+      groups: [
+        {
+          name: "Almacenamiento de energía",
+          intro:
+            "Almacenamiento doméstico que crece desde un solo módulo de batería hasta un banco de varios módulos, y estaciones portátiles que llevan corriente de red a emplazamientos sin instalación fija.",
+          cards: [
+            {
+              key: "homeStorage",
+              name: "Sistemas domésticos de almacenamiento de energía",
+              imageAlt:
+                "Módulos de batería doméstica apilables, mostrados en configuración de dos y de tres módulos",
+            },
+            {
+              key: "portablePower",
+              name: "Baterías portátiles",
+              imageAlt:
+                "Estación de energía portátil con asa de transporte, pantalla y tomas de corriente alterna",
+            },
+          ],
+        },
+      ],
+    },
+    fr: {
+      eyebrow: "ESS et stockage",
+      title: "Stockage portable et résidentiel",
+      subtitle:
+        "Des batteries empilables basse tension pour les installations solaires résidentielles et des stations portables pour le travail en extérieur, le secours d’urgence et les déplacements.",
+      note: "Les capacités disponibles dans les deux gammes, ainsi que leurs fiches techniques, sont disponibles sur demande.",
+      groups: [
+        {
+          name: "Stockage d’énergie",
+          intro:
+            "Un stockage domestique qui passe d’un seul module de batterie à un parc de plusieurs modules, et des stations portables qui apportent le courant du réseau aux sites dépourvus d’installation fixe.",
+          cards: [
+            {
+              key: "homeStorage",
+              name: "Systèmes de stockage domestiques",
+              imageAlt:
+                "Modules de batterie domestique empilables, présentés en configuration de deux et de trois modules",
+            },
+            {
+              key: "portablePower",
+              name: "Batteries portables",
+              imageAlt:
+                "Station d’énergie portable avec poignée de transport, écran et prises de courant alternatif",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  accessories: {
+    en: {
+      eyebrow: "System Accessories",
+      title: "System accessories for solar installations",
+      subtitle:
+        "Module frames and DC wiring components that complete an installation alongside the modules and inverters.",
+      note: "Tell us the module type and the array layout and we will confirm the matching frames, cables and connectors.",
+      groups: [
+        {
+          name: "System accessories",
+          intro:
+            "The parts of a solar installation that are not panels: module frames, and the cabling and connectors that carry DC current between the modules and the equipment.",
+          cards: [
+            { key: "moduleFrames", name: "FRP composite solar module frames" },
+            { key: "pvCables", name: "PV cables and MC4 connectors" },
+          ],
+        },
+      ],
+    },
+    es: {
+      eyebrow: "Accesorios",
+      title: "Accesorios para instalaciones solares",
+      subtitle:
+        "Marcos de módulo y componentes de cableado de continua que completan una instalación junto con los módulos y los inversores.",
+      note: "Indíquenos el tipo de módulo y la disposición del conjunto y confirmaremos los marcos, cables y conectores correspondientes.",
+      groups: [
+        {
+          name: "Accesorios del sistema",
+          intro:
+            "Las piezas de una instalación solar que no son paneles: marcos de módulo, y el cableado y los conectores que conducen la corriente continua entre los módulos y los equipos.",
+          cards: [
+            { key: "moduleFrames", name: "Marcos compuestos FRP para módulos solares" },
+            { key: "pvCables", name: "Cables FV y conectores MC4" },
+          ],
+        },
+      ],
+    },
+    fr: {
+      eyebrow: "Accessoires",
+      title: "Accessoires pour installations solaires",
+      subtitle:
+        "Cadres de module et composants de câblage continu qui complètent une installation aux côtés des modules et des onduleurs.",
+      note: "Indiquez-nous le type de module et la disposition du champ, et nous confirmerons les cadres, câbles et connecteurs correspondants.",
+      groups: [
+        {
+          name: "Accessoires système",
+          intro:
+            "Les éléments d’une installation solaire qui ne sont pas des panneaux : cadres de module, et le câblage et les connecteurs qui transportent le courant continu entre les modules et les équipements.",
+          cards: [
+            { key: "moduleFrames", name: "Cadres composites FRP pour modules solaires" },
+            { key: "pvCables", name: "Câbles PV et connecteurs MC4" },
+          ],
+        },
+      ],
+    },
   },
 };
