@@ -191,17 +191,20 @@ src/data/pageMeta.json         ★ route paths + per-language titles/description
 src/lib/asset.ts               ★ applies the deployment prefix to image paths
 src/lib/form.ts                ★ contact-form delivery; holds the form id
 src/lib/siteContent.ts         all copy, 3 languages, company details, assets,
-                               and the solar panel technical data (panelSpecs)
+                               the module technical data (moduleSpecs) and the
+                               product category pages (productLines)
 src/index.css                  design tokens and all layout/responsive rules
-src/pages/Home.tsx             every page section, all four routes
+src/pages/Home.tsx             every page section, all eight routes
 src/pages/NotFound.tsx         404
 src/components/                ErrorBoundary, LanguageSwitcher, ui/* (button,
                                input, textarea, dialog, tooltip)
 src/contexts/ThemeContext.tsx  light/dark provider (light only in use)
 src/hooks/                     useComposition, usePersistFn
 scripts/postbuild.mjs          completes and asserts dist/; writes route pages
-public/images/                 the eight site images, including the two panel
-                               product shots extracted from the datasheets
+public/images/                 the fourteen images the site ships: six brand
+                               visuals, four module product shots and four
+                               category product shots, all extracted from the
+                               manufacturer's datasheets
 ```
 
 The module range has its own page, `/products/solar-modules/`, reached from a
@@ -210,7 +213,7 @@ covers four types in two groups:
 
 | Group | Types |
 | --- | --- |
-| Standard solar modules | 630 – 650 W (182 mm platform) and 710 – 730 W (210 mm platform) |
+| Standard solar modules | 630 – 650 W (182 mm platform) and 715 – 735 W (210 mm platform) |
 | All-black solar modules | 425 – 445 W (all-black rear grid) and 430 – 450 W (white rear grid) |
 
 Each type carries five specification rows: power range, maximum efficiency, cell
@@ -222,10 +225,32 @@ power bin.
 Brand and model numbers are deliberately absent — the site describes a Tier 1
 supply network without naming suppliers — and the figures come from the
 manufacturer's datasheets, so they carry a "confirm the exact power bin" note.
+The supplier's mark is absent from the product photographs for the same reason.
 
-Routes are `/`, `/about/`, `/products/`, `/products/solar-modules/` and
+Routes are `/`, `/about/`, `/products/`, `/products/solar-modules/`,
+`/products/inverters/`, `/products/ess/`, `/products/system-accessories/` and
 `/contact/`. All are rendered by `src/pages/Home.tsx`; the router picks the
 sections. The trailing-slash form is canonical — see "One page per route" above.
+
+### The other three product pages
+
+`/products/inverters/`, `/products/ess/` and `/products/system-accessories/`
+cover the rest of the catalogue. They share one component, and each renders a
+hero, an introductory paragraph and a group of product cards. A card shows a
+photograph when one exists, and a specification table only when the card carries
+rows — so a card without a confirmed datasheet reads as a product name instead
+of as a table of blanks. Adding rows in `src/lib/siteContent.ts` makes the table
+appear; no component change is needed.
+
+| Page | Cards |
+| --- | --- |
+| Inverters | single-phase hybrid, three-phase hybrid, off-grid |
+| ESS & Storage | home energy storage systems, portable power banks |
+| System accessories | FRP composite solar module frames, PV cables and MC4 connectors |
+
+The off-grid inverters, the module frames and the cables and connectors have no
+confirmed datasheet yet, so those cards carry the product name only: no invented
+figures and no placeholder image.
 
 ### Language is client-side, and one URL serves all three
 

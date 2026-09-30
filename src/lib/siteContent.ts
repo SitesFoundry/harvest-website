@@ -932,7 +932,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
         {
           name: "System accessories",
           intro:
-            "The parts of a solar installation that are not panels: module frames, and the cabling and connectors that carry DC current between the modules and the equipment.",
+            "Everything in a solar installation apart from the modules themselves: module frames, and the cabling and connectors that carry DC current between the modules and the equipment.",
           cards: [
             { key: "moduleFrames", name: "FRP composite solar module frames" },
             { key: "pvCables", name: "PV cables and MC4 connectors" },
@@ -950,7 +950,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
         {
           name: "Accesorios del sistema",
           intro:
-            "Las piezas de una instalación solar que no son paneles: marcos de módulo, y el cableado y los conectores que conducen la corriente continua entre los módulos y los equipos.",
+            "Todo lo que hay en una instalación solar aparte de los propios módulos: marcos de módulo, y el cableado y los conectores que conducen la corriente continua entre los módulos y los equipos.",
           cards: [
             { key: "moduleFrames", name: "Marcos compuestos FRP para módulos solares" },
             { key: "pvCables", name: "Cables FV y conectores MC4" },
@@ -968,7 +968,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
         {
           name: "Accessoires système",
           intro:
-            "Les éléments d’une installation solaire qui ne sont pas des panneaux : cadres de module, et le câblage et les connecteurs qui transportent le courant continu entre les modules et les équipements.",
+            "Tout ce qui compose une installation solaire en dehors des modules eux-mêmes : cadres de module, et le câblage et les connecteurs qui transportent le courant continu entre les modules et les équipements.",
           cards: [
             { key: "moduleFrames", name: "Cadres composites FRP pour modules solaires" },
             { key: "pvCables", name: "Câbles PV et connecteurs MC4" },
