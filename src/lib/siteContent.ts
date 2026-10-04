@@ -121,8 +121,8 @@ export const content = {
       capabilities: "Company capabilities",
       timeline: "Company timeline and service model",
       aiControl: "AI smart control solution for energy saving products",
-      essSection: "Energy storage systems",
-      essVisual: "Portable power bank and home energy storage system",
+      essSection: "Battery energy storage systems",
+      essVisual: "Portable power station, home battery and commercial storage cabinet",
       contactDetails: "Company contact details",
       pageVisual: "Harvest Eco Solutions clean energy visual",
     },
@@ -177,7 +177,7 @@ export const content = {
       eyebrow: "Products & Solutions",
       solarEyebrow: "Solar Systems",
       aiEyebrow: "AI Intelligence",
-      essTitle: "ESS for portable, residential and commercial energy storage",
+      essTitle: "BESS for portable, residential and commercial energy storage",
       essText: "Portable stations, home batteries and all-in-one cabinets that complement solar generation, remote control and energy independence.",
       title: "Products and intelligent energy solutions",
       subtitle:
@@ -217,7 +217,7 @@ export const content = {
           ],
         },
         {
-          group: "ESS",
+          group: "BESS",
           href: "/products/ess/",
           items: [
             { label: "Portable power stations", href: "/products/ess/" },
@@ -246,7 +246,7 @@ export const content = {
       subtitle: "Tell us about your market, product requirement or project scope. Our team will respond with a practical next step.",
       formTitle: "Request information",
       fields: { name: "Full name", email: "Business email", company: "Company", country: "Country / Region", type: "Requirement type", message: "Project details" },
-      options: ["Solar module sourcing", "Inverters", "ESS / Storage", "AI smart control", "Custom solution", "Other"],
+      options: ["Solar module sourcing", "Inverters", "BESS / Storage", "AI smart control", "Custom solution", "Other"],
       send: "Send inquiry",
       sending: "Sending...",
       error: "We could not submit the inquiry right now. Please try again or contact us via WhatsApp.",
@@ -280,8 +280,8 @@ export const content = {
       capabilities: "Capacidades de la empresa",
       timeline: "Cronología de la empresa y modelo de servicio",
       aiControl: "Solución de control inteligente con IA para productos de ahorro energético",
-      essSection: "Sistemas de almacenamiento de energía",
-      essVisual: "Batería portátil y sistema doméstico de almacenamiento de energía",
+      essSection: "Sistemas de almacenamiento de energía con baterías",
+      essVisual: "Estación de energía portátil, batería doméstica y armario de almacenamiento comercial",
       contactDetails: "Datos de contacto de la empresa",
       pageVisual: "Imagen de energía limpia de Harvest Eco Solutions",
     },
@@ -335,7 +335,7 @@ export const content = {
       eyebrow: "Productos y soluciones",
       solarEyebrow: "Sistemas solares",
       aiEyebrow: "Inteligencia IA",
-      essTitle: "ESS para almacenamiento energético portátil, residencial y comercial",
+      essTitle: "BESS para almacenamiento energético portátil, residencial y comercial",
       essText: "Estaciones portátiles, baterías domésticas y armarios todo en uno que complementan la generación solar, el control remoto y la independencia energética.",
       title: "Productos y soluciones energéticas inteligentes",
       subtitle: "Una cartera enfocada en generación solar, inversores, almacenamiento compacto, accesorios e inteligencia de control con IA.",
@@ -359,7 +359,7 @@ export const content = {
           ],
         },
         {
-          group: "ESS",
+          group: "BESS",
           href: "/products/ess/",
           items: [
             { label: "Estaciones de energía portátiles", href: "/products/ess/" },
@@ -388,7 +388,7 @@ export const content = {
       subtitle: "Cuéntenos su mercado, necesidad de producto o alcance del proyecto. Responderemos con un siguiente paso práctico.",
       formTitle: "Solicitar información",
       fields: { name: "Nombre completo", email: "Correo empresarial", company: "Empresa", country: "País / Región", type: "Tipo de necesidad", message: "Detalles del proyecto" },
-      options: ["Módulos solares", "Inversores", "ESS / Almacenamiento", "Control inteligente IA", "Solución personalizada", "Otro"],
+      options: ["Módulos solares", "Inversores", "BESS / Almacenamiento", "Control inteligente IA", "Solución personalizada", "Otro"],
       send: "Enviar consulta",
       sending: "Enviando...",
       error: "No pudimos enviar la consulta en este momento. Inténtelo de nuevo o contáctenos por WhatsApp.",
@@ -415,8 +415,8 @@ export const content = {
       capabilities: "Capacités de l’entreprise",
       timeline: "Chronologie de l’entreprise et modèle de service",
       aiControl: "Solution de contrôle intelligent avec IA pour produits d’économie d’énergie",
-      essSection: "Systèmes de stockage d’énergie",
-      essVisual: "Batterie portable et système domestique de stockage d’énergie",
+      essSection: "Systèmes de stockage d’énergie par batteries",
+      essVisual: "Station portable, batterie domestique et armoire de stockage commerciale",
       contactDetails: "Coordonnées de l’entreprise",
       pageVisual: "Visuel d’énergie propre de Harvest Eco Solutions",
     },
@@ -470,7 +470,7 @@ export const content = {
       eyebrow: "Produits et solutions",
       solarEyebrow: "Systèmes solaires",
       aiEyebrow: "Intelligence IA",
-      essTitle: "ESS pour le stockage portable, résidentiel et commercial",
+      essTitle: "BESS pour le stockage portable, résidentiel et commercial",
       essText: "Stations portables, batteries domestiques et armoires tout-en-un qui complètent la production solaire, le contrôle à distance et l’indépendance énergétique.",
       title: "Produits et solutions énergétiques intelligentes",
       subtitle: "Un portefeuille ciblé couvrant génération solaire, onduleurs, stockage, accessoires et contrôle intelligent par IA.",
@@ -494,7 +494,7 @@ export const content = {
           ],
         },
         {
-          group: "ESS",
+          group: "BESS",
           href: "/products/ess/",
           items: [
             { label: "Stations d’énergie portables", href: "/products/ess/" },
@@ -523,7 +523,7 @@ export const content = {
       subtitle: "Décrivez votre marché, vos besoins produit ou votre projet. Notre équipe proposera une prochaine étape concrète.",
       formTitle: "Demander des informations",
       fields: { name: "Nom complet", email: "E-mail professionnel", company: "Entreprise", country: "Pays / Région", type: "Type de besoin", message: "Détails du projet" },
-      options: ["Modules solaires", "Onduleurs", "ESS / Stockage", "Contrôle intelligent IA", "Solution personnalisée", "Autre"],
+      options: ["Modules solaires", "Onduleurs", "BESS / Stockage", "Contrôle intelligent IA", "Solution personnalisée", "Autre"],
       send: "Envoyer la demande",
       sending: "Envoi...",
       error: "Nous n’avons pas pu envoyer la demande pour le moment. Réessayez ou contactez-nous via WhatsApp.",
@@ -974,14 +974,14 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
   },
   ess: {
     en: {
-      eyebrow: "ESS & Storage",
+      eyebrow: "BESS & Storage",
       title: "Portable, residential and commercial energy storage",
       subtitle:
         "A portable station for work away from the grid, a floor-standing battery for the home, and an all-in-one cabinet for commercial and industrial sites.",
       note: "Datasheets for the units we supply are available on request.",
       groups: [
         {
-          name: "Energy storage",
+          name: "Battery Energy Storage System",
           intro:
             "Three ranges, all on lithium iron phosphate cells: a portable station, a home battery that expands to 15 units in parallel, and a liquid-cooled cabinet for larger sites.",
           cards: [
@@ -1053,14 +1053,14 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
       ],
     },
     es: {
-      eyebrow: "ESS y almacenamiento",
+      eyebrow: "BESS y almacenamiento",
       title: "Almacenamiento portátil, residencial y comercial",
       subtitle:
         "Una estación portátil para trabajar lejos de la red, una batería de suelo para el hogar y un armario todo en uno para instalaciones comerciales e industriales.",
       note: "Las fichas técnicas de los equipos que suministramos están disponibles a petición.",
       groups: [
         {
-          name: "Almacenamiento de energía",
+          name: "Sistema de almacenamiento de energía con baterías",
           intro:
             "Tres gamas, todas con celdas de litio hierro fosfato: una estación portátil, una batería doméstica que se amplía hasta 15 unidades en paralelo y un armario refrigerado por líquido para instalaciones mayores.",
           cards: [
@@ -1132,14 +1132,14 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
       ],
     },
     fr: {
-      eyebrow: "ESS et stockage",
+      eyebrow: "BESS et stockage",
       title: "Stockage portable, résidentiel et commercial",
       subtitle:
         "Une station portable pour travailler hors réseau, une batterie au sol pour la maison et une armoire tout-en-un pour les sites commerciaux et industriels.",
       note: "Les fiches techniques des appareils que nous fournissons sont disponibles sur demande.",
       groups: [
         {
-          name: "Stockage d’énergie",
+          name: "Système de stockage d’énergie par batteries",
           intro:
             "Trois gammes, toutes sur cellules lithium fer phosphate : une station portable, une batterie domestique qui s’étend jusqu’à 15 unités en parallèle et une armoire refroidie par liquide pour les sites plus importants.",
           cards: [

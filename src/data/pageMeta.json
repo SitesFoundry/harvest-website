@@ -4,15 +4,15 @@
     "meta": {
       "en": {
         "title": "Harvest Eco Solutions Limited | Solar Systems & AI Energy Saving Solutions",
-        "description": "Harvest Eco Solutions Limited provides solar systems, ESS storage and AI smart control solutions for global clean-energy markets."
+        "description": "Harvest Eco Solutions Limited provides solar systems, BESS and AI smart control solutions for global clean-energy markets."
       },
       "es": {
         "title": "Harvest Eco Solutions Limited | Sistemas solares y soluciones IA",
-        "description": "Harvest Eco Solutions Limited ofrece sistemas solares, almacenamiento ESS y soluciones inteligentes de ahorro energético para mercados globales."
+        "description": "Harvest Eco Solutions Limited ofrece sistemas solares, BESS y soluciones inteligentes de ahorro energético para mercados globales."
       },
       "fr": {
         "title": "Harvest Eco Solutions Limited | Systèmes solaires et solutions IA",
-        "description": "Harvest Eco Solutions Limited fournit des systèmes solaires, du stockage ESS et des solutions intelligentes d’économie d’énergie pour les marchés mondiaux."
+        "description": "Harvest Eco Solutions Limited fournit des systèmes solaires, des BESS et des solutions intelligentes d’économie d’énergie pour les marchés mondiaux."
       }
     }
   },
@@ -37,16 +37,16 @@
     "path": "/products/",
     "meta": {
       "en": {
-        "title": "Products & Solutions | Solar, ESS and AI Smart Control",
-        "description": "Explore solar modules, inverters, ESS storage, PV accessories and AI smart control solutions from Harvest Eco Solutions Limited."
+        "title": "Products & Solutions | Solar, BESS and AI Smart Control",
+        "description": "Explore solar modules, inverters, BESS, PV accessories and AI smart control solutions from Harvest Eco Solutions Limited."
       },
       "es": {
-        "title": "Productos y soluciones | Solar, ESS e IA",
-        "description": "Explore módulos solares, inversores, almacenamiento ESS, accesorios FV y soluciones inteligentes con IA."
+        "title": "Productos y soluciones | Solar, BESS e IA",
+        "description": "Explore módulos solares, inversores, BESS, accesorios FV y soluciones inteligentes con IA."
       },
       "fr": {
-        "title": "Produits et solutions | Solaire, ESS et IA",
-        "description": "Explorez modules solaires, onduleurs, stockage ESS, accessoires PV et solutions intelligentes IA."
+        "title": "Produits et solutions | Solaire, BESS et IA",
+        "description": "Explorez modules solaires, onduleurs, BESS, accessoires PV et solutions intelligentes IA."
       }
     }
   },
@@ -88,16 +88,16 @@
     "path": "/products/ess/",
     "meta": {
       "en": {
-        "title": "Energy Storage | Home Batteries and Portable Power | Harvest Eco Solutions Limited",
-        "description": "Stackable low-voltage home batteries and portable power stations from Harvest Eco Solutions Limited, for residential solar systems and for power away from a fixed installation."
+        "title": "BESS | Portable, Home and Commercial Storage | Harvest Eco Solutions Limited",
+        "description": "A 1 kWh portable power station, a 16 kWh floor-standing home battery and a 261 kWh liquid-cooled cabinet for commercial and industrial sites, from Harvest Eco Solutions Limited."
       },
       "es": {
-        "title": "Almacenamiento de energía | Baterías domésticas y energía portátil | Harvest Eco Solutions Limited",
-        "description": "Baterías domésticas apilables de baja tensión y estaciones de energía portátiles de Harvest Eco Solutions Limited, para instalaciones solares residenciales y para corriente fuera de una instalación fija."
+        "title": "BESS | Almacenamiento portátil, doméstico y comercial | Harvest Eco Solutions Limited",
+        "description": "Una estación de energía portátil de 1 kWh, una batería doméstica de suelo de 16 kWh y un armario refrigerado por líquido de 261 kWh para instalaciones comerciales e industriales, de Harvest Eco Solutions Limited."
       },
       "fr": {
-        "title": "Stockage d’énergie | Batteries domestiques et énergie portable | Harvest Eco Solutions Limited",
-        "description": "Batteries domestiques empilables basse tension et stations d’énergie portables de Harvest Eco Solutions Limited, pour les installations solaires résidentielles et pour l’alimentation hors installation fixe."
+        "title": "BESS | Stockage portable, domestique et commercial | Harvest Eco Solutions Limited",
+        "description": "Une station d’énergie portable de 1 kWh, une batterie domestique au sol de 16 kWh et une armoire refroidie par liquide de 261 kWh pour les sites commerciaux et industriels, de Harvest Eco Solutions Limited."
       }
     }
   },
