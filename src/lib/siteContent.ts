@@ -33,12 +33,16 @@ export const assets = {
    * Product shots for the four module types, extracted from the manufacturer's
    * datasheets by _tools/extract-pdf-figure.py — colour from a colour-managed
    * render of the page, transparency from the sheet's own alpha mask. No
-   * branding is visible in them.
+   * branding is visible in them: the frames in these drawings are clean, so
+   * unlike the category-page shots nothing had to be erased.
+   *
+   * Keyed by the low bin of the power family and named on disk by the whole
+   * range, because one datasheet covers several power bins.
    */
-  module630: asset("/images/solar-module-630-650.webp"),
-  module715: asset("/images/solar-module-715-735.webp"),
-  module425: asset("/images/solar-module-425-445.webp"),
-  module430: asset("/images/solar-module-430-450.webp"),
+  module440: asset("/images/solar-module-440-465.webp"),
+  module490: asset("/images/solar-module-490-510.webp"),
+  module615: asset("/images/solar-module-615-640.webp"),
+  module710: asset("/images/solar-module-710-730.webp"),
   /*
    * Product shots for the category pages (/products/inverters/, /products/ess/,
    * /products/system-accessories/). Extracted from the manufacturer's single-sheet
@@ -423,25 +427,34 @@ export const content = {
  * Technical data for the solar module range, shown on its own page
  * (/products/solar-modules/).
  *
- * Two groups, two variants each:
+ * Two groups, two variants each. The card title is the power bin the range is
+ * named after, and the power range itself sits under it, because one datasheet
+ * covers a whole family of bins — printing a single number as if it were the
+ * module's rating would be wrong, and printing only a range hides the bin a
+ * buyer recognises:
  *
- *   Standard   - two power classes on different platforms (182 mm / 78 half-cut
- *                and 210 mm / 66 half-cut), both with a white ceramic rear grid.
- *   All-black  - one residential platform (182 mm / 108 half-cut) in two
- *                rear-grid finishes; the fully black grid costs one power bin.
+ *   Standard   - 630 W over 615 – 640 W (182 × 105 mm cells, 132 half-cut) and
+ *                720 W over 710 – 730 W (210 × 105 mm cells), both N-type TOPCon
+ *                bifacial with a white ceramic rear grid.
+ *   All-black  - 450 W over 440 – 465 W (96 half-cut) and 500 W over
+ *                490 – 510 W (108 half-cut), black frame and black rear grid.
  *
  * The rows repeat between variants on purpose: each card has to read as a
  * complete specification rather than sending the reader to another card to fill
  * in the blanks. If a datasheet is revised, update every variant that shares the
  * value.
  *
+ * Only the key figures are published. The sheets also carry per-bin voltage,
+ * current, NMOT and bifacial-gain tables, temperature coefficients and packaging
+ * counts; none of that is on the page, so a buyer who needs it has to ask (the
+ * page says the data is available on request).
+ *
  * Brand and model numbers are deliberately absent — the site describes a Tier 1
  * supply network without naming suppliers (see 03-关键决策记录).
  *
- * Source: manufacturer datasheets, revision HAITAI20250329EN (plus the 715-735 W
- * sheet of the same generation, which carries a higher-resolution figure).
- * Packaging figures are NOT included: they are
- * garbled in the source PDFs and need confirming with the supplier first.
+ * Source: the four manufacturer datasheets filed in the project folder under
+ * specification sheet/solar module/ — one per power family above. Repeat a figure
+ * from the sheet, never from another card.
  */
 export type ModuleSpecRow = { label: string; value: string };
 export type ModuleVariant = {
@@ -464,36 +477,36 @@ export const moduleSpecs: Record<
     eyebrow: "Solar Modules",
     title: "Technical data for our solar modules",
     subtitle:
-      "Four module types in two product groups: high-power standard modules for utility and commercial installations, and a residential platform offered in an all-black finish.",
-    note: "Certifications: IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. 30-year linear power warranty: under 1.0% degradation in year one, then 0.40% per year or less. Data taken from the manufacturer's datasheets and subject to change — confirm the exact power bin before ordering.",
+      "Four module types in two product groups: two high-power standard modules for utility and commercial installations, and two all-black modules for roofs where a uniform dark appearance matters.",
+    note: "Certifications: ISO 9001:2015, ISO 14001:2015, ISO 45001:2018, IEC 62941:2019, IEC 61215:2021 and IEC 61730:2023. 12-year product warranty and 30-year linear power warranty: under 1.0% degradation in year one, then 0.40% per year or less. Data taken from the manufacturer's datasheets and subject to change — every type ships in several power bins, so confirm the exact bin before ordering. The full datasheet, with the per-bin voltage and current, NMOT data, bifacial gain tables, temperature coefficients and packaging counts, is available on request.",
     groups: [
       {
         name: "Standard solar modules",
         intro:
-          "Two power classes on different platforms, both N-type TOPCon bifacial with a white ceramic rear grid and the same 30-year linear power warranty.",
+          "Two power classes on different cell platforms, both N-type TOPCon bifacial with a white ceramic rear grid and the same 30-year linear power warranty.",
         variants: [
           {
-            power: "630 – 650 W",
-            finish: "182 mm platform · 78 half-cut cells",
+            power: "630 W",
+            finish: "Standard bifacial · 615 – 640 W power range",
             imageAlt:
-              "Standard bifacial solar module, 630 to 650 watts, with white grid lines and a silver frame",
+              "Standard bifacial solar module, 615 to 640 watts, shown from the front and the rear, with white grid lines and a silver frame",
             specs: [
-              { label: "Power range", value: "630 – 650 W" },
-              { label: "Max. module efficiency", value: "23.25 %" },
-              { label: "Cell technology", value: "N-type TOPCon · 156 half-cut (6×26)" },
-              { label: "Module dimensions", value: "2465 × 1134 × 30 mm" },
-              { label: "Weight", value: "34.5 kg" },
+              { label: "Power range", value: "615 – 640 W · 6 power bins" },
+              { label: "Max. module efficiency", value: "23.69 %" },
+              { label: "Cell technology", value: "N-type TOPCon · 132 half-cut (6×22) · 182 × 105 mm cells" },
+              { label: "Module dimensions", value: "2382 × 1134 × 30 mm" },
+              { label: "Weight", value: "32.5 kg" },
             ],
           },
           {
-            power: "715 – 735 W",
-            finish: "210 mm platform · 66 half-cut cells",
+            power: "720 W",
+            finish: "Standard bifacial · 710 – 730 W power range",
             imageAlt:
-              "Standard bifacial solar module, 715 to 735 watts, with large 210 mm cells and a silver frame",
+              "Standard bifacial solar module, 710 to 730 watts, with large 210 mm cells, shown from the front and the rear",
             specs: [
-              { label: "Power range", value: "715 – 735 W" },
-              { label: "Max. module efficiency", value: "23.66 %" },
-              { label: "Cell technology", value: "N-type TOPCon · 132 half-cut (6×22) · 210 mm cells" },
+              { label: "Power range", value: "710 – 730 W · 5 power bins" },
+              { label: "Max. module efficiency", value: "23.50 %" },
+              { label: "Cell technology", value: "N-type TOPCon · 132 half-cut (6×22) · 210 × 105 mm cells" },
               { label: "Module dimensions", value: "2384 × 1303 × 33 mm" },
               { label: "Weight", value: "37.5 kg" },
             ],
@@ -503,32 +516,32 @@ export const moduleSpecs: Record<
       {
         name: "All-black solar modules",
         intro:
-          "One residential platform in two rear-grid finishes. The fully black grid gives a uniform dark appearance; the white grid returns one power bin.",
+          "Two all-black modules — black frame and black ceramic rear grid — for residential roofs where a uniform dark appearance matters.",
         variants: [
           {
-            power: "425 – 445 W",
-            finish: "All-black rear grid · 182 mm platform",
+            power: "450 W",
+            finish: "All-black finish · 440 – 465 W power range",
             imageAlt:
-              "All-black bifacial solar module, 425 to 445 watts, with black cells and frame and no visible grid lines",
+              "All-black bifacial solar module, 440 to 465 watts, with black cells and frame, shown from the front and the rear",
             specs: [
-              { label: "Power range", value: "425 – 445 W" },
-              { label: "Max. module efficiency", value: "22.79 %" },
-              { label: "Cell technology", value: "N-type TOPCon · 108 half-cut (6×18)" },
-              { label: "Module dimensions", value: "1722 × 1134 × 30 mm" },
-              { label: "Weight", value: "24.0 kg" },
+              { label: "Power range", value: "440 – 465 W · 6 power bins" },
+              { label: "Max. module efficiency", value: "23.27 %" },
+              { label: "Cell technology", value: "N-type TOPCon · 96 half-cut (6×16) · 182 × 105 mm cells" },
+              { label: "Module dimensions", value: "1762 × 1134 × 30 mm" },
+              { label: "Weight", value: "24.5 kg" },
             ],
           },
           {
-            power: "430 – 450 W",
-            finish: "White rear grid · 182 mm platform",
+            power: "500 W",
+            finish: "All-black finish · 490 – 510 W power range",
             imageAlt:
-              "Bifacial solar module, 430 to 450 watts, with white grid lines and a silver frame",
+              "All-black bifacial solar module, 490 to 510 watts, with black cells and frame, shown from the front and the rear",
             specs: [
-              { label: "Power range", value: "430 – 450 W" },
-              { label: "Max. module efficiency", value: "23.04 %" },
-              { label: "Cell technology", value: "N-type TOPCon · 108 half-cut (6×18)" },
-              { label: "Module dimensions", value: "1722 × 1134 × 30 mm" },
-              { label: "Weight", value: "24.0 kg" },
+              { label: "Power range", value: "490 – 510 W · 5 power bins" },
+              { label: "Max. module efficiency", value: "22.93 %" },
+              { label: "Cell technology", value: "N-type TOPCon · 108 half-cut (6×18) · 182 × 105 mm cells" },
+              { label: "Module dimensions", value: "1961 × 1134 × 30 mm" },
+              { label: "Weight", value: "27 kg" },
             ],
           },
         ],
@@ -539,36 +552,36 @@ export const moduleSpecs: Record<
     eyebrow: "Módulos solares",
     title: "Datos técnicos de nuestros módulos solares",
     subtitle:
-      "Cuatro tipos de módulo en dos grupos de producto: módulos estándar de alta potencia para instalaciones industriales y comerciales, y una plataforma residencial con acabado all-black.",
-    note: "Certificaciones: IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. Garantía de potencia lineal de 30 años: menos del 1,0 % el primer año y 0,40 % anual o menos a partir del segundo. Datos tomados de las fichas del fabricante y sujetos a cambios: confirme el bin de potencia exacto antes de pedir.",
+      "Cuatro tipos de módulo en dos grupos de producto: dos módulos estándar de alta potencia para instalaciones industriales y comerciales, y dos módulos all-black para tejados donde importa un aspecto oscuro uniforme.",
+    note: "Certificaciones: ISO 9001:2015, ISO 14001:2015, ISO 45001:2018, IEC 62941:2019, IEC 61215:2021 e IEC 61730:2023. Garantía de producto de 12 años y garantía de potencia lineal de 30 años: menos del 1,0 % el primer año y 0,40 % anual o menos a partir del segundo. Datos tomados de las fichas del fabricante y sujetos a cambios: cada tipo se suministra en varios bins de potencia, confirme el bin exacto antes de pedir. La ficha completa —tensión y corriente por bin, datos NMOT, ganancias bifaciales, coeficientes de temperatura y embalaje— está disponible a petición.",
     groups: [
       {
         name: "Módulos solares estándar",
         intro:
-          "Dos clases de potencia en plataformas distintas, ambas TOPCon tipo N bifaciales con rejilla cerámica blanca y la misma garantía de potencia lineal de 30 años.",
+          "Dos clases de potencia en plataformas de células distintas, ambas TOPCon tipo N bifaciales con rejilla cerámica blanca y la misma garantía de potencia lineal de 30 años.",
         variants: [
           {
-            power: "630 – 650 W",
-            finish: "Plataforma de 182 mm · 78 medias células",
+            power: "630 W",
+            finish: "Bifacial estándar · rango de potencia 615 – 640 W",
             imageAlt:
-              "Módulo solar bifacial estándar, de 630 a 650 vatios, con líneas de rejilla blancas y marco plateado",
+              "Módulo solar bifacial estándar, de 615 a 640 vatios, visto por delante y por detrás, con líneas de rejilla blancas y marco plateado",
             specs: [
-              { label: "Rango de potencia", value: "630 – 650 W" },
-              { label: "Eficiencia máxima del módulo", value: "23,25 %" },
-              { label: "Tecnología de células", value: "TOPCon tipo N · 156 medias células (6×26)" },
-              { label: "Dimensiones del módulo", value: "2465 × 1134 × 30 mm" },
-              { label: "Peso", value: "34,5 kg" },
+              { label: "Rango de potencia", value: "615 – 640 W · 6 bins de potencia" },
+              { label: "Eficiencia máxima del módulo", value: "23,69 %" },
+              { label: "Tecnología de células", value: "TOPCon tipo N · 132 medias células (6×22) · células de 182 × 105 mm" },
+              { label: "Dimensiones del módulo", value: "2382 × 1134 × 30 mm" },
+              { label: "Peso", value: "32,5 kg" },
             ],
           },
           {
-            power: "715 – 735 W",
-            finish: "Plataforma de 210 mm · 66 medias células",
+            power: "720 W",
+            finish: "Bifacial estándar · rango de potencia 710 – 730 W",
             imageAlt:
-              "Módulo solar bifacial estándar, de 715 a 735 vatios, con células grandes de 210 mm y marco plateado",
+              "Módulo solar bifacial estándar, de 710 a 730 vatios, con células grandes de 210 mm, visto por delante y por detrás",
             specs: [
-              { label: "Rango de potencia", value: "715 – 735 W" },
-              { label: "Eficiencia máxima del módulo", value: "23,66 %" },
-              { label: "Tecnología de células", value: "TOPCon tipo N · 132 medias células (6×22) · células de 210 mm" },
+              { label: "Rango de potencia", value: "710 – 730 W · 5 bins de potencia" },
+              { label: "Eficiencia máxima del módulo", value: "23,50 %" },
+              { label: "Tecnología de células", value: "TOPCon tipo N · 132 medias células (6×22) · células de 210 × 105 mm" },
               { label: "Dimensiones del módulo", value: "2384 × 1303 × 33 mm" },
               { label: "Peso", value: "37,5 kg" },
             ],
@@ -578,32 +591,32 @@ export const moduleSpecs: Record<
       {
         name: "Módulos solares all-black",
         intro:
-          "Una plataforma residencial con dos acabados de rejilla posterior. La rejilla totalmente negra da un aspecto oscuro uniforme; la blanca devuelve un escalón de potencia.",
+          "Dos módulos all-black —marco negro y rejilla cerámica posterior negra— para tejados residenciales donde importa un aspecto oscuro uniforme.",
         variants: [
           {
-            power: "425 – 445 W",
-            finish: "Rejilla posterior negra · plataforma de 182 mm",
+            power: "450 W",
+            finish: "Acabado all-black · rango de potencia 440 – 465 W",
             imageAlt:
-              "Módulo solar bifacial all-black, de 425 a 445 vatios, con células y marco negros y sin líneas de rejilla visibles",
+              "Módulo solar bifacial all-black, de 440 a 465 vatios, con células y marco negros, visto por delante y por detrás",
             specs: [
-              { label: "Rango de potencia", value: "425 – 445 W" },
-              { label: "Eficiencia máxima del módulo", value: "22,79 %" },
-              { label: "Tecnología de células", value: "TOPCon tipo N · 108 medias células (6×18)" },
-              { label: "Dimensiones del módulo", value: "1722 × 1134 × 30 mm" },
-              { label: "Peso", value: "24,0 kg" },
+              { label: "Rango de potencia", value: "440 – 465 W · 6 bins de potencia" },
+              { label: "Eficiencia máxima del módulo", value: "23,27 %" },
+              { label: "Tecnología de células", value: "TOPCon tipo N · 96 medias células (6×16) · células de 182 × 105 mm" },
+              { label: "Dimensiones del módulo", value: "1762 × 1134 × 30 mm" },
+              { label: "Peso", value: "24,5 kg" },
             ],
           },
           {
-            power: "430 – 450 W",
-            finish: "Rejilla posterior blanca · plataforma de 182 mm",
+            power: "500 W",
+            finish: "Acabado all-black · rango de potencia 490 – 510 W",
             imageAlt:
-              "Módulo solar bifacial, de 430 a 450 vatios, con líneas de rejilla blancas y marco plateado",
+              "Módulo solar bifacial all-black, de 490 a 510 vatios, con células y marco negros, visto por delante y por detrás",
             specs: [
-              { label: "Rango de potencia", value: "430 – 450 W" },
-              { label: "Eficiencia máxima del módulo", value: "23,04 %" },
-              { label: "Tecnología de células", value: "TOPCon tipo N · 108 medias células (6×18)" },
-              { label: "Dimensiones del módulo", value: "1722 × 1134 × 30 mm" },
-              { label: "Peso", value: "24,0 kg" },
+              { label: "Rango de potencia", value: "490 – 510 W · 5 bins de potencia" },
+              { label: "Eficiencia máxima del módulo", value: "22,93 %" },
+              { label: "Tecnología de células", value: "TOPCon tipo N · 108 medias células (6×18) · células de 182 × 105 mm" },
+              { label: "Dimensiones del módulo", value: "1961 × 1134 × 30 mm" },
+              { label: "Peso", value: "27 kg" },
             ],
           },
         ],
@@ -614,36 +627,36 @@ export const moduleSpecs: Record<
     eyebrow: "Modules solaires",
     title: "Données techniques de nos modules solaires",
     subtitle:
-      "Quatre types de modules en deux groupes de produits : des modules standard de forte puissance pour les installations industrielles et commerciales, et une plateforme résidentielle déclinée en finition tout noir.",
-    note: "Certifications : IEC 61215, IEC 61730, ISO 9001 / 14001 / 45001. Garantie de puissance linéaire de 30 ans : moins de 1,0 % la première année, puis 0,40 % par an au maximum. Données issues des fiches du fabricant et susceptibles d’évoluer : confirmez le bin de puissance exact avant commande.",
+      "Quatre types de modules en deux groupes de produits : deux modules standard de forte puissance pour les installations industrielles et commerciales, et deux modules tout noirs pour les toitures où un aspect sombre uniforme compte.",
+    note: "Certifications : ISO 9001:2015, ISO 14001:2015, ISO 45001:2018, IEC 62941:2019, IEC 61215:2021 et IEC 61730:2023. Garantie produit de 12 ans et garantie de puissance linéaire de 30 ans : moins de 1,0 % la première année, puis 0,40 % par an au maximum. Données issues des fiches du fabricant et susceptibles d’évoluer : chaque type est livré en plusieurs bins de puissance, confirmez le bin exact avant commande. La fiche complète — tension et courant par bin, données NMOT, gains bifaciaux, coefficients de température et conditionnement — est disponible sur demande.",
     groups: [
       {
         name: "Modules solaires standard",
         intro:
-          "Deux classes de puissance sur des plateformes différentes, toutes deux TOPCon de type N bifaciales avec une grille céramique blanche et la même garantie de puissance linéaire de 30 ans.",
+          "Deux classes de puissance sur des plateformes de cellules différentes, toutes deux TOPCon de type N bifaciales avec une grille céramique blanche et la même garantie de puissance linéaire de 30 ans.",
         variants: [
           {
-            power: "630 – 650 W",
-            finish: "Plateforme 182 mm · 78 demi-cellules",
+            power: "630 W",
+            finish: "Bifacial standard · plage de puissance 615 – 640 W",
             imageAlt:
-              "Module solaire bifacial standard, de 630 à 650 watts, à lignes de grille blanches et cadre argenté",
+              "Module solaire bifacial standard, de 615 à 640 watts, vu de face et de dos, à lignes de grille blanches et cadre argenté",
             specs: [
-              { label: "Plage de puissance", value: "630 – 650 W" },
-              { label: "Rendement maximal du module", value: "23,25 %" },
-              { label: "Technologie des cellules", value: "TOPCon de type N · 156 demi-cellules (6×26)" },
-              { label: "Dimensions du module", value: "2465 × 1134 × 30 mm" },
-              { label: "Poids", value: "34,5 kg" },
+              { label: "Plage de puissance", value: "615 – 640 W · 6 bins de puissance" },
+              { label: "Rendement maximal du module", value: "23,69 %" },
+              { label: "Technologie des cellules", value: "TOPCon de type N · 132 demi-cellules (6×22) · cellules 182 × 105 mm" },
+              { label: "Dimensions du module", value: "2382 × 1134 × 30 mm" },
+              { label: "Poids", value: "32,5 kg" },
             ],
           },
           {
-            power: "715 – 735 W",
-            finish: "Plateforme 210 mm · 66 demi-cellules",
+            power: "720 W",
+            finish: "Bifacial standard · plage de puissance 710 – 730 W",
             imageAlt:
-              "Module solaire bifacial standard, de 715 à 735 watts, à grandes cellules 210 mm et cadre argenté",
+              "Module solaire bifacial standard, de 710 à 730 watts, à grandes cellules 210 mm, vu de face et de dos",
             specs: [
-              { label: "Plage de puissance", value: "715 – 735 W" },
-              { label: "Rendement maximal du module", value: "23,66 %" },
-              { label: "Technologie des cellules", value: "TOPCon de type N · 132 demi-cellules (6×22) · cellules 210 mm" },
+              { label: "Plage de puissance", value: "710 – 730 W · 5 bins de puissance" },
+              { label: "Rendement maximal du module", value: "23,50 %" },
+              { label: "Technologie des cellules", value: "TOPCon de type N · 132 demi-cellules (6×22) · cellules 210 × 105 mm" },
               { label: "Dimensions du module", value: "2384 × 1303 × 33 mm" },
               { label: "Poids", value: "37,5 kg" },
             ],
@@ -653,32 +666,32 @@ export const moduleSpecs: Record<
       {
         name: "Modules solaires entièrement noirs",
         intro:
-          "Une plateforme résidentielle en deux finitions de grille arrière. La grille entièrement noire donne un aspect sombre uniforme ; la blanche rend un cran de puissance.",
+          "Deux modules entièrement noirs — cadre noir et grille céramique arrière noire — pour les toitures résidentielles où un aspect sombre uniforme compte.",
         variants: [
           {
-            power: "425 – 445 W",
-            finish: "Grille arrière noire · plateforme 182 mm",
+            power: "450 W",
+            finish: "Finition tout noir · plage de puissance 440 – 465 W",
             imageAlt:
-              "Module solaire bifacial entièrement noir, de 425 à 445 watts, cellules et cadre noirs, sans lignes de grille visibles",
+              "Module solaire bifacial entièrement noir, de 440 à 465 watts, cellules et cadre noirs, vu de face et de dos",
             specs: [
-              { label: "Plage de puissance", value: "425 – 445 W" },
-              { label: "Rendement maximal du module", value: "22,79 %" },
-              { label: "Technologie des cellules", value: "TOPCon de type N · 108 demi-cellules (6×18)" },
-              { label: "Dimensions du module", value: "1722 × 1134 × 30 mm" },
-              { label: "Poids", value: "24,0 kg" },
+              { label: "Plage de puissance", value: "440 – 465 W · 6 bins de puissance" },
+              { label: "Rendement maximal du module", value: "23,27 %" },
+              { label: "Technologie des cellules", value: "TOPCon de type N · 96 demi-cellules (6×16) · cellules 182 × 105 mm" },
+              { label: "Dimensions du module", value: "1762 × 1134 × 30 mm" },
+              { label: "Poids", value: "24,5 kg" },
             ],
           },
           {
-            power: "430 – 450 W",
-            finish: "Grille arrière blanche · plateforme 182 mm",
+            power: "500 W",
+            finish: "Finition tout noir · plage de puissance 490 – 510 W",
             imageAlt:
-              "Module solaire bifacial, de 430 à 450 watts, à lignes de grille blanches et cadre argenté",
+              "Module solaire bifacial entièrement noir, de 490 à 510 watts, cellules et cadre noirs, vu de face et de dos",
             specs: [
-              { label: "Plage de puissance", value: "430 – 450 W" },
-              { label: "Rendement maximal du module", value: "23,04 %" },
-              { label: "Technologie des cellules", value: "TOPCon de type N · 108 demi-cellules (6×18)" },
-              { label: "Dimensions du module", value: "1722 × 1134 × 30 mm" },
-              { label: "Poids", value: "24,0 kg" },
+              { label: "Plage de puissance", value: "490 – 510 W · 5 bins de puissance" },
+              { label: "Rendement maximal du module", value: "22,93 %" },
+              { label: "Technologie des cellules", value: "TOPCon de type N · 108 demi-cellules (6×18) · cellules 182 × 105 mm" },
+              { label: "Dimensions du module", value: "1961 × 1134 × 30 mm" },
+              { label: "Poids", value: "27 kg" },
             ],
           },
         ],

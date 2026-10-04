@@ -16,9 +16,14 @@ import pageMeta from "@/data/pageMeta.json";
  * moduleSpecs. Kept here rather than in the translated content because an image is
  * the same in every language.
  */
+/*
+ * Product shots for the module page, in the same order as moduleSpecs' groups and
+ * variants (standard 630 W / 720 W, then all-black 450 W / 500 W). The lookup is
+ * positional, so a new variant has to be added here as well.
+ */
 const moduleImages = [
-  [assets.module630, assets.module715],
-  [assets.module425, assets.module430],
+  [assets.module615, assets.module710],
+  [assets.module440, assets.module490],
 ];
 import {
   ArrowRight,

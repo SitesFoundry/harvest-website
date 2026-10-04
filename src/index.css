@@ -1689,6 +1689,16 @@
 .module-spec-media img {
   position: absolute;
   inset: 1rem;
+  /*
+   * The box has to be stated, or object-fit does nothing. An absolutely
+   * positioned replaced element with auto width and height takes its size from
+   * the image's own aspect ratio, not from `inset` — a portrait shot then came
+   * out 636px tall inside a 400px well and was silently cut off by
+   * overflow: hidden. Every structural check still passed, because clipping
+   * changes neither the document height nor the element's reported box.
+   */
+  width: calc(100% - 2rem);
+  height: calc(100% - 2rem);
   object-fit: contain;
 }
 
