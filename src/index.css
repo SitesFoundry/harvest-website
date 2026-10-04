@@ -535,14 +535,33 @@
     margin: 1.5rem 0;
   }
 
-  .mini-list span,
-  .product-card li,
+  .mini-list a,
+  .product-card li a,
   .contact-details p,
   .contact-details a,
   .email-safe {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /*
+   * Product names in the overview and on the home page are links now (see
+   * siteContent.ts, `categories`). They read as body text and take the accent
+   * colour only on hover, so a card does not turn into a wall of coloured text —
+   * while the whole name, icon included, stays clickable.
+   */
+  .mini-list a:hover,
+  .mini-list a:focus-visible,
+  .product-card li a:hover,
+  .product-card li a:focus-visible,
+  .product-card h3 a:hover,
+  .product-card h3 a:focus-visible {
+    color: #0d6b54;
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
   }
 
   .ai-feature {
@@ -1783,21 +1802,13 @@
 
 /* Link from the products overview to the module page. The grid above carries a
    5rem bottom padding, so this pulls up into that gap rather than adding to it. */
-.product-more {
-  margin: -3.6rem 0 3.5rem;
-}
-
-.product-more a {
-  border-bottom: 2px solid rgba(13, 107, 84, 0.25);
-  padding-bottom: 0.15rem;
-  color: #0d6b54;
-  font-weight: 800;
-  text-decoration: none;
-}
-
-.product-more a:hover,
-.product-more a:focus-visible {
-  border-bottom-color: #0d6b54;
+/*
+ * The module page's two groups carry anchor ids, because the products overview
+ * links into them ("Standard solar modules" / "All-black solar modules"). The site
+ * header is sticky, so an anchored group has to clear it.
+ */
+.module-group {
+  scroll-margin-top: 6.5rem;
 }
 
 /* ==========================================================================

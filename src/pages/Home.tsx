@@ -25,6 +25,17 @@ const moduleImages = [
   [assets.module615, assets.module710],
   [assets.module440, assets.module490],
 ];
+
+/*
+ * Anchor ids for the groups of the module page, in the same order as moduleSpecs'
+ * groups. Language-independent on purpose: the three languages share one URL, so
+ * these ids must not be translated, or a link would land nowhere after a language
+ * switch.
+ *
+ * They are what /products/ links to ("Standard solar modules" and "All-black
+ * solar modules" point at the group, not at the top of the page).
+ */
+const moduleGroupIds = ["standard", "all-black"];
 import {
   ArrowRight,
   BadgeCheck,
@@ -322,8 +333,11 @@ function HomeContent({ languageBundle }: { languageBundle: ReturnType<typeof use
             <h2 id="solution-title">{t.products.solarTitle}</h2>
             <p>{t.products.subtitle}</p>
             <div className="mini-list">
-              {t.products.categories.slice(0, 4).map((category) => (
-                <span key={category.group}><CheckCircle2 className="h-4 w-4" />{category.group}</span>
+              {t.products.categories.map((category) => (
+                <Link key={category.group} href={category.href}>
+                  <CheckCircle2 className="h-4 w-4" />
+                  {category.group}
+                </Link>
               ))}
             </div>
             <Button asChild variant="outline" className="rounded-full border-[#0d2b28] text-[#0d2b28] hover:bg-[#efe4c8]">
@@ -400,10 +414,12 @@ function ProductsContent({ languageBundle }: { languageBundle: ReturnType<typeof
             return (
               <article className="product-card" key={category.group}>
                 <span className="icon-pill"><Icon className="h-5 w-5" /></span>
-                <h3>{category.group}</h3>
+                <h3><Link href={category.href}>{category.group}</Link></h3>
                 <ul>
                   {category.items.map((item) => (
-                    <li key={item}><CheckCircle2 className="h-4 w-4" />{item}</li>
+                    <li key={item.label}>
+                      <Link href={item.href}><CheckCircle2 className="h-4 w-4" />{item.label}</Link>
+                    </li>
                   ))}
                 </ul>
               </article>
@@ -411,12 +427,9 @@ function ProductsContent({ languageBundle }: { languageBundle: ReturnType<typeof
           })}
         </div>
 
-        {/* The module data lives on its own page; the nav submenu and this link
-            are how a visitor gets there from the overview. Kept inside the
-            section so it inherits the container's padding. */}
-        <p className="product-more">
-          <Link href="/products/solar-modules/">{t.products.modulesLink}</Link>
-        </p>
+        {/* Every product name above is its own link, so the one link that used to
+            sit here — "technical data for our solar modules" — was a second door
+            to the same page. It is gone; the cards carry the doors now. */}
       </section>
 
       <section className="container ai-solution-panel" aria-labelledby="ai-solutions-title">
@@ -582,7 +595,7 @@ function SolarModulesContent({ languageBundle }: { languageBundle: ReturnType<ty
       />
       <section className="container module-specs-section">
         {modules.groups.map((group, groupIndex) => (
-          <div className="module-group" key={group.name}>
+          <div className="module-group" id={moduleGroupIds[groupIndex]} key={group.name}>
             <div className="section-heading">
               <h2>{group.name}</h2>
               <p className="section-subtitle">{group.intro}</p>

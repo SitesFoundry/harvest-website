@@ -168,14 +168,55 @@ export const content = {
       subtitle:
         "A focused portfolio covering solar generation, inverter systems, compact storage, installation accessories and AI-enabled control solutions.",
       solarTitle: "Solar System Portfolio",
-      /* Label for the link from the products overview to the module page. */
-      modulesLink: "Technical data for our solar modules",
       aiTitle: "AI Smart Control Solutions",
+      /*
+       * The catalogue as the products overview shows it — and the reason its pages
+       * are reachable at all: every entry is a link to the page that carries that
+       * product. There used to be one link at the bottom of the overview, which
+       * left the product names themselves dead text.
+       *
+       * The two module groups point into the module page by anchor, because one
+       * page holds both: they are one product family in two finishes, and
+       * splitting them would split one datasheet across two pages.
+       *
+       * hrefs are written the way the router wants them — leading slash, no
+       * deployment prefix. <Link> adds the prefix. A prefixed path here would work
+       * at the domain root and 404 under the sub-path preview, which is the trap
+       * src/lib/asset.ts exists for.
+       */
       categories: [
-        { group: "Solar Modules", items: ["Standard solar modules", "All-black solar modules", "Flexible solar modules", "Foldable solar modules"] },
-        { group: "Inverters", items: ["Off-grid inverters", "Hybrid inverters"] },
-        { group: "ESS", items: ["Portable power banks", "Home energy storage systems"] },
-        { group: "System Accessories", items: ["FRP composite solar module frames", "PV cables and MC4 connectors"] },
+        {
+          group: "Solar Modules",
+          href: "/products/solar-modules/",
+          items: [
+            { label: "Standard solar modules", href: "/products/solar-modules/#standard" },
+            { label: "All-black solar modules", href: "/products/solar-modules/#all-black" },
+          ],
+        },
+        {
+          group: "Inverters",
+          href: "/products/inverters/",
+          items: [
+            { label: "Off-grid inverters", href: "/products/inverters/" },
+            { label: "Hybrid inverters", href: "/products/inverters/" },
+          ],
+        },
+        {
+          group: "ESS",
+          href: "/products/ess/",
+          items: [
+            { label: "Portable power banks", href: "/products/ess/" },
+            { label: "Home energy storage systems", href: "/products/ess/" },
+          ],
+        },
+        {
+          group: "System Accessories",
+          href: "/products/system-accessories/",
+          items: [
+            { label: "FRP composite solar module frames", href: "/products/system-accessories/" },
+            { label: "PV cables and MC4 connectors", href: "/products/system-accessories/" },
+          ],
+        },
       ],
       aiItems: [
         { title: "Self-developed AI energy-saving products", text: "Intelligent control logic designed for practical energy efficiency and remote visibility." },
@@ -283,13 +324,40 @@ export const content = {
       title: "Productos y soluciones energéticas inteligentes",
       subtitle: "Una cartera enfocada en generación solar, inversores, almacenamiento compacto, accesorios e inteligencia de control con IA.",
       solarTitle: "Portafolio de sistemas solares",
-      modulesLink: "Datos técnicos de nuestros módulos solares",
       aiTitle: "Soluciones de control inteligente con IA",
       categories: [
-        { group: "Módulos solares", items: ["Módulos solares estándar", "Módulos solares all-black", "Módulos solares flexibles", "Módulos solares plegables"] },
-        { group: "Inversores", items: ["Inversores fuera de red", "Inversores híbridos"] },
-        { group: "ESS", items: ["Baterías portátiles", "Sistemas domésticos de almacenamiento"] },
-        { group: "Accesorios", items: ["Marcos compuestos FRP", "Cables FV y conectores MC4"] },
+        {
+          group: "Módulos solares",
+          href: "/products/solar-modules/",
+          items: [
+            { label: "Módulos solares estándar", href: "/products/solar-modules/#standard" },
+            { label: "Módulos solares all-black", href: "/products/solar-modules/#all-black" },
+          ],
+        },
+        {
+          group: "Inversores",
+          href: "/products/inverters/",
+          items: [
+            { label: "Inversores fuera de red", href: "/products/inverters/" },
+            { label: "Inversores híbridos", href: "/products/inverters/" },
+          ],
+        },
+        {
+          group: "ESS",
+          href: "/products/ess/",
+          items: [
+            { label: "Baterías portátiles", href: "/products/ess/" },
+            { label: "Sistemas domésticos de almacenamiento", href: "/products/ess/" },
+          ],
+        },
+        {
+          group: "Accesorios",
+          href: "/products/system-accessories/",
+          items: [
+            { label: "Marcos compuestos FRP", href: "/products/system-accessories/" },
+            { label: "Cables FV y conectores MC4", href: "/products/system-accessories/" },
+          ],
+        },
       ],
       aiItems: [
         { title: "Productos propios de ahorro energético con IA", text: "Lógica inteligente para eficiencia práctica y visibilidad remota." },
@@ -390,13 +458,40 @@ export const content = {
       title: "Produits et solutions énergétiques intelligentes",
       subtitle: "Un portefeuille ciblé couvrant génération solaire, onduleurs, stockage, accessoires et contrôle intelligent par IA.",
       solarTitle: "Portefeuille de systèmes solaires",
-      modulesLink: "Données techniques de nos modules solaires",
       aiTitle: "Solutions de contrôle intelligent IA",
       categories: [
-        { group: "Modules solaires", items: ["Modules solaires standard", "Modules solaires entièrement noirs", "Modules solaires flexibles", "Modules solaires pliables"] },
-        { group: "Onduleurs", items: ["Onduleurs hors réseau", "Onduleurs hybrides"] },
-        { group: "ESS", items: ["Batteries portables", "Systèmes domestiques de stockage"] },
-        { group: "Accessoires", items: ["Cadres composites FRP", "Câbles PV et connecteurs MC4"] },
+        {
+          group: "Modules solaires",
+          href: "/products/solar-modules/",
+          items: [
+            { label: "Modules solaires standard", href: "/products/solar-modules/#standard" },
+            { label: "Modules solaires entièrement noirs", href: "/products/solar-modules/#all-black" },
+          ],
+        },
+        {
+          group: "Onduleurs",
+          href: "/products/inverters/",
+          items: [
+            { label: "Onduleurs hors réseau", href: "/products/inverters/" },
+            { label: "Onduleurs hybrides", href: "/products/inverters/" },
+          ],
+        },
+        {
+          group: "ESS",
+          href: "/products/ess/",
+          items: [
+            { label: "Batteries portables", href: "/products/ess/" },
+            { label: "Systèmes domestiques de stockage", href: "/products/ess/" },
+          ],
+        },
+        {
+          group: "Accessoires",
+          href: "/products/system-accessories/",
+          items: [
+            { label: "Cadres composites FRP", href: "/products/system-accessories/" },
+            { label: "Câbles PV et connecteurs MC4", href: "/products/system-accessories/" },
+          ],
+        },
       ],
       aiItems: [
         { title: "Produits IA d’économie d’énergie développés en interne", text: "Logique de contrôle intelligente pour une efficacité pratique et une visibilité à distance." },
