@@ -177,7 +177,7 @@ family, loaded both from `index.html` and an `@import` in `src/index.css`. Every
 visitor's IP reaches Google. Self-hosting the font files would remove it; see
 HANDOFF.md.
 
-Everything else is same-origin: six images in `public/images/`, plus
+Everything else is same-origin: every image in `public/images/`, plus
 `favicon.png`, `favicon.ico` and `manifest.webmanifest`, which the Manus host
 used to supply and are now repository files.
 
@@ -202,10 +202,10 @@ src/components/                ErrorBoundary, LanguageSwitcher, ui/* (button,
 src/contexts/ThemeContext.tsx  light/dark provider (light only in use)
 src/hooks/                     useComposition, usePersistFn
 scripts/postbuild.mjs          completes and asserts dist/; writes route pages
-public/images/                 the fourteen images the site ships: six brand
-                               visuals, four module product shots and four
-                               category product shots, all extracted from the
-                               manufacturer's datasheets
+public/images/                 the fifteen images the site ships: six brand
+                               visuals, four module product shots and five
+                               product shots for the category pages, all taken
+                               from the manufacturer's datasheets
 ```
 
 The module range has its own page, `/products/solar-modules/`, reached from a
@@ -248,20 +248,40 @@ there is no separate "more" link, because the names are the links.
 
 They share one component, and each renders a
 hero, an introductory paragraph and a group of product cards. A card shows a
-photograph when one exists, and a specification table only when the card carries
-rows — so a card without a confirmed datasheet reads as a product name instead
-of as a table of blanks. Adding rows in `src/lib/siteContent.ts` makes the table
-appear; no component change is needed.
+photograph when one exists; it shows a description, a feature list and a
+specification table when the material carries them, and a name alone when it
+carries none — so a card without a confirmed datasheet reads as a product name
+rather than as a heading over empty rows. Adding those blocks in
+`src/lib/siteContent.ts` makes them appear; no component change is needed.
 
 | Page | Cards |
 | --- | --- |
 | Inverters | single-phase hybrid, three-phase hybrid, off-grid |
-| ESS & Storage | home energy storage systems, portable power banks |
+| ESS & Storage | 1 kWh portable power station, 16 kWh home battery, 261 kWh commercial and industrial cabinet |
 | System accessories | FRP composite solar module frames, PV cables and MC4 connectors |
 
 The off-grid inverters, the module frames and the cables and connectors have no
 confirmed datasheet yet, so those cards carry the product name only: no invented
 figures and no placeholder image.
+
+The storage page was rebuilt around the three units that do have datasheets, in
+order of scale — a portable station, a floor-standing home battery and an
+all-in-one cabinet for commercial and industrial sites. Each card carries the
+datasheet's own description, its four feature blocks as a list, and five key
+parameters in the same table the module page uses. Two things were left out on
+purpose: a "12% higher energy density" claim whose baseline the datasheet never
+states, and the portable unit's port table, which is printed as two columns for
+two variants and cannot be attributed to one of them.
+
+Those three units are also the only photographs that needed work beyond erasing
+the supplier's mark, because each datasheet shows a single angle and the mark
+cannot be avoided by picking another view: a Harvest wordmark replaces it, taken
+from the same solid-white file the header logo is worked from, sized and placed
+by the mark's ink weight and centre. On the home battery the wordmark sits below
+the round display instead. The erases track the panel's own shading rather than
+filling flat — see `_tools/erase-region.py` and the run notes in HANDOFF.md:
+on a long mark, both interpolation directions fail in ways that are worse than
+the mark (a hard-edged plate, or streaks where the letterforms were).
 
 ### Language is client-side, and one URL serves all three
 
