@@ -52,8 +52,23 @@ export const assets = {
    */
   inverterSinglePhase: asset("/images/hybrid-inverter-single-phase.webp"),
   inverterThreePhase: asset("/images/hybrid-inverter-three-phase.webp"),
-  homeStorage: asset("/images/home-storage-stackable.webp"),
-  portablePower: asset("/images/portable-power-station.webp"),
+  /*
+   * The three storage units took one further step than the inverters. Their
+   * datasheets show each unit from a single angle, so the supplier's mark cannot
+   * be avoided by choosing a different view: it was erased with
+   * _tools/erase-region.py and a Harvest wordmark put in its place, taken from the
+   * same solid-white file the header logo is worked from. On the home battery the
+   * wordmark sits below the round display rather than where the mark had been.
+   *
+   * The erases are interpolated between the lines just outside the box, or copied
+   * from clean panel beside the mark when the mark is large — a flat fill would
+   * show as a plate on a shaded surface. On the side panel of the commercial
+   * cabinet the mark runs next to the corner seam, so the copy starts to the right
+   * of that seam and the seam survives intact.
+   */
+  homeStorage: asset("/images/home-storage-16kwh.webp"),
+  portablePower: asset("/images/portable-power-station-1kwh.webp"),
+  commercialStorage: asset("/images/commercial-storage-261kwh.webp"),
 };
 
 export const company = {
@@ -162,8 +177,8 @@ export const content = {
       eyebrow: "Products & Solutions",
       solarEyebrow: "Solar Systems",
       aiEyebrow: "AI Intelligence",
-      essTitle: "ESS for portable and residential energy resilience",
-      essText: "Portable power bank and home storage solutions designed to complement solar generation, remote control and energy independence.",
+      essTitle: "ESS for portable, residential and commercial energy storage",
+      essText: "Portable stations, home batteries and all-in-one cabinets that complement solar generation, remote control and energy independence.",
       title: "Products and intelligent energy solutions",
       subtitle:
         "A focused portfolio covering solar generation, inverter systems, compact storage, installation accessories and AI-enabled control solutions.",
@@ -205,8 +220,9 @@ export const content = {
           group: "ESS",
           href: "/products/ess/",
           items: [
-            { label: "Portable power banks", href: "/products/ess/" },
-            { label: "Home energy storage systems", href: "/products/ess/" },
+            { label: "Portable power stations", href: "/products/ess/" },
+            { label: "Home energy storage", href: "/products/ess/" },
+            { label: "Commercial and industrial storage", href: "/products/ess/" },
           ],
         },
         {
@@ -319,8 +335,8 @@ export const content = {
       eyebrow: "Productos y soluciones",
       solarEyebrow: "Sistemas solares",
       aiEyebrow: "Inteligencia IA",
-      essTitle: "ESS para resiliencia energética portátil y residencial",
-      essText: "Baterías portátiles y soluciones domésticas de almacenamiento diseñadas para complementar la generación solar, el control remoto y la independencia energética.",
+      essTitle: "ESS para almacenamiento energético portátil, residencial y comercial",
+      essText: "Estaciones portátiles, baterías domésticas y armarios todo en uno que complementan la generación solar, el control remoto y la independencia energética.",
       title: "Productos y soluciones energéticas inteligentes",
       subtitle: "Una cartera enfocada en generación solar, inversores, almacenamiento compacto, accesorios e inteligencia de control con IA.",
       solarTitle: "Portafolio de sistemas solares",
@@ -346,8 +362,9 @@ export const content = {
           group: "ESS",
           href: "/products/ess/",
           items: [
-            { label: "Baterías portátiles", href: "/products/ess/" },
-            { label: "Sistemas domésticos de almacenamiento", href: "/products/ess/" },
+            { label: "Estaciones de energía portátiles", href: "/products/ess/" },
+            { label: "Almacenamiento doméstico", href: "/products/ess/" },
+            { label: "Almacenamiento comercial e industrial", href: "/products/ess/" },
           ],
         },
         {
@@ -453,8 +470,8 @@ export const content = {
       eyebrow: "Produits et solutions",
       solarEyebrow: "Systèmes solaires",
       aiEyebrow: "Intelligence IA",
-      essTitle: "ESS pour la résilience énergétique portable et résidentielle",
-      essText: "Solutions de batteries portables et de stockage domestique conçues pour compléter la production solaire, le contrôle à distance et l’indépendance énergétique.",
+      essTitle: "ESS pour le stockage portable, résidentiel et commercial",
+      essText: "Stations portables, batteries domestiques et armoires tout-en-un qui complètent la production solaire, le contrôle à distance et l’indépendance énergétique.",
       title: "Produits et solutions énergétiques intelligentes",
       subtitle: "Un portefeuille ciblé couvrant génération solaire, onduleurs, stockage, accessoires et contrôle intelligent par IA.",
       solarTitle: "Portefeuille de systèmes solaires",
@@ -480,8 +497,9 @@ export const content = {
           group: "ESS",
           href: "/products/ess/",
           items: [
-            { label: "Batteries portables", href: "/products/ess/" },
-            { label: "Systèmes domestiques de stockage", href: "/products/ess/" },
+            { label: "Stations d’énergie portables", href: "/products/ess/" },
+            { label: "Stockage domestique", href: "/products/ess/" },
+            { label: "Stockage commercial et industriel", href: "/products/ess/" },
           ],
         },
         {
@@ -825,6 +843,7 @@ export type ProductCardKey =
   | "offGrid"
   | "homeStorage"
   | "portablePower"
+  | "commercialStorage"
   | "moduleFrames"
   | "pvCables";
 
@@ -832,6 +851,15 @@ export type ProductCard = {
   key: ProductCardKey;
   name: string;
   imageAlt?: string;
+  /*
+   * The storage cards carry a description and a feature list taken from the
+   * datasheet's own introduction and feature blocks, then a short table of key
+   * parameters. Cards whose material is not yet confirmed carry name only, and the
+   * card renders each of these only when it is present, so no card holds open a
+   * heading with nothing under it.
+   */
+  description?: string;
+  features?: string[];
   specs?: ModuleSpecRow[];
 };
 
@@ -851,6 +879,7 @@ export const productCardImages: Partial<Record<ProductCardKey, string>> = {
   hybridThreePhase: assets.inverterThreePhase,
   homeStorage: assets.homeStorage,
   portablePower: assets.portablePower,
+  commercialStorage: assets.commercialStorage,
 };
 
 export const productLines: Record<ProductLineKey, Record<Language, ProductLine>> = {
@@ -946,27 +975,78 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
   ess: {
     en: {
       eyebrow: "ESS & Storage",
-      title: "Portable and residential energy storage",
+      title: "Portable, residential and commercial energy storage",
       subtitle:
-        "Stackable low-voltage batteries for residential solar systems, and portable power stations for outdoor work, emergency backup and travel.",
-      note: "Capacity options for both ranges, and their datasheets, are available on request.",
+        "A portable station for work away from the grid, a floor-standing battery for the home, and an all-in-one cabinet for commercial and industrial sites.",
+      note: "Datasheets for the units we supply are available on request.",
       groups: [
         {
           name: "Energy storage",
           intro:
-            "Home storage that grows from a single battery module to a multi-module bank, and portable stations that bring mains power to sites away from a fixed installation.",
+            "Three ranges, all on lithium iron phosphate cells: a portable station, a home battery that expands to 15 units in parallel, and a liquid-cooled cabinet for larger sites.",
           cards: [
             {
-              key: "homeStorage",
-              name: "Home energy storage systems",
+              key: "portablePower",
+              name: "1 kWh portable power station",
               imageAlt:
-                "Stackable home battery modules, shown as a two-module and a three-module stack",
+                "Portable power station with a carry handle, a display and AC outlets on the front",
+              description:
+                "A 1000 Wh station with 500 W of rated output, built on lithium iron phosphate cells. It runs hand tools, lights or a fridge away from the grid, and doubles as household backup. It charges from a mains socket in about two hours, or from a PV input of up to 300 W in about three hours.",
+              features: [
+                "LiFePO4 cells for safety, durability and a long cycle life.",
+                "Dual charging: mains in about 2 hours, or PV input up to 300 W in about 3 hours.",
+                "Compact body with an integrated handle, easy to carry and store.",
+                "Temperature-controlled fan: fan speed follows the load, which keeps the unit cool and extends its service life.",
+              ],
+              specs: [
+                { label: "Rated energy", value: "1000 Wh" },
+                { label: "Rated output power", value: "500 W" },
+                { label: "Battery type", value: "LiFePO4" },
+                { label: "Dimensions (L×W×H)", value: "339 × 149 × 273 mm" },
+                { label: "Weight", value: "8 kg" },
+              ],
             },
             {
-              key: "portablePower",
-              name: "Portable power banks",
+              key: "homeStorage",
+              name: "16 kWh home battery",
               imageAlt:
-                "Portable power station with a carry handle, a display and AC outlets",
+                "Floor-standing home battery cabinet with a round display, standing on castors",
+              description:
+                "One floor-standing cabinet holds 16,076.8 Wh at a nominal 51.2 V and a rated capacity of 314 Ah, with the battery management system built in. It is rated IP65, so it can stand indoors or under outdoor eaves, and up to 15 units can run in parallel for a larger bank.",
+              features: [
+                "IP65 dust and water protection, thermally stable LiFePO4 cells and fanless natural cooling; an aerosol fire suppression system is available as an option.",
+                "RS232, CAN and RS485 ports for mainstream inverters, with optional Bluetooth for app monitoring.",
+                "Free-standing on wheels, 867.5 × 500 × 230 mm and about 120 kg; the wheels are optional.",
+                "6000 cycles or more at 90% depth of discharge (25 °C, 0.5C), with 100 A recommended and 157 A maximum continuous charge or discharge current.",
+              ],
+              specs: [
+                { label: "Rated energy", value: "16,076.8 Wh" },
+                { label: "Nominal voltage", value: "51.2 V" },
+                { label: "Rated capacity", value: "314 Ah" },
+                { label: "Cycle life", value: "≥ 6000 cycles at 90% DOD" },
+                { label: "Protection class", value: "IP65" },
+              ],
+            },
+            {
+              key: "commercialStorage",
+              name: "261 kWh commercial and industrial cabinet",
+              imageAlt:
+                "Liquid-cooled commercial storage cabinet with a control panel and a vented door",
+              description:
+                "An all-in-one cabinet: battery packs, battery management, energy management, power conversion, liquid cooling and fire suppression in one enclosure. It stores 261 kWh and delivers 125 kW of three-phase AC power at 400 V on a footprint of 1.4 m². Several cabinets can be paralleled for a larger site.",
+              features: [
+                "Three levels of overcurrent protection — pack, cluster and PCS — with arc-fault detection that disconnects within milliseconds and AI cell pre-diagnosis that warns early and suppresses thermal runaway.",
+                "Cluster-level management of the AC-DC integrated design, which extends battery life by more than two years.",
+                "One cabinet covers 1.4 m², and several can be paralleled under cluster control with the capacity configured to the site.",
+                "Remote wireless operation and one-click OTA updates, with four layers of protection across cloud, network, edge and device, and service over the full life of the system.",
+              ],
+              specs: [
+                { label: "Rated energy", value: "261 kWh" },
+                { label: "Rated AC power", value: "125 kW" },
+                { label: "Dimensions (W×D×H)", value: "1000 × 1400 × 2350 mm" },
+                { label: "Weight", value: "Approx. 2200 kg" },
+                { label: "Protection rating", value: "IP55 (battery compartment)" },
+              ],
             },
           ],
         },
@@ -974,27 +1054,78 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
     },
     es: {
       eyebrow: "ESS y almacenamiento",
-      title: "Almacenamiento portátil y residencial",
+      title: "Almacenamiento portátil, residencial y comercial",
       subtitle:
-        "Baterías apilables de baja tensión para instalaciones solares residenciales y estaciones portátiles para trabajo en exteriores, respaldo de emergencia y viajes.",
-      note: "Las capacidades disponibles en ambas gamas, y sus fichas técnicas, están disponibles a petición.",
+        "Una estación portátil para trabajar lejos de la red, una batería de suelo para el hogar y un armario todo en uno para instalaciones comerciales e industriales.",
+      note: "Las fichas técnicas de los equipos que suministramos están disponibles a petición.",
       groups: [
         {
           name: "Almacenamiento de energía",
           intro:
-            "Almacenamiento doméstico que crece desde un solo módulo de batería hasta un banco de varios módulos, y estaciones portátiles que llevan corriente de red a emplazamientos sin instalación fija.",
+            "Tres gamas, todas con celdas de litio hierro fosfato: una estación portátil, una batería doméstica que se amplía hasta 15 unidades en paralelo y un armario refrigerado por líquido para instalaciones mayores.",
           cards: [
             {
-              key: "homeStorage",
-              name: "Sistemas domésticos de almacenamiento de energía",
+              key: "portablePower",
+              name: "Estación de energía portátil de 1 kWh",
               imageAlt:
-                "Módulos de batería doméstica apilables, mostrados en configuración de dos y de tres módulos",
+                "Estación de energía portátil con asa de transporte, pantalla y tomas de corriente alterna en el frontal",
+              description:
+                "Una estación de 1000 Wh con 500 W de potencia nominal, con celdas de litio hierro fosfato. Alimenta herramientas, luces o un frigorífico lejos de la red y sirve además como respaldo doméstico. Se carga desde una toma de red en unas dos horas, o desde una entrada fotovoltaica de hasta 300 W en unas tres horas.",
+              features: [
+                "Celdas LiFePO4 para seguridad, durabilidad y una larga vida de ciclos.",
+                "Doble carga: red eléctrica en unas 2 horas, o entrada FV de hasta 300 W en unas 3 horas.",
+                "Cuerpo compacto con asa integrada, fácil de transportar y guardar.",
+                "Ventilador con control de temperatura: su velocidad sigue la carga, lo que mantiene el equipo frío y alarga su vida útil.",
+              ],
+              specs: [
+                { label: "Energía nominal", value: "1000 Wh" },
+                { label: "Potencia de salida nominal", value: "500 W" },
+                { label: "Tipo de batería", value: "LiFePO4" },
+                { label: "Dimensiones (L×An×Al)", value: "339 × 149 × 273 mm" },
+                { label: "Peso", value: "8 kg" },
+              ],
             },
             {
-              key: "portablePower",
-              name: "Baterías portátiles",
+              key: "homeStorage",
+              name: "Batería doméstica de 16 kWh",
               imageAlt:
-                "Estación de energía portátil con asa de transporte, pantalla y tomas de corriente alterna",
+                "Armario de batería doméstica de suelo con pantalla circular, sobre ruedas",
+              description:
+                "Un solo armario almacena 16.076,8 Wh con 51,2 V nominales y una capacidad nominal de 314 Ah, con el sistema de gestión de batería integrado. Tiene protección IP65, por lo que puede instalarse en interior o bajo alero, y hasta 15 unidades pueden funcionar en paralelo para formar un banco mayor.",
+              features: [
+                "Protección IP65 contra polvo y agua, celdas LiFePO4 térmicamente estables y refrigeración natural sin ventilador; el sistema de extinción por aerosol es opcional.",
+                "Puertos RS232, CAN y RS485 para inversores habituales, con Bluetooth opcional para supervisión desde la aplicación.",
+                "Instalación de suelo sobre ruedas, 867,5 × 500 × 230 mm y unos 120 kg; las ruedas son opcionales.",
+                "6000 ciclos o más al 90 % de profundidad de descarga (25 °C, 0,5C), con 100 A recomendados y 157 A máximos de carga o descarga continua.",
+              ],
+              specs: [
+                { label: "Energía nominal", value: "16.076,8 Wh" },
+                { label: "Tensión nominal", value: "51,2 V" },
+                { label: "Capacidad nominal", value: "314 Ah" },
+                { label: "Vida de ciclos", value: "≥ 6000 ciclos al 90 % DOD" },
+                { label: "Grado de protección", value: "IP65" },
+              ],
+            },
+            {
+              key: "commercialStorage",
+              name: "Armario comercial e industrial de 261 kWh",
+              imageAlt:
+                "Armario de almacenamiento comercial refrigerado por líquido, con panel de control y puerta ventilada",
+              description:
+                "Un armario todo en uno: módulos de batería, gestión de batería, gestión de energía, conversión de potencia, refrigeración líquida y extinción de incendios en una sola envolvente. Almacena 261 kWh y entrega 125 kW de corriente alterna trifásica a 400 V, con una huella de 1,4 m². Varios armarios pueden conectarse en paralelo para instalaciones mayores.",
+              features: [
+                "Tres niveles de protección contra sobrecorriente —módulo, conjunto y PCS— con detección de arco que desconecta en milisegundos y prediagnóstico por IA de las celdas que avisa a tiempo y frena la fuga térmica.",
+                "Gestión a nivel de conjunto del diseño integrado CA-CC, que prolonga la vida de la batería más de dos años.",
+                "Un armario ocupa 1,4 m² y varios pueden conectarse en paralelo con control de conjunto, configurando la capacidad según la instalación.",
+                "Operación inalámbrica remota y actualizaciones OTA en un clic, con cuatro capas de protección —nube, red, borde y dispositivo— y servicio durante toda la vida del sistema.",
+              ],
+              specs: [
+                { label: "Energía nominal", value: "261 kWh" },
+                { label: "Potencia CA nominal", value: "125 kW" },
+                { label: "Dimensiones (An×Pr×Al)", value: "1000 × 1400 × 2350 mm" },
+                { label: "Peso", value: "Aprox. 2200 kg" },
+                { label: "Grado de protección", value: "IP55 (compartimento de baterías)" },
+              ],
             },
           ],
         },
@@ -1002,27 +1133,78 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
     },
     fr: {
       eyebrow: "ESS et stockage",
-      title: "Stockage portable et résidentiel",
+      title: "Stockage portable, résidentiel et commercial",
       subtitle:
-        "Des batteries empilables basse tension pour les installations solaires résidentielles et des stations portables pour le travail en extérieur, le secours d’urgence et les déplacements.",
-      note: "Les capacités disponibles dans les deux gammes, ainsi que leurs fiches techniques, sont disponibles sur demande.",
+        "Une station portable pour travailler hors réseau, une batterie au sol pour la maison et une armoire tout-en-un pour les sites commerciaux et industriels.",
+      note: "Les fiches techniques des appareils que nous fournissons sont disponibles sur demande.",
       groups: [
         {
           name: "Stockage d’énergie",
           intro:
-            "Un stockage domestique qui passe d’un seul module de batterie à un parc de plusieurs modules, et des stations portables qui apportent le courant du réseau aux sites dépourvus d’installation fixe.",
+            "Trois gammes, toutes sur cellules lithium fer phosphate : une station portable, une batterie domestique qui s’étend jusqu’à 15 unités en parallèle et une armoire refroidie par liquide pour les sites plus importants.",
           cards: [
             {
-              key: "homeStorage",
-              name: "Systèmes de stockage domestiques",
+              key: "portablePower",
+              name: "Station d’énergie portable 1 kWh",
               imageAlt:
-                "Modules de batterie domestique empilables, présentés en configuration de deux et de trois modules",
+                "Station d’énergie portable avec poignée de transport, écran et prises de courant alternatif en façade",
+              description:
+                "Une station de 1000 Wh et 500 W de puissance nominale, sur cellules lithium fer phosphate. Elle alimente outils, éclairage ou réfrigérateur hors réseau et sert aussi de secours domestique. Elle se recharge sur une prise secteur en deux heures environ, ou depuis une entrée photovoltaïque jusqu’à 300 W en trois heures environ.",
+              features: [
+                "Cellules LiFePO4 : sécurité, durabilité et longue durée de cycles.",
+                "Double charge : secteur en 2 heures environ, ou entrée PV jusqu’à 300 W en 3 heures environ.",
+                "Corps compact à poignée intégrée, facile à transporter et à ranger.",
+                "Ventilateur à régulation thermique : sa vitesse suit la charge, ce qui évite la surchauffe et prolonge la durée de vie.",
+              ],
+              specs: [
+                { label: "Énergie nominale", value: "1000 Wh" },
+                { label: "Puissance de sortie nominale", value: "500 W" },
+                { label: "Type de batterie", value: "LiFePO4" },
+                { label: "Dimensions (L×l×H)", value: "339 × 149 × 273 mm" },
+                { label: "Poids", value: "8 kg" },
+              ],
             },
             {
-              key: "portablePower",
-              name: "Batteries portables",
+              key: "homeStorage",
+              name: "Batterie domestique 16 kWh",
               imageAlt:
-                "Station d’énergie portable avec poignée de transport, écran et prises de courant alternatif",
+                "Armoire de batterie domestique au sol avec écran circulaire, sur roulettes",
+              description:
+                "Une seule armoire stocke 16 076,8 Wh sous 51,2 V nominaux avec une capacité nominale de 314 Ah, système de gestion de batterie intégré. Classée IP65, elle s’installe à l’intérieur ou sous un auvent ; jusqu’à 15 unités peuvent fonctionner en parallèle pour former un parc plus important.",
+              features: [
+                "Protection IP65 contre poussière et eau, cellules LiFePO4 thermiquement stables et refroidissement naturel sans ventilateur ; le système d’extinction par aérosol est en option.",
+                "Ports RS232, CAN et RS485 pour les onduleurs courants, Bluetooth en option pour le suivi sur application.",
+                "Pose au sol sur roulettes, 867,5 × 500 × 230 mm et environ 120 kg ; les roulettes sont en option.",
+                "6000 cycles ou plus à 90 % de profondeur de décharge (25 °C, 0,5C), avec 100 A recommandés et 157 A maximum en charge ou décharge continue.",
+              ],
+              specs: [
+                { label: "Énergie nominale", value: "16 076,8 Wh" },
+                { label: "Tension nominale", value: "51,2 V" },
+                { label: "Capacité nominale", value: "314 Ah" },
+                { label: "Durée de cycles", value: "≥ 6000 cycles à 90 % DOD" },
+                { label: "Indice de protection", value: "IP65" },
+              ],
+            },
+            {
+              key: "commercialStorage",
+              name: "Armoire commerciale et industrielle 261 kWh",
+              imageAlt:
+                "Armoire de stockage commerciale refroidie par liquide, avec panneau de commande et porte ventilée",
+              description:
+                "Une armoire tout-en-un : modules de batterie, gestion de batterie, gestion d’énergie, conversion de puissance, refroidissement liquide et extinction d’incendie dans une seule enveloppe. Elle stocke 261 kWh et fournit 125 kW en courant alternatif triphasé sous 400 V, sur une emprise de 1,4 m². Plusieurs armoires peuvent être mises en parallèle pour un site plus important.",
+              features: [
+                "Trois niveaux de protection contre les surintensités — module, grappe et PCS — avec détection d’arc coupant en quelques millisecondes et prédiagnostic des cellules par IA qui alerte tôt et limite l’emballement thermique.",
+                "Gestion au niveau de la grappe du design intégré AC-DC, qui prolonge la durée de vie de la batterie de plus de deux ans.",
+                "Une armoire occupe 1,4 m² ; plusieurs peuvent être mises en parallèle sous contrôle de grappe, la capacité étant configurée selon le site.",
+                "Exploitation sans fil à distance et mises à jour OTA en un clic, avec quatre couches de protection — cloud, réseau, périphérie et appareil — et un service sur toute la durée de vie du système.",
+              ],
+              specs: [
+                { label: "Énergie nominale", value: "261 kWh" },
+                { label: "Puissance CA nominale", value: "125 kW" },
+                { label: "Dimensions (l×P×H)", value: "1000 × 1400 × 2350 mm" },
+                { label: "Poids", value: "Env. 2200 kg" },
+                { label: "Indice de protection", value: "IP55 (compartiment batteries)" },
+              ],
             },
           ],
         },

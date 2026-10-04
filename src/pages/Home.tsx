@@ -637,15 +637,16 @@ function SolarModulesContent({ languageBundle }: { languageBundle: ReturnType<ty
 /*
  * A product category page: the hero, then one group of product cards.
  *
- * The card is the module page's card, reused class for class, with two
- * differences the material forces:
+ * The card is the module page's card, reused class for class, with the differences
+ * the material forces:
  *
  *   * Some cards have no photograph yet. The well is then not rendered at all,
  *     so the card starts at the product name instead of holding open an empty
  *     frame that reads as a broken image.
- *   * The specification table appears only when a card actually carries rows.
- *     Cards without a confirmed datasheet therefore read as a product name, not
- *     as a table full of blanks (see the note in siteContent.ts).
+ *   * A card whose datasheet is confirmed carries the datasheet's own description
+ *     and feature list, then a short table of key parameters. Cards without a
+ *     datasheet read as a product name, not as a heading over empty rows (see the
+ *     note in siteContent.ts). Each of the three is rendered only when present.
  */
 function ProductLineContent({ lineKey, languageBundle }: { lineKey: ProductLineKey; languageBundle: ReturnType<typeof useSiteLanguage> }) {
   const { language, t } = languageBundle;
@@ -678,6 +679,14 @@ function ProductLineContent({ lineKey, languageBundle }: { lineKey: ProductLineK
                       </div>
                     )}
                     <h3>{card.name}</h3>
+                    {card.description && <p className="product-line-description">{card.description}</p>}
+                    {card.features && card.features.length > 0 && (
+                      <ul className="product-line-features">
+                        {card.features.map((feature) => (
+                          <li key={feature}>{feature}</li>
+                        ))}
+                      </ul>
+                    )}
                     {card.specs && card.specs.length > 0 && (
                       <dl className="module-spec-table">
                         {card.specs.map((spec) => (
