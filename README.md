@@ -186,7 +186,8 @@ used to supply and are now repository files.
 ```
 index.html                     metadata, OG tags, structured data, fonts
 src/main.tsx                   mount
-src/App.tsx                    providers and routes; sets the wouter base
+src/App.tsx                    providers and routes; sets the wouter base, and
+                               scrolls on navigation (anchors, and back to the top)
 src/data/pageMeta.json         ★ route paths + per-language titles/descriptions
 src/lib/asset.ts               ★ applies the deployment prefix to image paths
 src/lib/form.ts                ★ contact-form delivery; holds the form id
@@ -208,8 +209,10 @@ public/images/                 the fourteen images the site ships: six brand
 ```
 
 The module range has its own page, `/products/solar-modules/`, reached from a
-submenu on Products & Solutions and from a link on the products overview. It
-covers four models in two groups:
+submenu on Products & Solutions and from the product names on the products
+overview. Those names link into the page by anchor — `#standard` and
+`#all-black` — so a click lands on the group that was asked for rather than at
+the top of a long page. It covers four models in two groups:
 
 | Group | Models |
 | --- | --- |
@@ -239,7 +242,11 @@ sections. The trailing-slash form is canonical — see "One page per route" abov
 ### The other three product pages
 
 `/products/inverters/`, `/products/ess/` and `/products/system-accessories/`
-cover the rest of the catalogue. They share one component, and each renders a
+cover the rest of the catalogue. Each name on the products overview links to the
+page that carries it, and each card's category title links to its category page;
+there is no separate "more" link, because the names are the links.
+
+They share one component, and each renders a
 hero, an introductory paragraph and a group of product cards. A card shows a
 photograph when one exists, and a specification table only when the card carries
 rows — so a card without a confirmed datasheet reads as a product name instead
