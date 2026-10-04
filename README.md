@@ -209,23 +209,27 @@ public/images/                 the fourteen images the site ships: six brand
 
 The module range has its own page, `/products/solar-modules/`, reached from a
 submenu on Products & Solutions and from a link on the products overview. It
-covers four types in two groups:
+covers four models in two groups:
 
-| Group | Types |
+| Group | Models |
 | --- | --- |
-| Standard solar modules | 630 – 650 W (182 mm platform) and 715 – 735 W (210 mm platform) |
-| All-black solar modules | 425 – 445 W (all-black rear grid) and 430 – 450 W (white rear grid) |
+| Standard solar modules | 630 W (615 – 640 W, 182 × 105 mm cells) and 720 W (710 – 730 W, 210 × 105 mm cells), white ceramic rear grid |
+| All-black solar modules | 450 W (440 – 465 W, 96 half-cut cells) and 500 W (490 – 510 W, 108 half-cut cells), black frame and black rear grid |
 
-Each type carries five specification rows: power range, maximum efficiency, cell
-technology, dimensions and weight. The standard group's two types sit on
-different platforms and so share few values; within the all-black group the two
-types are one platform in two rear-grid finishes, and the black grid costs one
-power bin.
+Each card is titled with the bin the family is named after and carries the range
+underneath, because one datasheet covers a family of bins: printing a single
+number as if it were the module's rating would be wrong, and printing only a
+range hides the bin a buyer recognises. Five key rows follow — power range, max
+module efficiency, cell technology, dimensions and weight. The per-bin voltage
+and current, NMOT data, bifacial gain tables, temperature coefficients and
+packaging counts are deliberately left out; the note offers the full datasheet on
+request.
 
 Brand and model numbers are deliberately absent — the site describes a Tier 1
 supply network without naming suppliers — and the figures come from the
 manufacturer's datasheets, so they carry a "confirm the exact power bin" note.
-The supplier's mark is absent from the product photographs for the same reason.
+The supplier's mark is absent from the product photographs for the same reason;
+in the module drawings the frames are clean to begin with.
 
 Routes are `/`, `/about/`, `/products/`, `/products/solar-modules/`,
 `/products/inverters/`, `/products/ess/`, `/products/system-accessories/` and
