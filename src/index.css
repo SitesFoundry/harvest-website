@@ -1656,6 +1656,14 @@
 
 .module-specs-section {
   padding-bottom: 5rem;
+  /*
+   * Room between the hero photograph and the first group heading. This section
+   * carried only a bottom padding, so the heading sat flush against the bottom
+   * edge of the hero image — measured at 0px, against 105–158px at the same
+   * place on /products/, /contact/ and /about/. 3rem is about one line of the
+   * heading's own type.
+   */
+  padding-top: 3rem;
 }
 
 /*
@@ -1897,6 +1905,9 @@
 
 .product-line-section {
   padding-bottom: 5rem;
+  /* Same gap as .module-specs-section, for the same reason: the first group
+     heading was touching the hero photograph. Keep the two in step. */
+  padding-top: 3rem;
 }
 
 .product-line-group + .product-line-group {
