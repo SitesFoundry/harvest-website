@@ -51,6 +51,7 @@ export const assets = {
    * supply network without naming suppliers, so the mark on the case had to go.
    */
   inverter6kw: asset("/images/hybrid-inverter-6-2kw.webp"),
+  inverter7k5to15k: asset("/images/hybrid-inverter-7-5-15kw.webp"),
   inverterThreePhase: asset("/images/hybrid-inverter-three-phase.webp"),
   /*
    * The three storage units took one further step than the inverters. Their
@@ -850,6 +851,7 @@ export const moduleSpecs: Record<
  */
 export type ProductCardKey =
   | "hybrid6kw"
+  | "hybrid7k5to15k"
   | "hybridThreePhase"
   | "offGrid"
   | "homeStorage"
@@ -888,6 +890,7 @@ export type ProductLineKey = "inverters" | "ess" | "accessories";
 /* Cards without an entry here are the ones with no confirmed material. */
 export const productCardImages: Partial<Record<ProductCardKey, string>> = {
   hybrid6kw: assets.inverter6kw,
+  hybrid7k5to15k: assets.inverter7k5to15k,
   hybridThreePhase: assets.inverterThreePhase,
   homeStorage: assets.homeStorage,
   portablePower: assets.portablePower,
@@ -907,7 +910,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
         {
           name: "Inverters",
           intro:
-            "Two hybrid platforms — single-phase for residential systems, three-phase for larger installations — and off-grid inverters for sites that run on a battery bank alone.",
+            "Three hybrid ranges — two single-phase, at 6.2 kW and from 7.5 to 15 kW, and a three-phase platform for larger installations — and off-grid inverters for sites that run on a battery bank alone.",
           cards: [
             {
               key: "hybrid6kw",
@@ -931,6 +934,26 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
               ],
             },
             {
+              key: "hybrid7k5to15k",
+              name: "On-grid 7.5–15 kW single-phase hybrid inverter",
+              imageAlt:
+                "7.5–15 kW on-grid hybrid inverter in a white wall-mounted housing, with a round display and a red isolator switch on the front",
+              /*
+               * The datasheet gives one column per model (five of them), so the
+               * four rows that differ across the range are printed as ranges and
+               * the two that do not are single values. Dimensions carry no axis
+               * letters: the source labels them (L×W×H) and the site's other rows
+               * for the same product family do not agree on a convention.
+               */
+              specs: [
+                { label: "Rated output power", value: "7499 – 15000 W" },
+                { label: "Battery voltage", value: "48 / 51.2 V" },
+                { label: "Max. PV input power", value: "12000 – 22500 W" },
+                { label: "Max. efficiency", value: "96.5 – 97.6%" },
+                { label: "Dimensions", value: "840 × 513 × 283 mm" },
+              ],
+            },
+            {
               key: "hybridThreePhase",
               name: "Three-phase hybrid inverter",
               imageAlt:
@@ -951,7 +974,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
         {
           name: "Inversores",
           intro:
-            "Dos plataformas híbridas —monofásica para instalaciones residenciales y trifásica para instalaciones mayores— e inversores fuera de red para emplazamientos que funcionan solo con banco de baterías.",
+            "Tres gamas híbridas —dos monofásicas, de 6,2 kW y de 7,5 a 15 kW, y una trifásica para instalaciones mayores— e inversores fuera de red para emplazamientos que funcionan solo con banco de baterías.",
           cards: [
             {
               key: "hybrid6kw",
@@ -964,6 +987,19 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Potencia FV máxima de entrada", value: "9000 W" },
                 { label: "Rendimiento máximo", value: "97,8 %" },
                 { label: "Dimensiones (An×Al×Pr)", value: "358 × 420 × 123 mm" },
+              ],
+            },
+            {
+              key: "hybrid7k5to15k",
+              name: "Inversor híbrido monofásico de 7,5–15 kW para conexión a red",
+              imageAlt:
+                "Inversor híbrido de 7,5–15 kW en carcasa blanca de montaje en pared, con pantalla redonda y interruptor rojo en el frontal",
+              specs: [
+                { label: "Potencia de salida nominal", value: "7499 – 15000 W" },
+                { label: "Tensión de batería", value: "48 / 51,2 V" },
+                { label: "Potencia FV máxima de entrada", value: "12000 – 22500 W" },
+                { label: "Rendimiento máximo", value: "96,5 – 97,6 %" },
+                { label: "Dimensiones", value: "840 × 513 × 283 mm" },
               ],
             },
             {
@@ -987,7 +1023,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
         {
           name: "Onduleurs",
           intro:
-            "Deux plateformes hybrides — monophasée pour le résidentiel, triphasée pour les installations plus importantes — et des onduleurs hors réseau pour les sites alimentés uniquement par un parc de batteries.",
+            "Trois gammes hybrides — deux monophasées, 6,2 kW et 7,5 à 15 kW, et une triphasée pour les installations plus importantes — et des onduleurs hors réseau pour les sites alimentés uniquement par un parc de batteries.",
           cards: [
             {
               key: "hybrid6kw",
@@ -1000,6 +1036,19 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Puissance PV maximale en entrée", value: "9000 W" },
                 { label: "Rendement maximal", value: "97,8 %" },
                 { label: "Dimensions (l×H×P)", value: "358 × 420 × 123 mm" },
+              ],
+            },
+            {
+              key: "hybrid7k5to15k",
+              name: "Onduleur hybride monophasé raccordé au réseau 7,5–15 kW",
+              imageAlt:
+                "Onduleur hybride 7,5–15 kW en boîtier blanc mural, avec écran rond et interrupteur rouge en façade",
+              specs: [
+                { label: "Puissance de sortie nominale", value: "7499 – 15000 W" },
+                { label: "Tension de batterie", value: "48 / 51,2 V" },
+                { label: "Puissance PV maximale en entrée", value: "12000 – 22500 W" },
+                { label: "Rendement maximal", value: "96,5 – 97,6 %" },
+                { label: "Dimensions", value: "840 × 513 × 283 mm" },
               ],
             },
             {
