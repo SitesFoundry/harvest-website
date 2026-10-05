@@ -162,7 +162,20 @@
 
   .site-shell {
     min-height: 100vh;
-    overflow-x: hidden;
+    /*
+     * clip, not hidden.
+     *
+     * `overflow-x: hidden` makes this element a scroll container (its overflow-y
+     * computes to auto), and a sticky child sticks to its nearest scroll
+     * container — which was this shell, a box that is exactly as tall as its
+     * content and therefore never scrolls. The header was positioned: sticky, and
+     * scrolled off the screen anyway: sticky-probe measured rect.top = -566px on
+     * the live site while the stylesheet said "sticky".
+     *
+     * `clip` still trims horizontal overflow without creating a scroll container,
+     * so the header sticks to the viewport as intended. See 02-技能手册 §1.2.
+     */
+    overflow-x: clip;
   }
 
   .site-header {
@@ -1812,7 +1825,7 @@
 }
 
 /* ==========================================================================
-   Products & Solutions submenu
+   Products submenu
 
    The parent stays a link to /products/; the submenu is added convenience, not
    the only route to the page. It opens on hover AND on focus-within so it is

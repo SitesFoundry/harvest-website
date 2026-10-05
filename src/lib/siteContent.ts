@@ -114,7 +114,7 @@ export const company = {
 
 export const content = {
   en: {
-    nav: { home: "Home", about: "About", products: "Products & Solutions", contact: "Contact" },
+    nav: { home: "Home", about: "About", products: "Products", contact: "Contact" },
     a11y: {
       homeLink: "Harvest Eco Solutions Limited home",
       logo: "Harvest Eco Solutions Limited logo",
@@ -182,7 +182,7 @@ export const content = {
         "Our experience across more than 50 countries and regions allows us to support customers with documentation, quality coordination, logistics planning and product adaptation for diverse market conditions.",
     },
     products: {
-      eyebrow: "Products & Solutions",
+      eyebrow: "Products",
       solarEyebrow: "Solar Systems",
       aiEyebrow: "AI Intelligence",
       essTitle: "BESS for portable, residential, commercial and utility-scale storage",
@@ -274,7 +274,7 @@ export const content = {
     notFound: { title: "Page not found", text: "The page you are looking for may have moved or is no longer available.", action: "Return home" },
   },
   es: {
-    nav: { home: "Inicio", about: "Nosotros", products: "Productos y soluciones", contact: "Contacto" },
+    nav: { home: "Inicio", about: "Nosotros", products: "Productos", contact: "Contacto" },
     a11y: {
       homeLink: "Inicio de Harvest Eco Solutions Limited",
       logo: "Logotipo de Harvest Eco Solutions Limited",
@@ -341,7 +341,7 @@ export const content = {
         "Nuestra experiencia en más de 50 países y regiones permite apoyar documentación, coordinación de calidad, logística y adaptación de productos para mercados diversos.",
     },
     products: {
-      eyebrow: "Productos y soluciones",
+      eyebrow: "Productos",
       solarEyebrow: "Sistemas solares",
       aiEyebrow: "Inteligencia IA",
       essTitle: "BESS para almacenamiento portátil, residencial, comercial y a gran escala",
@@ -410,7 +410,7 @@ export const content = {
     notFound: { title: "Página no encontrada", text: "La página que busca puede haber cambiado o no estar disponible.", action: "Volver al inicio" },
   },
   fr: {
-    nav: { home: "Accueil", about: "À propos", products: "Produits et solutions", contact: "Contact" },
+    nav: { home: "Accueil", about: "À propos", products: "Produits", contact: "Contact" },
     a11y: {
       homeLink: "Accueil de Harvest Eco Solutions Limited",
       logo: "Logo de Harvest Eco Solutions Limited",
@@ -477,7 +477,7 @@ export const content = {
         "Notre expérience dans plus de 50 pays et régions permet de soutenir la documentation, la qualité, la logistique et l’adaptation produit pour divers marchés.",
     },
     products: {
-      eyebrow: "Produits et solutions",
+      eyebrow: "Produits",
       solarEyebrow: "Systèmes solaires",
       aiEyebrow: "Intelligence IA",
       essTitle: "BESS pour le stockage portable, résidentiel, commercial et à grande échelle",
@@ -987,8 +987,8 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
   },
   ess: {
     en: {
-      eyebrow: "BESS & Storage",
-      title: "Portable, residential and commercial energy storage",
+      eyebrow: "BESS",
+      title: "Portable, residential, commercial and utility-scale energy storage",
       subtitle:
         "A portable station for work away from the grid, a floor-standing battery for the home, an all-in-one cabinet for commercial and industrial sites, and a containerised skid for utility scale.",
       note: "Datasheets for the units we supply are available on request.",
@@ -1087,8 +1087,8 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
       ],
     },
     es: {
-      eyebrow: "BESS y almacenamiento",
-      title: "Almacenamiento portátil, residencial y comercial",
+      eyebrow: "BESS",
+      title: "Almacenamiento portátil, residencial, comercial y a gran escala",
       subtitle:
         "Una estación portátil para trabajar lejos de la red, una batería de suelo para el hogar, un armario todo en uno para instalaciones comerciales e industriales y una plataforma en contenedor para gran escala.",
       note: "Las fichas técnicas de los equipos que suministramos están disponibles a petición.",
@@ -1187,8 +1187,8 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
       ],
     },
     fr: {
-      eyebrow: "BESS et stockage",
-      title: "Stockage portable, résidentiel et commercial",
+      eyebrow: "BESS",
+      title: "Stockage portable, résidentiel, commercial et à grande échelle",
       subtitle:
         "Une station portable pour travailler hors réseau, une batterie au sol pour la maison, une armoire tout-en-un pour les sites commerciaux et industriels, et une plateforme conteneurisée pour les sites utilitaires.",
       note: "Les fiches techniques des appareils que nous fournissons sont disponibles sur demande.",
