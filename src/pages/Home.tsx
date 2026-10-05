@@ -687,49 +687,38 @@ function ProductLineContent({ lineKey, languageBundle }: { lineKey: ProductLineK
                         ))}
                       </ul>
                     )}
-                    {card.specs && card.specs.length > 0 && (
-                      <dl className="module-spec-table">
-                        {card.specs.map((spec) => (
-                          <div className="module-spec-row" key={spec.label}>
+                    {(card.specs?.length || card.technicalData?.length) && (
+                      <dl
+                        className={
+                          "module-spec-table" + (card.technicalData?.length ? " has-tech-data" : "")
+                        }
+                      >
+                        {card.specs?.map((spec) => (
+                          <div className="module-spec-row" key={`spec-${spec.label}`}>
                             <dt>{spec.label}</dt>
                             <dd>{spec.value}</dd>
                           </div>
                         ))}
+                        {/* A heading row has no value; it is styled to span both columns. */}
+                        {card.technicalData?.map((row) =>
+                          row.value === undefined ? (
+                            <div className="module-spec-row is-group" key={`row-${row.label}`}>
+                              <dt>{row.label}</dt>
+                              <dd aria-hidden="true" />
+                            </div>
+                          ) : (
+                            <div className="module-spec-row" key={`row-${row.label}`}>
+                              <dt>{row.label}</dt>
+                              <dd>{row.value}</dd>
+                            </div>
+                          ),
+                        )}
                       </dl>
                     )}
                   </article>
                 );
               })}
             </div>
-            {group.cards.map((card) =>
-              card.technicalData ? (
-                <section className="tech-data" key={`tech-${card.key}`}>
-                  <h3>
-                    {card.technicalData.heading} — {card.name}
-                  </h3>
-                  {/*
-                   * A heading row keeps the datasheet's own grouping. It renders as a
-                   * dt plus an empty dd so the wrapper stays valid inside the dl, and
-                   * the row is styled to span both columns.
-                   */}
-                  <dl className="tech-data-table">
-                    {card.technicalData.rows.map((row) =>
-                      row.value === undefined ? (
-                        <div className="tech-data-row is-group" key={row.label}>
-                          <dt>{row.label}</dt>
-                          <dd aria-hidden="true" />
-                        </div>
-                      ) : (
-                        <div className="tech-data-row" key={row.label}>
-                          <dt>{row.label}</dt>
-                          <dd>{row.value}</dd>
-                        </div>
-                      ),
-                    )}
-                  </dl>
-                </section>
-              ) : null,
-            )}
           </div>
         ))}
         <p className="product-line-note">{line.note}</p>
