@@ -221,8 +221,8 @@ export const content = {
           group: "Inverters",
           href: "/products/inverters/",
           items: [
-            { label: "Off-grid inverters", href: "/products/inverters/" },
-            { label: "Hybrid inverters", href: "/products/inverters/" },
+            { label: "Single-phase hybrid inverters", href: "/products/inverters/" },
+            { label: "Three-phase hybrid inverters", href: "/products/inverters/" },
           ],
         },
         {
@@ -364,8 +364,8 @@ export const content = {
           group: "Inversores",
           href: "/products/inverters/",
           items: [
-            { label: "Inversores fuera de red", href: "/products/inverters/" },
-            { label: "Inversores híbridos", href: "/products/inverters/" },
+            { label: "Inversores híbridos monofásicos", href: "/products/inverters/" },
+            { label: "Inversores híbridos trifásicos", href: "/products/inverters/" },
           ],
         },
         {
@@ -500,8 +500,8 @@ export const content = {
           group: "Onduleurs",
           href: "/products/inverters/",
           items: [
-            { label: "Onduleurs hors réseau", href: "/products/inverters/" },
-            { label: "Onduleurs hybrides", href: "/products/inverters/" },
+            { label: "Onduleurs hybrides monophasés", href: "/products/inverters/" },
+            { label: "Onduleurs hybrides triphasés", href: "/products/inverters/" },
           ],
         },
         {
@@ -853,7 +853,6 @@ export type ProductCardKey =
   | "hybrid6kw"
   | "hybrid7k5to15k"
   | "hybridThreePhase"
-  | "offGrid"
   | "homeStorage"
   | "portablePower"
   | "commercialStorage"
@@ -902,15 +901,15 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
   inverters: {
     en: {
       eyebrow: "Inverters",
-      title: "Hybrid and off-grid inverters",
+      title: "Hybrid inverters",
       subtitle:
-        "Hybrid units manage solar input, battery charging and the grid connection together; off-grid units run a site that has no utility connection at all.",
+        "Hybrid units manage solar input, battery charging and the grid connection together.",
       note: "Model-level datasheets for the units we supply are available on request.",
       groups: [
         {
           name: "Inverters",
           intro:
-            "Three hybrid ranges — two single-phase, at 6.2 kW and from 7.5 to 15 kW, and a three-phase platform for larger installations — and off-grid inverters for sites that run on a battery bank alone.",
+            "Three hybrid ranges — two single-phase, at 6.2 kW and from 7.5 to 15 kW, and a three-phase platform for larger installations.",
           cards: [
             {
               key: "hybrid6kw",
@@ -959,22 +958,21 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
               imageAlt:
                 "Three-phase hybrid inverter in a wall-mounted white housing, with a control panel on the front",
             },
-            { key: "offGrid", name: "Off-grid inverters" },
           ],
         },
       ],
     },
     es: {
       eyebrow: "Inversores",
-      title: "Inversores híbridos y fuera de red",
+      title: "Inversores híbridos",
       subtitle:
-        "Los equipos híbridos gestionan a la vez la entrada solar, la carga de baterías y la conexión a red; los equipos fuera de red alimentan instalaciones sin conexión alguna a la red.",
+        "Los equipos híbridos gestionan a la vez la entrada solar, la carga de baterías y la conexión a red.",
       note: "Las fichas técnicas por modelo de los equipos que suministramos están disponibles a petición.",
       groups: [
         {
           name: "Inversores",
           intro:
-            "Tres gamas híbridas —dos monofásicas, de 6,2 kW y de 7,5 a 15 kW, y una trifásica para instalaciones mayores— e inversores fuera de red para emplazamientos que funcionan solo con banco de baterías.",
+            "Tres gamas híbridas —dos monofásicas, de 6,2 kW y de 7,5 a 15 kW, y una trifásica para instalaciones mayores.",
           cards: [
             {
               key: "hybrid6kw",
@@ -1008,22 +1006,21 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
               imageAlt:
                 "Inversor híbrido trifásico en carcasa blanca de montaje en pared, con panel de control en el frontal",
             },
-            { key: "offGrid", name: "Inversores fuera de red" },
           ],
         },
       ],
     },
     fr: {
       eyebrow: "Onduleurs",
-      title: "Onduleurs hybrides et hors réseau",
+      title: "Onduleurs hybrides",
       subtitle:
-        "Les appareils hybrides gèrent ensemble l’entrée solaire, la charge des batteries et le raccordement au réseau ; les appareils hors réseau alimentent un site dépourvu de tout raccordement.",
+        "Les appareils hybrides gèrent ensemble l’entrée solaire, la charge des batteries et le raccordement au réseau.",
       note: "Les fiches techniques par modèle des appareils que nous fournissons sont disponibles sur demande.",
       groups: [
         {
           name: "Onduleurs",
           intro:
-            "Trois gammes hybrides — deux monophasées, 6,2 kW et 7,5 à 15 kW, et une triphasée pour les installations plus importantes — et des onduleurs hors réseau pour les sites alimentés uniquement par un parc de batteries.",
+            "Trois gammes hybrides — deux monophasées, 6,2 kW et 7,5 à 15 kW, et une triphasée pour les installations plus importantes.",
           cards: [
             {
               key: "hybrid6kw",
@@ -1057,7 +1054,6 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
               imageAlt:
                 "Onduleur hybride triphasé en boîtier blanc mural, avec panneau de commande en façade",
             },
-            { key: "offGrid", name: "Onduleurs hors réseau" },
           ],
         },
       ],
