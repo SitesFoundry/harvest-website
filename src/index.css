@@ -1783,11 +1783,15 @@
   line-height: 1.45;
 }
 
+/*
+ * The value column stays regular weight on purpose. With the full technical data in the
+ * card a weight difference on every value row turns a long table into a wall of heavy
+ * text, and the colour contrast against the label already separates the two columns.
+ */
 .module-spec-row dd {
   margin: 0;
   color: #10201f;
   font-size: 0.92rem;
-  font-weight: 750;
   line-height: 1.45;
   text-align: right;
 }
