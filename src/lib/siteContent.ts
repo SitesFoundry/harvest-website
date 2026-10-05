@@ -50,7 +50,7 @@ export const assets = {
    * supplier mark with _tools/erase-region.py — the site describes a Tier 1
    * supply network without naming suppliers, so the mark on the case had to go.
    */
-  inverterSinglePhase: asset("/images/hybrid-inverter-single-phase.webp"),
+  inverter6kw: asset("/images/hybrid-inverter-6-2kw.webp"),
   inverterThreePhase: asset("/images/hybrid-inverter-three-phase.webp"),
   /*
    * The three storage units took one further step than the inverters. Their
@@ -849,7 +849,7 @@ export const moduleSpecs: Record<
  * space for either).
  */
 export type ProductCardKey =
-  | "hybridSinglePhase"
+  | "hybrid6kw"
   | "hybridThreePhase"
   | "offGrid"
   | "homeStorage"
@@ -887,7 +887,7 @@ export type ProductLineKey = "inverters" | "ess" | "accessories";
 
 /* Cards without an entry here are the ones with no confirmed material. */
 export const productCardImages: Partial<Record<ProductCardKey, string>> = {
-  hybridSinglePhase: assets.inverterSinglePhase,
+  hybrid6kw: assets.inverter6kw,
   hybridThreePhase: assets.inverterThreePhase,
   homeStorage: assets.homeStorage,
   portablePower: assets.portablePower,
@@ -910,10 +910,25 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
             "Two hybrid platforms — single-phase for residential systems, three-phase for larger installations — and off-grid inverters for sites that run on a battery bank alone.",
           cards: [
             {
-              key: "hybridSinglePhase",
-              name: "Single-phase hybrid inverter",
+              key: "hybrid6kw",
+              name: "6.2 kW 48 V hybrid inverter",
               imageAlt:
-                "Single-phase hybrid inverter in a wall-mounted white housing, with a display on the front",
+                "6.2 kW hybrid inverter in a white wall-mounted housing, with a round display and buttons on the front",
+              /*
+               * Five rows, chosen from the datasheet's table. Two of that table's
+               * rows are mispaired in the source PDF itself — "Peak Power
+               * (off-grid)" carries "0.8 leading to 0.8 lagging" and "Power Factor
+               * Adjustment Range" carries "2 times of rated power, 10s" — so
+               * neither is quoted here rather than repeating the error or
+               * silently swapping them.
+               */
+              specs: [
+                { label: "Rated output power", value: "6200 W" },
+                { label: "Battery voltage range", value: "40–60 V" },
+                { label: "Max. PV input power", value: "9000 W" },
+                { label: "Max. efficiency", value: "97.8%" },
+                { label: "Dimensions (W×H×D)", value: "358 × 420 × 123 mm" },
+              ],
             },
             {
               key: "hybridThreePhase",
@@ -939,10 +954,17 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
             "Dos plataformas híbridas —monofásica para instalaciones residenciales y trifásica para instalaciones mayores— e inversores fuera de red para emplazamientos que funcionan solo con banco de baterías.",
           cards: [
             {
-              key: "hybridSinglePhase",
-              name: "Inversor híbrido monofásico",
+              key: "hybrid6kw",
+              name: "Inversor híbrido de 6,2 kW y 48 V",
               imageAlt:
-                "Inversor híbrido monofásico en carcasa blanca de montaje en pared, con pantalla en el frontal",
+                "Inversor híbrido de 6,2 kW en carcasa blanca de montaje en pared, con pantalla redonda y botones en el frontal",
+              specs: [
+                { label: "Potencia de salida nominal", value: "6200 W" },
+                { label: "Rango de tensión de batería", value: "40–60 V" },
+                { label: "Potencia FV máxima de entrada", value: "9000 W" },
+                { label: "Rendimiento máximo", value: "97,8 %" },
+                { label: "Dimensiones (An×Al×Pr)", value: "358 × 420 × 123 mm" },
+              ],
             },
             {
               key: "hybridThreePhase",
@@ -968,10 +990,17 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
             "Deux plateformes hybrides — monophasée pour le résidentiel, triphasée pour les installations plus importantes — et des onduleurs hors réseau pour les sites alimentés uniquement par un parc de batteries.",
           cards: [
             {
-              key: "hybridSinglePhase",
-              name: "Onduleur hybride monophasé",
+              key: "hybrid6kw",
+              name: "Onduleur hybride 6,2 kW 48 V",
               imageAlt:
-                "Onduleur hybride monophasé en boîtier blanc mural, avec écran en façade",
+                "Onduleur hybride 6,2 kW en boîtier blanc mural, avec écran rond et boutons en façade",
+              specs: [
+                { label: "Puissance de sortie nominale", value: "6200 W" },
+                { label: "Plage de tension de batterie", value: "40–60 V" },
+                { label: "Puissance PV maximale en entrée", value: "9000 W" },
+                { label: "Rendement maximal", value: "97,8 %" },
+                { label: "Dimensions (l×H×P)", value: "358 × 420 × 123 mm" },
+              ],
             },
             {
               key: "hybridThreePhase",
