@@ -85,19 +85,19 @@
     }
   },
   "ess": {
-    "path": "/products/ess/",
+    "path": "/products/bess/",
     "meta": {
       "en": {
-        "title": "BESS | Portable, Home and Commercial Storage | Harvest Eco Solutions Limited",
-        "description": "A 1 kWh portable power station, a 16 kWh floor-standing home battery and a 261 kWh liquid-cooled cabinet for commercial and industrial sites, from Harvest Eco Solutions Limited."
+        "title": "BESS | Portable, Home, Commercial and Utility Storage | Harvest Eco Solutions Limited",
+        "description": "A 1 kWh portable power station, a 16 kWh floor-standing home battery, a 261 kWh liquid-cooled cabinet for commercial and industrial sites and a 5 MWh storage skid for utility scale, from Harvest Eco Solutions Limited."
       },
       "es": {
-        "title": "BESS | Almacenamiento portátil, doméstico y comercial | Harvest Eco Solutions Limited",
-        "description": "Una estación de energía portátil de 1 kWh, una batería doméstica de suelo de 16 kWh y un armario refrigerado por líquido de 261 kWh para instalaciones comerciales e industriales, de Harvest Eco Solutions Limited."
+        "title": "BESS | Almacenamiento portátil, doméstico, comercial y a gran escala | Harvest Eco Solutions Limited",
+        "description": "Una estación de energía portátil de 1 kWh, una batería doméstica de suelo de 16 kWh, un armario refrigerado por líquido de 261 kWh para instalaciones comerciales e industriales y una plataforma de almacenamiento de 5 MWh para gran escala, de Harvest Eco Solutions Limited."
       },
       "fr": {
-        "title": "BESS | Stockage portable, domestique et commercial | Harvest Eco Solutions Limited",
-        "description": "Une station d’énergie portable de 1 kWh, une batterie domestique au sol de 16 kWh et une armoire refroidie par liquide de 261 kWh pour les sites commerciaux et industriels, de Harvest Eco Solutions Limited."
+        "title": "BESS | Stockage portable, domestique, commercial et à grande échelle | Harvest Eco Solutions Limited",
+        "description": "Une station d’énergie portable de 1 kWh, une batterie domestique au sol de 16 kWh, une armoire refroidie par liquide de 261 kWh pour les sites commerciaux et industriels et une plateforme de stockage de 5 MWh pour les sites utilitaires, de Harvest Eco Solutions Limited."
       }
     }
   },

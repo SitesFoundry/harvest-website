@@ -44,7 +44,7 @@ export const assets = {
   module615: asset("/images/solar-module-615-640.webp"),
   module710: asset("/images/solar-module-710-730.webp"),
   /*
-   * Product shots for the category pages (/products/inverters/, /products/ess/,
+   * Product shots for the category pages (/products/inverters/, /products/bess/,
    * /products/system-accessories/). Extracted from the manufacturer's single-sheet
    * datasheets with _tools/extract-pdf-figure.py, then cleared of the visible
    * supplier mark with _tools/erase-region.py — the site describes a Tier 1
@@ -69,6 +69,14 @@ export const assets = {
   homeStorage: asset("/images/home-storage-16kwh.webp"),
   portablePower: asset("/images/portable-power-station-1kwh.webp"),
   commercialStorage: asset("/images/commercial-storage-261kwh.webp"),
+  /*
+   * The utility-scale skid needed its mark erased from three doors, not one: the
+   * photograph shows six door panels and the supplier's mark sits on the second,
+   * fourth and sixth. The Harvest badge goes back on the second, where the mark
+   * was — the alternatives were covering a door's high-voltage warning label or
+   * leaving the panel bare.
+   */
+  largeStorage: asset("/images/large-scale-storage-5mwh.webp"),
 };
 
 export const company = {
@@ -122,7 +130,7 @@ export const content = {
       timeline: "Company timeline and service model",
       aiControl: "AI smart control solution for energy saving products",
       essSection: "Battery energy storage systems",
-      essVisual: "Portable power station, home battery and commercial storage cabinet",
+      essVisual: "Portable power station, home battery, commercial storage cabinet and utility-scale storage skid",
       contactDetails: "Company contact details",
       pageVisual: "Harvest Eco Solutions clean energy visual",
     },
@@ -177,7 +185,7 @@ export const content = {
       eyebrow: "Products & Solutions",
       solarEyebrow: "Solar Systems",
       aiEyebrow: "AI Intelligence",
-      essTitle: "BESS for portable, residential and commercial energy storage",
+      essTitle: "BESS for portable, residential, commercial and utility-scale storage",
       essText: "Portable stations, home batteries and all-in-one cabinets that complement solar generation, remote control and energy independence.",
       title: "Products and intelligent energy solutions",
       subtitle:
@@ -218,11 +226,12 @@ export const content = {
         },
         {
           group: "BESS",
-          href: "/products/ess/",
+          href: "/products/bess/",
           items: [
-            { label: "Portable power stations", href: "/products/ess/" },
-            { label: "Home energy storage", href: "/products/ess/" },
-            { label: "Commercial and industrial storage", href: "/products/ess/" },
+            { label: "Portable power stations", href: "/products/bess/" },
+            { label: "Home energy storage", href: "/products/bess/" },
+            { label: "Commercial and industrial storage", href: "/products/bess/" },
+            { label: "Utility-scale storage skids", href: "/products/bess/" },
           ],
         },
         {
@@ -281,7 +290,7 @@ export const content = {
       timeline: "Cronología de la empresa y modelo de servicio",
       aiControl: "Solución de control inteligente con IA para productos de ahorro energético",
       essSection: "Sistemas de almacenamiento de energía con baterías",
-      essVisual: "Estación de energía portátil, batería doméstica y armario de almacenamiento comercial",
+      essVisual: "Estación de energía portátil, batería doméstica, armario de almacenamiento comercial y plataforma a gran escala",
       contactDetails: "Datos de contacto de la empresa",
       pageVisual: "Imagen de energía limpia de Harvest Eco Solutions",
     },
@@ -335,7 +344,7 @@ export const content = {
       eyebrow: "Productos y soluciones",
       solarEyebrow: "Sistemas solares",
       aiEyebrow: "Inteligencia IA",
-      essTitle: "BESS para almacenamiento energético portátil, residencial y comercial",
+      essTitle: "BESS para almacenamiento portátil, residencial, comercial y a gran escala",
       essText: "Estaciones portátiles, baterías domésticas y armarios todo en uno que complementan la generación solar, el control remoto y la independencia energética.",
       title: "Productos y soluciones energéticas inteligentes",
       subtitle: "Una cartera enfocada en generación solar, inversores, almacenamiento compacto, accesorios e inteligencia de control con IA.",
@@ -360,11 +369,12 @@ export const content = {
         },
         {
           group: "BESS",
-          href: "/products/ess/",
+          href: "/products/bess/",
           items: [
-            { label: "Estaciones de energía portátiles", href: "/products/ess/" },
-            { label: "Almacenamiento doméstico", href: "/products/ess/" },
-            { label: "Almacenamiento comercial e industrial", href: "/products/ess/" },
+            { label: "Estaciones de energía portátiles", href: "/products/bess/" },
+            { label: "Almacenamiento doméstico", href: "/products/bess/" },
+            { label: "Almacenamiento comercial e industrial", href: "/products/bess/" },
+            { label: "Plataformas de almacenamiento a gran escala", href: "/products/bess/" },
           ],
         },
         {
@@ -416,7 +426,7 @@ export const content = {
       timeline: "Chronologie de l’entreprise et modèle de service",
       aiControl: "Solution de contrôle intelligent avec IA pour produits d’économie d’énergie",
       essSection: "Systèmes de stockage d’énergie par batteries",
-      essVisual: "Station portable, batterie domestique et armoire de stockage commerciale",
+      essVisual: "Station portable, batterie domestique, armoire de stockage commerciale et plateforme à grande échelle",
       contactDetails: "Coordonnées de l’entreprise",
       pageVisual: "Visuel d’énergie propre de Harvest Eco Solutions",
     },
@@ -470,7 +480,7 @@ export const content = {
       eyebrow: "Produits et solutions",
       solarEyebrow: "Systèmes solaires",
       aiEyebrow: "Intelligence IA",
-      essTitle: "BESS pour le stockage portable, résidentiel et commercial",
+      essTitle: "BESS pour le stockage portable, résidentiel, commercial et à grande échelle",
       essText: "Stations portables, batteries domestiques et armoires tout-en-un qui complètent la production solaire, le contrôle à distance et l’indépendance énergétique.",
       title: "Produits et solutions énergétiques intelligentes",
       subtitle: "Un portefeuille ciblé couvrant génération solaire, onduleurs, stockage, accessoires et contrôle intelligent par IA.",
@@ -495,11 +505,12 @@ export const content = {
         },
         {
           group: "BESS",
-          href: "/products/ess/",
+          href: "/products/bess/",
           items: [
-            { label: "Stations d’énergie portables", href: "/products/ess/" },
-            { label: "Stockage domestique", href: "/products/ess/" },
-            { label: "Stockage commercial et industriel", href: "/products/ess/" },
+            { label: "Stations d’énergie portables", href: "/products/bess/" },
+            { label: "Stockage domestique", href: "/products/bess/" },
+            { label: "Stockage commercial et industriel", href: "/products/bess/" },
+            { label: "Plateformes de stockage à grande échelle", href: "/products/bess/" },
           ],
         },
         {
@@ -844,6 +855,7 @@ export type ProductCardKey =
   | "homeStorage"
   | "portablePower"
   | "commercialStorage"
+  | "largeStorage"
   | "moduleFrames"
   | "pvCables";
 
@@ -880,6 +892,7 @@ export const productCardImages: Partial<Record<ProductCardKey, string>> = {
   homeStorage: assets.homeStorage,
   portablePower: assets.portablePower,
   commercialStorage: assets.commercialStorage,
+  largeStorage: assets.largeStorage,
 };
 
 export const productLines: Record<ProductLineKey, Record<Language, ProductLine>> = {
@@ -977,13 +990,13 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
       eyebrow: "BESS & Storage",
       title: "Portable, residential and commercial energy storage",
       subtitle:
-        "A portable station for work away from the grid, a floor-standing battery for the home, and an all-in-one cabinet for commercial and industrial sites.",
+        "A portable station for work away from the grid, a floor-standing battery for the home, an all-in-one cabinet for commercial and industrial sites, and a containerised skid for utility scale.",
       note: "Datasheets for the units we supply are available on request.",
       groups: [
         {
           name: "Battery Energy Storage System",
           intro:
-            "Three ranges, all on lithium iron phosphate cells: a portable station, a home battery that expands to 15 units in parallel, and a liquid-cooled cabinet for larger sites.",
+            "Four ranges, all on lithium iron phosphate cells: a portable station, a home battery that expands to 15 units in parallel, a liquid-cooled cabinet for industrial sites, and a containerised skid for utility scale.",
           cards: [
             {
               key: "portablePower",
@@ -1048,6 +1061,27 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Protection rating", value: "IP55 (battery compartment)" },
               ],
             },
+            {
+              key: "largeStorage",
+              name: "5 MWh liquid-cooled storage skid",
+              imageAlt:
+                "Large liquid-cooled storage skid: a long white cabinet with six door panels and a vented compartment at the right end",
+              description:
+                "A containerised DC skid for utility-scale and large commercial sites: lithium iron phosphate modules, 1331.2 V nominal and liquid cooling, prefabricated so that it arrives as one platform measuring 6058 × 2438 × 2896 mm. The datasheet covers two configurations — 5015 kWh on 314 Ah cells and 6250 kWh on 587 Ah cells.",
+              features: [
+                "IP55 protection and C5 anti-corrosion for outdoor installation, with fire protection that combines perfluorohexanone, aerosol or water spray and an AI early-warning system across three levels: module, cluster and compartment.",
+                "Cell temperature difference within a module held to 3 °C or less, and full charge and discharge at full capacity.",
+                "Response within 30 ms once discharge starts, with round-trip charge and discharge efficiency up to 94%.",
+                "Modular, non-walk-in design that saves 35% of floor space, with the electrical and battery compartments kept separate; the prefabricated skid cuts on-site installation and commissioning time.",
+              ],
+              specs: [
+                { label: "Rated energy", value: "5015 kWh / 6250 kWh" },
+                { label: "Rated voltage", value: "1331.2 V" },
+                { label: "Dimensions (W×D×H)", value: "6058 × 2438 × 2896 mm" },
+                { label: "Weight", value: "< 43 t / < 45 t" },
+                { label: "Protection rating", value: "IP55, C5 anti-corrosion" },
+              ],
+            },
           ],
         },
       ],
@@ -1056,13 +1090,13 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
       eyebrow: "BESS y almacenamiento",
       title: "Almacenamiento portátil, residencial y comercial",
       subtitle:
-        "Una estación portátil para trabajar lejos de la red, una batería de suelo para el hogar y un armario todo en uno para instalaciones comerciales e industriales.",
+        "Una estación portátil para trabajar lejos de la red, una batería de suelo para el hogar, un armario todo en uno para instalaciones comerciales e industriales y una plataforma en contenedor para gran escala.",
       note: "Las fichas técnicas de los equipos que suministramos están disponibles a petición.",
       groups: [
         {
           name: "Sistema de almacenamiento de energía con baterías",
           intro:
-            "Tres gamas, todas con celdas de litio hierro fosfato: una estación portátil, una batería doméstica que se amplía hasta 15 unidades en paralelo y un armario refrigerado por líquido para instalaciones mayores.",
+            "Cuatro gamas, todas con celdas de litio hierro fosfato: una estación portátil, una batería doméstica que se amplía hasta 15 unidades en paralelo, un armario refrigerado por líquido para instalaciones industriales y una plataforma en contenedor para gran escala.",
           cards: [
             {
               key: "portablePower",
@@ -1127,6 +1161,27 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Grado de protección", value: "IP55 (compartimento de baterías)" },
               ],
             },
+            {
+              key: "largeStorage",
+              name: "Plataforma de almacenamiento refrigerada por líquido de 5 MWh",
+              imageAlt:
+                "Plataforma de almacenamiento refrigerada por líquido: armario blanco alargado con seis puertas y un compartimento ventilado en el extremo derecho",
+              description:
+                "Una plataforma de corriente continua para instalaciones a gran escala y grandes sitios comerciales: módulos de litio hierro fosfato, 1331,2 V nominales y refrigeración líquida, prefabricada para llegar como una sola plataforma de 6058 × 2438 × 2896 mm. La ficha cubre dos configuraciones: 5015 kWh con celdas de 314 Ah y 6250 kWh con celdas de 587 Ah.",
+              features: [
+                "Protección IP55 y anticorrosión C5 para instalación exterior, con extinción que combina perfluorohexanona, aerosol o agua pulverizada y un sistema de alerta temprana con IA en tres niveles: módulo, conjunto y compartimento.",
+                "Diferencia de temperatura entre celdas dentro de un módulo de 3 °C o menos, y carga y descarga completas a plena capacidad.",
+                "Respuesta en 30 ms al iniciar la descarga, con eficiencia de carga y descarga de hasta el 94 %.",
+                "Diseño modular no transitable que ahorra un 35 % de superficie, con los compartimentos eléctrico y de baterías separados; la plataforma prefabricada reduce la instalación y la puesta en marcha en obra.",
+              ],
+              specs: [
+                { label: "Energía nominal", value: "5015 kWh / 6250 kWh" },
+                { label: "Tensión nominal", value: "1331,2 V" },
+                { label: "Dimensiones (An×Pr×Al)", value: "6058 × 2438 × 2896 mm" },
+                { label: "Peso", value: "< 43 t / < 45 t" },
+                { label: "Grado de protección", value: "IP55, anticorrosión C5" },
+              ],
+            },
           ],
         },
       ],
@@ -1135,13 +1190,13 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
       eyebrow: "BESS et stockage",
       title: "Stockage portable, résidentiel et commercial",
       subtitle:
-        "Une station portable pour travailler hors réseau, une batterie au sol pour la maison et une armoire tout-en-un pour les sites commerciaux et industriels.",
+        "Une station portable pour travailler hors réseau, une batterie au sol pour la maison, une armoire tout-en-un pour les sites commerciaux et industriels, et une plateforme conteneurisée pour les sites utilitaires.",
       note: "Les fiches techniques des appareils que nous fournissons sont disponibles sur demande.",
       groups: [
         {
           name: "Système de stockage d’énergie par batteries",
           intro:
-            "Trois gammes, toutes sur cellules lithium fer phosphate : une station portable, une batterie domestique qui s’étend jusqu’à 15 unités en parallèle et une armoire refroidie par liquide pour les sites plus importants.",
+            "Quatre gammes, toutes sur cellules lithium fer phosphate : une station portable, une batterie domestique qui s’étend jusqu’à 15 unités en parallèle, une armoire refroidie par liquide pour les sites industriels et une plateforme conteneurisée pour les sites utilitaires.",
           cards: [
             {
               key: "portablePower",
@@ -1204,6 +1259,27 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Dimensions (l×P×H)", value: "1000 × 1400 × 2350 mm" },
                 { label: "Poids", value: "Env. 2200 kg" },
                 { label: "Indice de protection", value: "IP55 (compartiment batteries)" },
+              ],
+            },
+            {
+              key: "largeStorage",
+              name: "Plateforme de stockage refroidie par liquide 5 MWh",
+              imageAlt:
+                "Plateforme de stockage refroidie par liquide : armoire blanche allongée à six portes et compartiment ventilé à droite",
+              description:
+                "Une plateforme DC pour sites utilitaires et grands sites commerciaux : modules lithium fer phosphate, 1331,2 V nominaux et refroidissement liquide, préfabriquée et livrée en une seule plateforme de 6058 × 2438 × 2896 mm. La fiche couvre deux configurations : 5015 kWh avec cellules de 314 Ah et 6250 kWh avec cellules de 587 Ah.",
+              features: [
+                "Protection IP55 et anticorrosion C5 pour l’extérieur, avec une extinction combinant perfluorohexanone, aérosol ou brouillard d’eau et un système d’alerte précoce par IA sur trois niveaux : module, grappe et compartiment.",
+                "Écart de température entre cellules dans un module limité à 3 °C ou moins, avec charge et décharge complètes à pleine capacité.",
+                "Réponse en 30 ms au démarrage de la décharge, avec un rendement de charge et décharge jusqu’à 94 %.",
+                "Conception modulaire non visitable qui économise 35 % de surface, compartiments électrique et batteries séparés ; la plateforme préfabriquée réduit l’installation et la mise en service sur site.",
+              ],
+              specs: [
+                { label: "Énergie nominale", value: "5015 kWh / 6250 kWh" },
+                { label: "Tension nominale", value: "1331,2 V" },
+                { label: "Dimensions (l×P×H)", value: "6058 × 2438 × 2896 mm" },
+                { label: "Poids", value: "< 43 t / < 45 t" },
+                { label: "Indice de protection", value: "IP55, anticorrosion C5" },
               ],
             },
           ],

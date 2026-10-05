@@ -145,7 +145,7 @@ function SiteShell({ page, children }: { page: SitePageKind; children: React.Rea
   const productLinks = [
     { href: "/products/solar-modules/", label: moduleSpecs[language].eyebrow },
     { href: "/products/inverters/", label: productLines.inverters[language].eyebrow },
-    { href: "/products/ess/", label: productLines.ess[language].eyebrow },
+    { href: "/products/bess/", label: productLines.ess[language].eyebrow },
     { href: "/products/system-accessories/", label: productLines.accessories[language].eyebrow },
   ];
 

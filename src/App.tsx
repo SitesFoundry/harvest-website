@@ -22,7 +22,7 @@ function Router() {
       <Route path="/about" component={AboutPage} />
       <Route path="/products/solar-modules" component={SolarModulesPage} />
       <Route path="/products/inverters" component={InvertersPage} />
-      <Route path="/products/ess" component={EssPage} />
+      <Route path="/products/bess" component={EssPage} />
       <Route path="/products/system-accessories" component={SystemAccessoriesPage} />
       <Route path="/products" component={ProductsPage} />
       <Route path="/contact" component={ContactPage} />
