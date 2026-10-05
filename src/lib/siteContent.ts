@@ -945,7 +945,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                * for the same product family do not agree on a convention.
                */
               specs: [
-                { label: "Rated output power", value: "7499 – 15000 W" },
+                { label: "Rated output power", value: "7.5 / 8 / 10 / 12 / 15 kW" },
                 { label: "Battery voltage", value: "48 / 51.2 V" },
                 { label: "Max. PV input power", value: "12000 – 22500 W" },
                 { label: "Max. efficiency", value: "96.5 – 97.6%" },
@@ -993,7 +993,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
               imageAlt:
                 "Inversor híbrido de 7,5–15 kW en carcasa blanca de montaje en pared, con pantalla redonda y interruptor rojo en el frontal",
               specs: [
-                { label: "Potencia de salida nominal", value: "7499 – 15000 W" },
+                { label: "Potencia de salida nominal", value: "7,5 / 8 / 10 / 12 / 15 kW" },
                 { label: "Tensión de batería", value: "48 / 51,2 V" },
                 { label: "Potencia FV máxima de entrada", value: "12000 – 22500 W" },
                 { label: "Rendimiento máximo", value: "96,5 – 97,6 %" },
@@ -1041,7 +1041,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
               imageAlt:
                 "Onduleur hybride 7,5–15 kW en boîtier blanc mural, avec écran rond et interrupteur rouge en façade",
               specs: [
-                { label: "Puissance de sortie nominale", value: "7499 – 15000 W" },
+                { label: "Puissance de sortie nominale", value: "7,5 / 8 / 10 / 12 / 15 kW" },
                 { label: "Tension de batterie", value: "48 / 51,2 V" },
                 { label: "Puissance PV maximale en entrée", value: "12000 – 22500 W" },
                 { label: "Rendement maximal", value: "96,5 – 97,6 %" },
