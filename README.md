@@ -209,7 +209,7 @@ public/images/                 the fifteen images the site ships: six brand
 ```
 
 The module range has its own page, `/products/solar-modules/`, reached from a
-submenu on Products & Solutions and from the product names on the products
+submenu on Products and from the product names on the products
 overview. Those names link into the page by anchor — `#standard` and
 `#all-black` — so a click lands on the group that was asked for rather than at
 the top of a long page. It covers four models in two groups:
