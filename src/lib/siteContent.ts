@@ -934,15 +934,18 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Dimensions (W×H×D)", value: "358 × 420 × 123 mm" },
               ],
               /*
-               * Three rows of this datasheet's own table are left off the site because the
-               * table contradicts itself, and neither copying a defect nor silently
-               * repairing it is acceptable on a specification page:
-               *   - "Peak Power (off-grid)" carries the power factor range (0.8 leading to
-               *     0.8 lagging) while "Power Factor Adjustment Range" carries the peak
-               *     power spec (2 times of rated power, 10s), i.e. the two values are one
-               *     row out of step.
-               *   - "Max. PV Input Voltage" prints its unit as (W) rather than (V).
-               * The datasheet itself is available on request, so nothing is hidden.
+               * Three rows of this datasheet's table are wrong in the source, and are
+               * published here with the values their own labels imply, on the customer's
+               * instruction (2026-10-05):
+               *   - "Peak Power (off-grid)" and "Power Factor Adjustment Range" carry each
+               *     other's value, one row out of step: the peak power row shows
+               *     "0.8 leading to 0.8 lagging" and the power factor row shows
+               *     "2 times of rated power, 10s". The labels settle which is which: a
+               *     peak power written in watts cannot be a power factor range, and a power
+               *     factor range is dimensionless.
+               *   - "Max. PV Input Voltage" prints its unit as (W). A voltage is in volts,
+               *     and the 7.5-15 kW unit in this same family is also 500 V at that point.
+               * Nothing else on this card is affected.
                */
                             technicalData: [
                 { label: "Battery" },
@@ -951,6 +954,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Max. charging current", value: "120 A" },
                 { label: "Max. discharging current", value: "130 A" },
                 { label: "PV input" },
+                { label: "Max. PV input voltage", value: "500 V" },
                 { label: "Start-up voltage", value: "80 V" },
                 { label: "MPPT voltage range", value: "80–450 V" },
                 { label: "Max. operating PV input current", value: "27 A" },
@@ -961,7 +965,9 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Rated grid voltage", value: "220 / 230 / 240 V" },
                 { label: "Rated grid frequency", value: "50 / 60 Hz" },
                 { label: "Acceptable range", value: "170–280 Vac (UPS mode) / 90–280 Vac (for loads)" },
+                { label: "Power factor adjustment range", value: "0.8 leading to 0.8 lagging" },
                 { label: "AC output (off grid)" },
+                { label: "Peak power (off grid)", value: "2 × rated power for 10 s" },
                 { label: "Rated output current", value: "28.2 A" },
                 { label: "Rated output voltage", value: "220 / 230 / 240 V" },
                 { label: "Total harmonic distortion (THDi)", value: "< 3% (of nominal power)" },
@@ -1115,6 +1121,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Corriente máxima de carga", value: "120 A" },
                 { label: "Corriente máxima de descarga", value: "130 A" },
                 { label: "Entrada FV" },
+                { label: "Tensión máxima de entrada", value: "500 V" },
                 { label: "Tensión de arranque", value: "80 V" },
                 { label: "Rango de tensión MPPT", value: "80–450 V" },
                 { label: "Corriente FV máxima en funcionamiento", value: "27 A" },
@@ -1125,7 +1132,9 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Tensión nominal de red", value: "220 / 230 / 240 V" },
                 { label: "Frecuencia nominal de red", value: "50 / 60 Hz" },
                 { label: "Rango admisible", value: "170–280 Vac (modo UPS) / 90–280 Vac (para cargas)" },
+                { label: "Rango de ajuste del factor de potencia", value: "0,8 en adelanto a 0,8 en atraso" },
                 { label: "Salida de CA (fuera de red)" },
+                { label: "Potencia pico (fuera de red)", value: "2 × potencia nominal durante 10 s" },
                 { label: "Corriente de salida nominal", value: "28,2 A" },
                 { label: "Tensión de salida nominal", value: "220 / 230 / 240 V" },
                 { label: "Distorsión armónica total (THDi)", value: "< 3 % (de la potencia nominal)" },
@@ -1272,6 +1281,7 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Courant de charge maximal", value: "120 A" },
                 { label: "Courant de décharge maximal", value: "130 A" },
                 { label: "Entrée PV" },
+                { label: "Tension d'entrée maximale", value: "500 V" },
                 { label: "Tension de démarrage", value: "80 V" },
                 { label: "Plage de tension MPPT", value: "80–450 V" },
                 { label: "Courant PV maximal en fonctionnement", value: "27 A" },
@@ -1282,7 +1292,9 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Tension réseau nominale", value: "220 / 230 / 240 V" },
                 { label: "Fréquence réseau nominale", value: "50 / 60 Hz" },
                 { label: "Plage admissible", value: "170–280 Vac (mode UPS) / 90–280 Vac (pour les charges)" },
+                { label: "Plage de réglage du facteur de puissance", value: "0,8 en avance à 0,8 en retard" },
                 { label: "Sortie AC (hors réseau)" },
+                { label: "Puissance de pointe (hors réseau)", value: "2 × puissance nominale pendant 10 s" },
                 { label: "Courant de sortie nominal", value: "28,2 A" },
                 { label: "Tension de sortie nominale", value: "220 / 230 / 240 V" },
                 { label: "Distorsion harmonique totale (THDi)", value: "< 3 % (de la puissance nominale)" },
