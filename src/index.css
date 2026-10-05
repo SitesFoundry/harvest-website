@@ -1800,6 +1800,85 @@
   line-height: 1.65;
 }
 
+/*
+ * The full technical data of a product whose datasheet table is on the site. It sits
+ * below its group's cards so a long table never stretches the card beside it, and its
+ * values are left aligned in a fixed label column: unlike the short numbers in a card
+ * row, these values are long phrases ("Battery lithium / batterie plomb-acide") that
+ * read badly right aligned against the page edge.
+ */
+.tech-data {
+  margin-top: 3rem;
+}
+
+.tech-data h3 {
+  margin: 0 0 1rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #0f172a;
+  font-size: 1.6rem;
+  line-height: 1.15;
+}
+
+.tech-data-table {
+  margin: 0;
+  display: grid;
+}
+
+.tech-data-row {
+  display: grid;
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgba(82, 67, 38, 0.1);
+}
+
+.tech-data-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.tech-data-row dt {
+  color: #536560;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.tech-data-row dd {
+  margin: 0;
+  color: #10201f;
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+/* A section heading taken from the datasheet's own table: full width, no value. */
+.tech-data-row.is-group {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-bottom-color: rgba(82, 67, 38, 0.24);
+}
+
+.tech-data-row.is-group dt {
+  color: #10201f;
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+/* Below this width a label column squeezes the value into a sliver. */
+@media (max-width: 640px) {
+  .tech-data-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.15rem;
+  }
+
+  .tech-data h3 {
+    font-size: 1.35rem;
+  }
+}
+
 @media (max-width: 640px) {
   .module-spec-media {
     height: 240px;

@@ -582,6 +582,13 @@ export const content = {
  * from the sheet, never from another card.
  */
 export type ModuleSpecRow = { label: string; value: string };
+/*
+ * A full technical-data table, rendered as its own block below the group's cards.
+ * A row with no value is a section heading, the way the datasheet groups its own
+ * table ("Mechanical parameters", "Others"), so the heading travels with the rows
+ * it labels instead of needing a nested group type.
+ */
+export type TechDataRow = { label: string; value?: string };
 export type ModuleVariant = {
   power: string;
   finish: string;
@@ -874,6 +881,7 @@ export type ProductCard = {
   description?: string;
   features?: string[];
   specs?: ModuleSpecRow[];
+  technicalData?: { heading: string; rows: TechDataRow[] };
 };
 
 export type ProductGroup = { name: string; intro: string; cards: ProductCard[] };
@@ -951,6 +959,43 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Max. efficiency", value: "96.5 – 97.6%" },
                 { label: "Dimensions", value: "840 × 513 × 283 mm" },
               ],
+              technicalData: {
+                heading: "Technical data",
+                rows: [
+                  { label: "Battery type", value: "Lithium battery / Lead-acid battery" },
+                  { label: "Voltage range", value: "40–60 V" },
+                  { label: "Rated voltage", value: "48 / 51.2 V" },
+                  { label: "Max. input voltage", value: "500 V" },
+                  { label: "Start-up voltage", value: "100 V" },
+                  { label: "Rated input voltage", value: "300 V" },
+                  { label: "Max. input current per MPPT", value: "20 A" },
+                  { label: "MPPT voltage range", value: "90–450 V" },
+                  { label: "Max. short circuit current per MPPT", value: "27 A" },
+                  { label: "Rated output voltage", value: "220 / 230 / 240 V" },
+                  { label: "Rated output frequency", value: "50 / 60 Hz" },
+                  { label: "THDu (@ linear loads)", value: "< 3%" },
+                  { label: "Switch time", value: "10 ms" },
+                  { label: "Operating temperature", value: "−25 to +60 °C (derating above 45 °C)" },
+                  { label: "Relative humidity", value: "0–95% (non-condensing)" },
+                  { label: "Altitude", value: "4000 m (derating above 2000 m)" },
+                  { label: "Ingress protection", value: "IP65" },
+                  { label: "Noise emission", value: "< 60 dB" },
+                  { label: "Mechanical parameters" },
+                  { label: "Dimensions (length × width × height)", value: "840 × 513 × 283 mm" },
+                  { label: "Weight", value: "52 kg" },
+                  { label: "Others" },
+                  { label: "Generator auto start-up", value: "2-wire start" },
+                  { label: "Standby losses", value: "< 30 W" },
+                  { label: "Topology", value: "High-frequency isolation (battery)" },
+                  { label: "Cooling method", value: "Intelligent air cooling" },
+                  { label: "Mounting method", value: "Wall mounted" },
+                  { label: "Communication with BMS", value: "RS485 / CAN" },
+                  { label: "Communication with meter", value: "RS485" },
+                  { label: "Communication with portal", value: "WiFi / Bluetooth (external)" },
+                  { label: "Display", value: "LCD and app" },
+                  { label: "Warranty", value: "5 years" },
+                ],
+              },
             },
             {
               key: "hybridThreePhase",
@@ -999,6 +1044,43 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Rendimiento máximo", value: "96,5 – 97,6 %" },
                 { label: "Dimensiones", value: "840 × 513 × 283 mm" },
               ],
+              technicalData: {
+                heading: "Datos técnicos",
+                rows: [
+                  { label: "Tipo de batería", value: "Batería de litio / batería de plomo-ácido" },
+                  { label: "Rango de tensión", value: "40–60 V" },
+                  { label: "Tensión nominal", value: "48 / 51,2 V" },
+                  { label: "Tensión máxima de entrada", value: "500 V" },
+                  { label: "Tensión de arranque", value: "100 V" },
+                  { label: "Tensión nominal de entrada", value: "300 V" },
+                  { label: "Corriente máxima de entrada por MPPT", value: "20 A" },
+                  { label: "Rango de tensión MPPT", value: "90–450 V" },
+                  { label: "Corriente máxima de cortocircuito por MPPT", value: "27 A" },
+                  { label: "Tensión nominal de salida", value: "220 / 230 / 240 V" },
+                  { label: "Frecuencia nominal de salida", value: "50 / 60 Hz" },
+                  { label: "THDu (con cargas lineales)", value: "< 3 %" },
+                  { label: "Tiempo de conmutación", value: "10 ms" },
+                  { label: "Temperatura de funcionamiento", value: "−25 a +60 °C (reducción de potencia por encima de 45 °C)" },
+                  { label: "Humedad relativa", value: "0–95 % (sin condensación)" },
+                  { label: "Altitud", value: "4000 m (reducción de potencia por encima de 2000 m)" },
+                  { label: "Grado de protección", value: "IP65" },
+                  { label: "Emisión de ruido", value: "< 60 dB" },
+                  { label: "Parámetros mecánicos" },
+                  { label: "Dimensiones (largo × ancho × alto)", value: "840 × 513 × 283 mm" },
+                  { label: "Peso", value: "52 kg" },
+                  { label: "Otros" },
+                  { label: "Arranque automático del generador", value: "Arranque por 2 hilos" },
+                  { label: "Pérdidas en reposo", value: "< 30 W" },
+                  { label: "Topología", value: "Aislamiento de alta frecuencia (batería)" },
+                  { label: "Método de refrigeración", value: "Refrigeración por aire inteligente" },
+                  { label: "Tipo de montaje", value: "Montaje en pared" },
+                  { label: "Comunicación con el BMS", value: "RS485 / CAN" },
+                  { label: "Comunicación con el contador", value: "RS485" },
+                  { label: "Comunicación con el portal", value: "WiFi / Bluetooth (externo)" },
+                  { label: "Pantalla", value: "LCD y aplicación" },
+                  { label: "Garantía", value: "5 años" },
+                ],
+              },
             },
             {
               key: "hybridThreePhase",
@@ -1047,6 +1129,43 @@ export const productLines: Record<ProductLineKey, Record<Language, ProductLine>>
                 { label: "Rendement maximal", value: "96,5 – 97,6 %" },
                 { label: "Dimensions", value: "840 × 513 × 283 mm" },
               ],
+              technicalData: {
+                heading: "Caractéristiques techniques",
+                rows: [
+                  { label: "Type de batterie", value: "Batterie lithium / batterie plomb-acide" },
+                  { label: "Plage de tension", value: "40–60 V" },
+                  { label: "Tension nominale", value: "48 / 51,2 V" },
+                  { label: "Tension d'entrée maximale", value: "500 V" },
+                  { label: "Tension de démarrage", value: "100 V" },
+                  { label: "Tension d'entrée nominale", value: "300 V" },
+                  { label: "Courant d'entrée maximal par MPPT", value: "20 A" },
+                  { label: "Plage de tension MPPT", value: "90–450 V" },
+                  { label: "Courant de court-circuit maximal par MPPT", value: "27 A" },
+                  { label: "Tension de sortie nominale", value: "220 / 230 / 240 V" },
+                  { label: "Fréquence de sortie nominale", value: "50 / 60 Hz" },
+                  { label: "THDu (charges linéaires)", value: "< 3 %" },
+                  { label: "Temps de commutation", value: "10 ms" },
+                  { label: "Température de fonctionnement", value: "−25 à +60 °C (déclassement au-delà de 45 °C)" },
+                  { label: "Humidité relative", value: "0–95 % (sans condensation)" },
+                  { label: "Altitude", value: "4000 m (déclassement au-delà de 2000 m)" },
+                  { label: "Indice de protection", value: "IP65" },
+                  { label: "Émission sonore", value: "< 60 dB" },
+                  { label: "Caractéristiques mécaniques" },
+                  { label: "Dimensions (longueur × largeur × hauteur)", value: "840 × 513 × 283 mm" },
+                  { label: "Poids", value: "52 kg" },
+                  { label: "Autres" },
+                  { label: "Démarrage automatique du générateur", value: "Démarrage 2 fils" },
+                  { label: "Pertes en veille", value: "< 30 W" },
+                  { label: "Topologie", value: "Isolation haute fréquence (batterie)" },
+                  { label: "Méthode de refroidissement", value: "Refroidissement par air intelligent" },
+                  { label: "Mode de montage", value: "Montage mural" },
+                  { label: "Communication avec le BMS", value: "RS485 / CAN" },
+                  { label: "Communication avec le compteur", value: "RS485" },
+                  { label: "Communication avec le portail", value: "WiFi / Bluetooth (externe)" },
+                  { label: "Afficheur", value: "LCD et application" },
+                  { label: "Garantie", value: "5 ans" },
+                ],
+              },
             },
             {
               key: "hybridThreePhase",

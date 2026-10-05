@@ -701,6 +701,35 @@ function ProductLineContent({ lineKey, languageBundle }: { lineKey: ProductLineK
                 );
               })}
             </div>
+            {group.cards.map((card) =>
+              card.technicalData ? (
+                <section className="tech-data" key={`tech-${card.key}`}>
+                  <h3>
+                    {card.technicalData.heading} — {card.name}
+                  </h3>
+                  {/*
+                   * A heading row keeps the datasheet's own grouping. It renders as a
+                   * dt plus an empty dd so the wrapper stays valid inside the dl, and
+                   * the row is styled to span both columns.
+                   */}
+                  <dl className="tech-data-table">
+                    {card.technicalData.rows.map((row) =>
+                      row.value === undefined ? (
+                        <div className="tech-data-row is-group" key={row.label}>
+                          <dt>{row.label}</dt>
+                          <dd aria-hidden="true" />
+                        </div>
+                      ) : (
+                        <div className="tech-data-row" key={row.label}>
+                          <dt>{row.label}</dt>
+                          <dd>{row.value}</dd>
+                        </div>
+                      ),
+                    )}
+                  </dl>
+                </section>
+              ) : null,
+            )}
           </div>
         ))}
         <p className="product-line-note">{line.note}</p>
