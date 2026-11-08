@@ -2,7 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import JsonLd from "@/components/JsonLd";
 import { assets, company, content, languages, moduleSpecs, productCardImages, productLines, type Language, type ProductLineKey } from "@/lib/siteContent";
+import { faqPageSchema, productItemList } from "@/lib/seo";
 import { submitInquiry } from "@/lib/form";
 /*
  * Page paths and per-language head metadata live in one JSON file so that the
@@ -36,6 +38,7 @@ const moduleImages = [
  * solar modules" point at the group, not at the top of the page).
  */
 const moduleGroupIds = ["standard", "all-black"];
+
 import {
   ArrowRight,
   BadgeCheck,
@@ -57,6 +60,14 @@ import {
 } from "lucide-react";
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "wouter";
+
+/* Canonical page for each product line. Used by the ItemList markup so every
+ * Product points at the page that actually lists it. */
+const productLinePaths: Record<ProductLineKey, string> = {
+  inverters: "/products/inverters/",
+  ess: "/products/bess/",
+  accessories: "/products/system-accessories/",
+};
 
 type SitePageKind = "home" | "about" | "products" | "solarModules" | "inverters" | "ess" | "accessories" | "contact";
 
@@ -268,6 +279,39 @@ function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return <p className="section-eyebrow">{children}</p>;
 }
 
+/*
+ * A short trade-supply strip that closes every product page.
+ *
+ * It exists for two reasons: a distributor or EPC arriving on a specification
+ * page should see the commercial route without going back to the overview, and
+ * the link gives each product page a real internal link to the supply section
+ * that answers MOQ, OEM, documentation and warranty questions.
+ */
+function BuyerInfo({ languageBundle }: { languageBundle: ReturnType<typeof useSiteLanguage> }) {
+  const { t } = languageBundle;
+  return (
+    <section className="container">
+      <div className="buyer-info">
+        <div>
+          <h2>{t.buyerInfo.title}</h2>
+          <p>{t.buyerInfo.text}</p>
+          <Link href="/products/#b2b-supply" className="buyer-info-link">
+            {t.buyerInfo.linkLabel} →
+          </Link>
+        </div>
+        <ul className="buyer-info-list">
+          {t.buyerInfo.items.map((item) => (
+            <li key={item}>
+              <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 function HomeContent({ languageBundle }: { languageBundle: ReturnType<typeof useSiteLanguage> }) {
   const { t } = languageBundle;
 
@@ -365,7 +409,7 @@ function AboutContent({ languageBundle }: { languageBundle: ReturnType<typeof us
   const { t } = languageBundle;
   return (
     <>
-      <PageHero eyebrow={t.about.eyebrow} title={t.about.title} subtitle={t.about.subtitle} image={assets.logistics} alt={t.a11y.pageVisual} />
+      <PageHero eyebrow={t.about.eyebrow} title={t.about.title} subtitle={t.about.subtitle} image={assets.logistics} alt={t.a11y.pageVisual} trail={[{ label: t.nav.home, href: "/" }, { label: t.nav.about }]} quoteLabel={t.cta} />
       <section className="container about-grid" aria-label={t.a11y.capabilities}>
         <div className="about-panel dark-panel">
           <SectionEyebrow>{t.about.foundedLabel} {company.year}</SectionEyebrow>
@@ -401,7 +445,7 @@ function ProductsContent({ languageBundle }: { languageBundle: ReturnType<typeof
   const { t } = languageBundle;
   return (
     <>
-      <PageHero eyebrow={t.products.eyebrow} title={t.products.title} subtitle={t.products.subtitle} image={assets.solar} alt={t.a11y.pageVisual} />
+      <PageHero eyebrow={t.products.eyebrow} title={t.products.title} subtitle={t.products.subtitle} image={assets.solar} alt={t.a11y.pageVisual} trail={[{ label: t.nav.home, href: "/" }, { label: t.nav.products }]} quoteLabel={t.cta} />
       <section className="container product-section" aria-labelledby="solar-products-title">
         <div className="section-heading">
           <SectionEyebrow>{t.products.solarEyebrow}</SectionEyebrow>
@@ -430,6 +474,54 @@ function ProductsContent({ languageBundle }: { languageBundle: ReturnType<typeof
         {/* Every product name above is its own link, so the one link that used to
             sit here — "technical data for our solar modules" — was a second door
             to the same page. It is gone; the cards carry the doors now. */}
+      </section>
+
+      {/*
+       * The B2B supply section.
+       *
+       * The overview used to list products and stop. A trade buyer's next
+       * questions are commercial, not technical: MOQ, OEM, documents, lead time,
+       * warranty, and whether one supplier can ship the whole system. The answers
+       * are written here once, in all three languages, and the FAQPage markup is
+       * generated from this same array, so the structured data cannot claim
+       * something the page does not say.
+       */}
+      <section className="container b2b-section" id="b2b-supply" aria-labelledby="b2b-title">
+        <div className="b2b-panel">
+          <SectionEyebrow>{t.b2b.eyebrow}</SectionEyebrow>
+          <h2 id="b2b-title">{t.b2b.title}</h2>
+          <p className="b2b-intro">{t.b2b.intro}</p>
+          <div className="b2b-grid">
+            {t.b2b.items.map((item) => (
+              <article className="b2b-item" key={item.title}>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="faq-block">
+            <h2>{t.b2b.faqTitle}</h2>
+            <div className="faq-list">
+              {t.b2b.faq.map((faq) => (
+                <article className="faq-item" key={faq.question}>
+                  <h3>{faq.question}</h3>
+                  <p>{faq.answer}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div className="b2b-links">
+            <Button asChild className="rounded-full bg-[#d5a84f] px-7 py-6 text-base font-extrabold text-[#10201f] hover:bg-[#efc871]">
+              <Link href="/contact/">
+                {t.b2b.contactLabel} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="rounded-full border-white/40 bg-white/10 px-7 py-6 text-base text-white backdrop-blur hover:bg-white/20">
+              <a href="#solar-products-title">{t.b2b.catalogLabel}</a>
+            </Button>
+          </div>
+        </div>
+        <JsonLd id="products-faq" data={faqPageSchema(t.b2b.faq)} />
       </section>
 
       <section className="container ai-solution-panel" aria-labelledby="ai-solutions-title">
@@ -501,7 +593,7 @@ function ContactContent({ languageBundle }: { languageBundle: ReturnType<typeof 
 
   return (
     <>
-      <PageHero eyebrow={t.contact.eyebrow} title={t.contact.title} subtitle={t.contact.subtitle} image={assets.hero} alt={t.a11y.pageVisual} />
+      <PageHero eyebrow={t.contact.eyebrow} title={t.contact.title} subtitle={t.contact.subtitle} image={assets.hero} alt={t.a11y.pageVisual} trail={[{ label: t.nav.home, href: "/" }, { label: t.nav.contact }]} quoteLabel={t.cta} showQuote={false} />
       <section className="container contact-grid" aria-labelledby="contact-form-title">
         <div className="contact-card">
           <h2 id="contact-form-title">{t.contact.formTitle}</h2>
@@ -537,18 +629,94 @@ function ContactContent({ languageBundle }: { languageBundle: ReturnType<typeof 
           </div>
         </aside>
       </section>
+      {/*
+       * The contact page used to be a form and an address — roughly 600 words of
+       * visible text before rendering, much of it labels. A trade buyer needs to
+       * know what makes a quotation possible, so the page now states it: market,
+       * model and quantity, and any OEM or tender requirement. This is also the
+       * page most likely to be read by a buyer who is comparing suppliers.
+       */}
+      <section className="container contact-guidance" aria-label={t.contact.guideTitle}>
+        <div className="guidance-card">
+          <h2>{t.contact.guideTitle}</h2>
+          <p>{t.contact.guideIntro}</p>
+          <ul>
+            {t.contact.guideItems.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="guidance-card">
+          <h2>{t.contact.responseTitle}</h2>
+          <p>{t.contact.responseText}</p>
+        </div>
+      </section>
+      <JsonLd
+        id="contact-page"
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          name: "Contact Harvest Eco Solutions Limited",
+          url: "https://www.harvest.cn/contact/",
+          mainEntity: {
+            "@type": "Organization",
+            "@id": "https://www.harvest.cn/#organization",
+            name: company.name,
+            email: company.email,
+            telephone: "+8613916169339",
+            address: company.address,
+          },
+        }}
+      />
     </>
   );
 }
 
-function PageHero({ eyebrow, title, subtitle, image, alt }: { eyebrow: string; title: string; subtitle: string; image: string; alt: string }) {
+function PageHero({
+  eyebrow,
+  title,
+  subtitle,
+  image,
+  alt,
+  trail,
+  quoteLabel,
+  showQuote = true,
+}: {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  alt: string;
+  trail?: { label: string; href?: string }[];
+  quoteLabel: string;
+  showQuote?: boolean;
+}) {
   return (
     <section className="page-hero" aria-labelledby="page-title">
       <img src={image} alt={alt} />
       <div className="page-hero-content container">
+        {trail && trail.length > 0 && (
+          <nav className="breadcrumbs" aria-label="Breadcrumb">
+            {trail.map((item, index) => (
+              <Fragment key={`${item.label}-${index}`}>
+                {index > 0 && <span className="breadcrumb-sep" aria-hidden="true">/</span>}
+                {item.href ? <Link href={item.href}>{item.label}</Link> : <span aria-current="page">{item.label}</span>}
+              </Fragment>
+            ))}
+          </nav>
+        )}
         <SectionEyebrow>{eyebrow}</SectionEyebrow>
         <h1 id="page-title">{title}</h1>
         <p>{subtitle}</p>
+        {showQuote && (
+          <div className="page-hero-actions">
+            <Button asChild className="rounded-full bg-[#d5a84f] px-7 py-6 text-base font-extrabold text-[#10201f] hover:bg-[#efc871]">
+              <Link href="/contact/">
+                {quoteLabel} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -584,6 +752,26 @@ function SolarModulesContent({ languageBundle }: { languageBundle: ReturnType<ty
   const { language, t } = languageBundle;
   const modules = moduleSpecs[language];
 
+  /*
+   * ItemList markup for the four module types. Names, descriptions and every
+   * additionalProperty come from the rendered specification rows, so a number
+   * changed on the page changes the markup with it. No offers block: the price
+   * depends on the bin, quantity and destination.
+   */
+  const productSchema = productItemList(
+    modules.title,
+    modules.groups.flatMap((group, groupIndex) =>
+      group.variants.map((variant, variantIndex) => ({
+        name: `${variant.power} ${group.name}`,
+        description: variant.finish,
+        category: group.name,
+        url: `/products/solar-modules/#${moduleGroupIds[groupIndex]}`,
+        image: moduleImages[groupIndex][variantIndex],
+        specs: variant.specs,
+      })),
+    ),
+  );
+
   return (
     <>
       <PageHero
@@ -592,6 +780,8 @@ function SolarModulesContent({ languageBundle }: { languageBundle: ReturnType<ty
         subtitle={modules.subtitle}
         image={assets.solar}
         alt={t.a11y.pageVisual}
+        trail={[{ label: t.nav.home, href: "/" }, { label: t.nav.products, href: "/products/" }, { label: modules.eyebrow }]}
+        quoteLabel={t.cta}
       />
       <section className="container module-specs-section">
         {modules.groups.map((group, groupIndex) => (
@@ -630,6 +820,8 @@ function SolarModulesContent({ languageBundle }: { languageBundle: ReturnType<ty
         ))}
         <p className="module-spec-note">{modules.note}</p>
       </section>
+      <BuyerInfo languageBundle={languageBundle} />
+      <JsonLd id="solar-modules-products" data={productSchema} />
     </>
   );
 }
@@ -652,6 +844,21 @@ function ProductLineContent({ lineKey, languageBundle }: { lineKey: ProductLineK
   const { language, t } = languageBundle;
   const line = productLines[lineKey][language];
 
+  /* ItemList markup built from the same cards the visitor sees. */
+  const productSchema = productItemList(
+    line.title,
+    line.groups.flatMap((group) =>
+      group.cards.map((card) => ({
+        name: card.name,
+        description: card.description,
+        category: group.name,
+        url: productLinePaths[lineKey],
+        image: productCardImages[card.key],
+        specs: card.specs,
+      })),
+    ),
+  );
+
   return (
     <>
       <PageHero
@@ -660,6 +867,8 @@ function ProductLineContent({ lineKey, languageBundle }: { lineKey: ProductLineK
         subtitle={line.subtitle}
         image={assets.solar}
         alt={t.a11y.pageVisual}
+        trail={[{ label: t.nav.home, href: "/" }, { label: t.nav.products, href: "/products/" }, { label: line.eyebrow }]}
+        quoteLabel={t.cta}
       />
       <section className="container product-line-section">
         {line.groups.map((group) => (
@@ -723,6 +932,8 @@ function ProductLineContent({ lineKey, languageBundle }: { lineKey: ProductLineK
         ))}
         <p className="product-line-note">{line.note}</p>
       </section>
+      <BuyerInfo languageBundle={languageBundle} />
+      <JsonLd id={`${lineKey}-products`} data={productSchema} />
     </>
   );
 }

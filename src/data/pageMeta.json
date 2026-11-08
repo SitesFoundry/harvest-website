@@ -3,16 +3,16 @@
     "path": "/",
     "meta": {
       "en": {
-        "title": "Harvest Eco Solutions Limited | Solar Systems & AI Energy Saving Solutions",
-        "description": "Harvest Eco Solutions Limited provides solar systems, BESS and AI smart control solutions for global clean-energy markets."
+        "title": "Solar Modules & BESS Supplier | Harvest Eco Solutions",
+        "description": "B2B supplier of N-type TOPCon solar modules, hybrid inverters and battery storage from 1 kWh to 5 MWh. OEM support, export logistics, 50+ markets."
       },
       "es": {
-        "title": "Harvest Eco Solutions Limited | Sistemas solares y soluciones IA",
-        "description": "Harvest Eco Solutions Limited ofrece sistemas solares, BESS y soluciones inteligentes de ahorro energético para mercados globales."
+        "title": "Proveedor de módulos solares y BESS | Harvest Eco Solutions",
+        "description": "Proveedor B2B de módulos solares TOPCon tipo N, inversores híbridos y almacenamiento de 1 kWh a 5 MWh. Soporte OEM, logística de exportación y clientes en más de 50 países."
       },
       "fr": {
-        "title": "Harvest Eco Solutions Limited | Systèmes solaires et solutions IA",
-        "description": "Harvest Eco Solutions Limited fournit des systèmes solaires, des BESS et des solutions intelligentes d’économie d’énergie pour les marchés mondiaux."
+        "title": "Fournisseur de modules solaires et BESS | Harvest Eco Solutions",
+        "description": "Fournisseur B2B de modules solaires TOPCon de type N, d’onduleurs hybrides et de stockage de 1 kWh à 5 MWh. Support OEM, logistique export et clients dans plus de 50 pays."
       }
     }
   },
@@ -20,16 +20,16 @@
     "path": "/about/",
     "meta": {
       "en": {
-        "title": "About Harvest Eco Solutions Limited",
-        "description": "Learn about Harvest Eco Solutions Limited, founded in 2004 and serving customers across more than 50 countries and regions."
+        "title": "About Harvest Eco Solutions | Solar Supplier Since 2004",
+        "description": "Shanghai-based solar and energy storage supplier founded in 2004, serving distributors, EPCs and installers in more than 50 countries and regions."
       },
       "es": {
-        "title": "Nosotros | Harvest Eco Solutions Limited",
-        "description": "Conozca Harvest Eco Solutions Limited, fundada en 2004 y presente en más de 50 países y regiones."
+        "title": "Sobre Harvest Eco Solutions | Proveedor solar desde 2004",
+        "description": "Proveedor solar y de almacenamiento con sede en Shanghái, fundado en 2004, al servicio de distribuidores, EPC e instaladores en más de 50 países y regiones."
       },
       "fr": {
-        "title": "À propos | Harvest Eco Solutions Limited",
-        "description": "Découvrez Harvest Eco Solutions Limited, fondée en 2004 et active dans plus de 50 pays et régions."
+        "title": "À propos de Harvest Eco Solutions | Fournisseur solaire depuis 2004",
+        "description": "Fournisseur solaire et de stockage basé à Shanghai, fondé en 2004, au service des distributeurs, EPC et installateurs dans plus de 50 pays et régions."
       }
     }
   },
@@ -37,16 +37,16 @@
     "path": "/products/",
     "meta": {
       "en": {
-        "title": "Products & Solutions | Solar, BESS and AI Smart Control",
-        "description": "Explore solar modules, inverters, BESS, PV accessories and AI smart control solutions from Harvest Eco Solutions Limited."
+        "title": "Solar, Inverter & BESS Products | Harvest Eco Solutions",
+        "description": "Product portfolio for trade buyers: N-type TOPCon modules 450–720 W, single-phase hybrid inverters 6.2–15 kW, BESS 1 kWh–5 MWh and PV accessories."
       },
       "es": {
-        "title": "Productos y soluciones | Solar, BESS e IA",
-        "description": "Explore módulos solares, inversores, BESS, accesorios FV y soluciones inteligentes con IA."
+        "title": "Productos solares, inversores y BESS | Harvest Eco Solutions",
+        "description": "Catálogo para compradores profesionales: módulos TOPCon tipo N de 450–720 W, inversores híbridos monofásicos de 6,2–15 kW, BESS de 1 kWh–5 MWh y accesorios FV."
       },
       "fr": {
-        "title": "Produits et solutions | Solaire, BESS et IA",
-        "description": "Explorez modules solaires, onduleurs, BESS, accessoires PV et solutions intelligentes IA."
+        "title": "Produits solaires, onduleurs et BESS | Harvest Eco Solutions",
+        "description": "Catalogue pour acheteurs professionnels : modules TOPCon de type N 450–720 W, onduleurs hybrides monophasés 6,2–15 kW, BESS 1 kWh–5 MWh et accessoires PV."
       }
     }
   },
@@ -54,16 +54,16 @@
     "path": "/products/solar-modules/",
     "meta": {
       "en": {
-        "title": "Solar Modules | Technical Data and Specifications",
-        "description": "Technical data for our solar modules: standard and all-black N-type TOPCon bifacial modules from 425 W to 730 W, with power, efficiency, dimensions and weight for each type."
+        "title": "N-Type TOPCon Solar Modules 450–720 W | B2B Supplier",
+        "description": "Four N-type TOPCon bifacial module types from 450 W to 720 W: standard and all-black, up to 23.69% efficiency and a 30-year linear power warranty."
       },
       "es": {
-        "title": "Módulos solares | Datos técnicos y especificaciones",
-        "description": "Datos técnicos de nuestros módulos solares: módulos bifaciales TOPCon tipo N estándar y all-black de 425 W a 730 W, con potencia, eficiencia, dimensiones y peso de cada tipo."
+        "title": "Módulos solares TOPCon tipo N 450–720 W | Proveedor B2B",
+        "description": "Cuatro tipos de módulo bifacial TOPCon tipo N de 450 W a 720 W: estándar y all-black, hasta 23,69 % de eficiencia y 30 años de garantía lineal."
       },
       "fr": {
-        "title": "Modules solaires | Données techniques et spécifications",
-        "description": "Données techniques de nos modules solaires : modules bifaciaux TOPCon de type N standard et tout noir de 425 W à 730 W, avec puissance, rendement, dimensions et poids pour chaque type."
+        "title": "Modules solaires TOPCon de type N 450–720 W | Fournisseur B2B",
+        "description": "Quatre types de modules bifaciaux TOPCon de type N de 450 W à 720 W : standard et tout noir, jusqu’à 23,69 % de rendement et 30 ans de garantie linéaire."
       }
     }
   },
@@ -71,16 +71,16 @@
     "path": "/products/inverters/",
     "meta": {
       "en": {
-        "title": "Solar Inverters | Single-phase Hybrids | Harvest Eco Solutions Limited",
-        "description": "Single-phase hybrid inverters at 6.2 kW and from 7.5 to 15 kW, supplied by Harvest Eco Solutions Limited for residential and commercial solar installations."
+        "title": "Single-Phase Hybrid Solar Inverters 6.2–15 kW | Supplier",
+        "description": "Single-phase hybrid inverters at 6.2 kW and 7.5–15 kW, with 500 V PV input and up to 97.8% efficiency, for residential and commercial projects."
       },
       "es": {
-        "title": "Inversores solares | Híbridos monofásicos | Harvest Eco Solutions Limited",
-        "description": "Inversores híbridos monofásicos de 6,2 kW y de 7,5 a 15 kW, suministrados por Harvest Eco Solutions Limited para instalaciones solares residenciales y comerciales."
+        "title": "Inversores híbridos monofásicos 6,2–15 kW | Proveedor",
+        "description": "Inversores híbridos monofásicos de 6,2 kW y de 7,5 a 15 kW, con entrada FV de 500 V y hasta 97,8 % de eficiencia, para proyectos residenciales y comerciales."
       },
       "fr": {
-        "title": "Onduleurs solaires | Hybrides monophasés | Harvest Eco Solutions Limited",
-        "description": "Onduleurs hybrides monophasés de 6,2 kW et de 7,5 à 15 kW, fournis par Harvest Eco Solutions Limited pour les installations solaires résidentielles et commerciales."
+        "title": "Onduleurs hybrides monophasés 6,2–15 kW | Fournisseur",
+        "description": "Onduleurs hybrides monophasés de 6,2 kW et de 7,5 à 15 kW, entrée PV 500 V et rendement jusqu’à 97,8 %, pour projets résidentiels et commerciaux."
       }
     }
   },
@@ -88,16 +88,16 @@
     "path": "/products/bess/",
     "meta": {
       "en": {
-        "title": "BESS | Portable, Home, Commercial and Utility Storage | Harvest Eco Solutions Limited",
-        "description": "A 1 kWh portable power station, a 16 kWh floor-standing home battery, a 261 kWh liquid-cooled cabinet for commercial and industrial sites and a 5 MWh storage skid for utility scale, from Harvest Eco Solutions Limited."
+        "title": "BESS Supplier | 1 kWh to 5 MWh Battery Storage Systems",
+        "description": "Portable 1 kWh stations, 16 kWh home batteries, 261 kWh commercial cabinets and 5 MWh utility-scale skids, all on LFP cells, supplied by Harvest."
       },
       "es": {
-        "title": "BESS | Almacenamiento portátil, doméstico, comercial y a gran escala | Harvest Eco Solutions Limited",
-        "description": "Una estación de energía portátil de 1 kWh, una batería doméstica de suelo de 16 kWh, un armario refrigerado por líquido de 261 kWh para instalaciones comerciales e industriales y una plataforma de almacenamiento de 5 MWh para gran escala, de Harvest Eco Solutions Limited."
+        "title": "Proveedor BESS | Almacenamiento de 1 kWh a 5 MWh",
+        "description": "Estaciones portátiles de 1 kWh, baterías domésticas de 16 kWh, armarios comerciales de 261 kWh y skids de 5 MWh para gran escala, con celdas LFP."
       },
       "fr": {
-        "title": "BESS | Stockage portable, domestique, commercial et à grande échelle | Harvest Eco Solutions Limited",
-        "description": "Une station d’énergie portable de 1 kWh, une batterie domestique au sol de 16 kWh, une armoire refroidie par liquide de 261 kWh pour les sites commerciaux et industriels et une plateforme de stockage de 5 MWh pour les sites utilitaires, de Harvest Eco Solutions Limited."
+        "title": "Fournisseur BESS | Stockage de 1 kWh à 5 MWh",
+        "description": "Stations portables de 1 kWh, batteries domestiques de 16 kWh, armoires commerciales de 261 kWh et skids de 5 MWh, toutes sur cellules LFP."
       }
     }
   },
@@ -105,16 +105,16 @@
     "path": "/products/system-accessories/",
     "meta": {
       "en": {
-        "title": "System Accessories | Module Frames, PV Cables and MC4 Connectors",
-        "description": "FRP composite solar module frames, PV cables and MC4 connectors supplied by Harvest Eco Solutions Limited to complete a solar installation."
+        "title": "FRP Module Frames, PV Cables & MC4 Connectors | Supplier",
+        "description": "FRP composite solar module frames, PV cables and MC4 connectors supplied with modules and inverters to complete a solar installation."
       },
       "es": {
-        "title": "Accesorios | Marcos de módulo, cables FV y conectores MC4",
-        "description": "Marcos compuestos FRP para módulos solares, cables FV y conectores MC4 de Harvest Eco Solutions Limited para completar una instalación solar."
+        "title": "Marcos FRP, cables FV y conectores MC4 | Proveedor",
+        "description": "Marcos compuestos FRP para módulos solares, cables FV y conectores MC4 suministrados junto con módulos e inversores para instalaciones completas."
       },
       "fr": {
-        "title": "Accessoires | Cadres de module, câbles PV et connecteurs MC4",
-        "description": "Cadres composites FRP pour modules solaires, câbles PV et connecteurs MC4 fournis par Harvest Eco Solutions Limited pour compléter une installation solaire."
+        "title": "Cadres FRP, câbles PV et connecteurs MC4 | Fournisseur",
+        "description": "Cadres composites FRP pour modules solaires, câbles PV et connecteurs MC4 fournis avec les modules et onduleurs pour des installations complètes."
       }
     }
   },
@@ -122,16 +122,16 @@
     "path": "/contact/",
     "meta": {
       "en": {
-        "title": "Contact Harvest Eco Solutions Limited",
-        "description": "Contact Harvest Eco Solutions Limited for solar systems, AI energy saving solutions and customized procurement support."
+        "title": "Contact Harvest Eco Solutions | Request a Solar or BESS Quote",
+        "description": "Send your market, product and volume requirements to our Shanghai sales team. We reply with availability, documentation and a practical next step."
       },
       "es": {
-        "title": "Contacto | Harvest Eco Solutions Limited",
-        "description": "Contacte con Harvest Eco Solutions Limited para sistemas solares, soluciones IA y compras personalizadas."
+        "title": "Contacto Harvest Eco Solutions | Solicite una cotización",
+        "description": "Envíe a nuestro equipo de Shanghái su mercado, producto y volumen. Respondemos con disponibilidad, documentación y un siguiente paso concreto."
       },
       "fr": {
-        "title": "Contact | Harvest Eco Solutions Limited",
-        "description": "Contactez Harvest Eco Solutions Limited pour systèmes solaires, solutions IA et approvisionnement personnalisé."
+        "title": "Contact Harvest Eco Solutions | Demander un devis",
+        "description": "Envoyez à notre équipe de Shanghai votre marché, votre produit et vos volumes. Nous répondons avec la disponibilité, la documentation et une prochaine étape concrète."
       }
     }
   }

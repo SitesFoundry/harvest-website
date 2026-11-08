@@ -1,6 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
+
+/*
+ * Carlito is self-hosted, not fetched from Google Fonts.
+ *
+ * The site used to load it from fonts.googleapis.com, which was the only
+ * third-party request on the page and is blocked or unreliable for visitors in
+ * mainland China. A blocked stylesheet also blocks first paint. These files are
+ * the latin subset, which covers the accented characters used in the Spanish
+ * and French versions; the OFL licence ships alongside them in public/fonts.
+ */
+@font-face {
+  font-family: "Carlito";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/carlito-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Carlito";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/carlito-700.woff2") format("woff2");
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -2062,5 +2086,309 @@
 @media (max-width: 640px) {
   .product-line-media {
     height: 230px;
+  }
+}
+
+/* ==========================================================================
+   B2B SEO additions (2026-11-09)
+   --------------------------------------------------------------------------
+   Breadcrumbs, a quote CTA in the page hero, a trade-supply section with buyer
+   questions on the products overview, a short supply strip on every product
+   page, and enquiry guidance on the contact page. These are content and
+   conversion additions first; the matching structured data is generated from
+   the same copy, so the markup always describes what a visitor can see.
+   ========================================================================== */
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 1.1rem;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.breadcrumbs a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.breadcrumbs a:hover,
+.breadcrumbs a:focus-visible {
+  color: #ffffff;
+  border-bottom-color: #d5a84f;
+}
+
+.breadcrumbs [aria-current="page"] {
+  color: #ffffff;
+}
+
+.breadcrumbs .breadcrumb-sep {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.page-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.8rem;
+}
+
+.b2b-section {
+  padding-bottom: 5rem;
+}
+
+.b2b-panel {
+  border-radius: 2rem;
+  background: #0a1b22;
+  color: #ffffff;
+  padding: clamp(1.6rem, 4vw, 3.2rem);
+}
+
+.b2b-panel .section-eyebrow {
+  color: #9ff2cd;
+}
+
+.b2b-panel h2 {
+  max-width: 22ch;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+  line-height: 1.05;
+}
+
+.b2b-intro {
+  max-width: 68ch;
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.b2b-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 820px) {
+  .b2b-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.b2b-item {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.045);
+  padding: 1.35rem 1.4rem;
+}
+
+.b2b-item h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.b2b-item p {
+  margin: 0.5rem 0 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.faq-block {
+  margin-top: 2.4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.faq-block h2 {
+  max-width: none;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+}
+
+.faq-list {
+  display: grid;
+  gap: 1.15rem;
+  margin-top: 1.4rem;
+}
+
+@media (min-width: 900px) {
+  .faq-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2.2rem;
+  }
+}
+
+.faq-item h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.faq-item p {
+  margin: 0.4rem 0 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.93rem;
+  line-height: 1.7;
+}
+
+.b2b-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 2rem;
+}
+
+.buyer-info {
+  display: grid;
+  gap: 1.4rem;
+  margin-top: 3.2rem;
+  border: 1px solid rgba(82, 67, 38, 0.14);
+  border-radius: 1.7rem;
+  background: rgba(255, 252, 243, 0.84);
+  padding: 1.7rem;
+}
+
+@media (min-width: 860px) {
+  .buyer-info {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.buyer-info h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  line-height: 1.2;
+}
+
+.buyer-info p {
+  margin: 0.55rem 0 0;
+  color: #536560;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.buyer-info-list {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.buyer-info-list li {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  color: #263a35;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.buyer-info-list svg {
+  flex: none;
+  margin-top: 0.2rem;
+  color: #0d6b54;
+}
+
+.buyer-info-link {
+  margin-top: 0.9rem;
+  color: #0d6b54;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(13, 107, 84, 0.32);
+}
+
+.buyer-info-link:hover,
+.buyer-info-link:focus-visible {
+  border-bottom-color: #0d6b54;
+}
+
+.contact-guidance {
+  display: grid;
+  gap: 1.4rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 900px) {
+  .contact-guidance {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.guidance-card {
+  border: 1px solid rgba(82, 67, 38, 0.14);
+  border-radius: 1.7rem;
+  background: rgba(255, 252, 243, 0.84);
+  padding: 1.7rem;
+}
+
+.guidance-card h2 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.1vw, 1.65rem);
+  line-height: 1.25;
+}
+
+.guidance-card ul {
+  display: grid;
+  list-style: disc;
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+  color: #536560;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.guidance-card li::marker {
+  color: #0d6b54;
+}
+
+.guidance-card p {
+  margin: 0.75rem 0 0;
+  color: #536560;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.no-js-summary {
+  max-width: 70ch;
+  margin: 3rem auto;
+  padding: 0 1.25rem;
+  color: #10201f;
+  font-family: Calibri, Carlito, Aptos, Arial, Helvetica, sans-serif;
+  line-height: 1.65;
+}
+
+.no-js-summary h1 {
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.no-js-summary a {
+  color: #0d6b54;
+}
+
+@media (max-width: 640px) {
+  .b2b-panel {
+    border-radius: 1.4rem;
+  }
+
+  .page-hero-actions .btn,
+  .page-hero-actions a {
+    width: 100%;
+    justify-content: center;
   }
 }

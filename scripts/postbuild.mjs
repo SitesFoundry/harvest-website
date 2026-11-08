@@ -193,14 +193,108 @@ function rewriteHead(html, { path, title, description }) {
 }
 
 const generatedRoutes = [];
+
+/*
+ * Per-route breadcrumbs for the static BreadcrumbList markup.
+ *
+ * The visible breadcrumb on the page is translated; this static graph is the
+ * English form because the pre-rendered document is the English document. Both
+ * describe the same hierarchy, which is what Google matches against.
+ */
+const TRAILS = {
+  about: [["Home", "/"], ["About", "/about/"]],
+  products: [["Home", "/"], ["Products", "/products/"]],
+  solarModules: [["Home", "/"], ["Products", "/products/"], ["Solar Modules", "/products/solar-modules/"]],
+  inverters: [["Home", "/"], ["Products", "/products/"], ["Inverters", "/products/inverters/"]],
+  ess: [["Home", "/"], ["Products", "/products/"], ["BESS", "/products/bess/"]],
+  accessories: [["Home", "/"], ["Products", "/products/"], ["System Accessories", "/products/system-accessories/"]],
+  contact: [["Home", "/"], ["Contact", "/contact/"]],
+};
+
+function escapeHtml(value) {
+  const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+  return value.replace(/[&<>"']/g, (character) => entities[character]);
+}
+
+/*
+ * Adds the two things a sub-page needs that the shared root document cannot
+ * carry: its own no-JS summary text, and its own BreadcrumbList + WebPage
+ * JSON-LD. Both are asserted after the swap, because a silent no-op here would
+ * publish eight pages claiming to be the home page — the defect this build step
+ * exists to prevent.
+ */
+function injectSeo(html, { key, path, title, description }) {
+  const trail = TRAILS[key];
+  if (!trail) fail(`no breadcrumb trail declared for route "${key}"`);
+  const url = `${ORIGIN}${path}`;
+
+  const noscriptPattern = /(<noscript id="no-js-summary">)[\s\S]*?(<\/noscript>)/;
+  const withFallback = html.replace(
+    noscriptPattern,
+    (_match, open, close) =>
+      `${open}\n      <div class="no-js-summary">\n        <h1>${escapeHtml(title)}</h1>\n        <p>${escapeHtml(description)}</p>\n        <p><a href="/">Home</a> · <a href="/products/">Products</a> · <a href="/contact/">Contact</a></p>\n      </div>\n    ${close}`,
+  );
+  if (withFallback === html) {
+    fail(`${path}: the no-JS summary block did not match — index.html changed shape`);
+  }
+
+  const graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: trail.map(([name, itemPath], index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name,
+          item: `${ORIGIN}${itemPath}`,
+        })),
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: title,
+        description,
+        isPartOf: { "@id": `${ORIGIN}/#website` },
+        about: { "@id": `${ORIGIN}/#organization` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        inLanguage: "en",
+      },
+    ],
+  };
+
+  const json = JSON.stringify(graph);
+  /* Parse it back: a circular or otherwise invalid graph must fail the build,
+   * not ship as a script tag crawlers silently ignore. */
+  JSON.parse(json);
+
+  const marker = "</head>";
+  if (!withFallback.includes(marker)) fail(`${path}: index.html has no closing head`);
+  const out = withFallback.replace(
+    marker,
+    `    <script type="application/ld+json" data-seo="route">${json}</script>\n  </head>`,
+  );
+
+  if (!out.includes('data-seo="route"')) fail(`${path}: route structured data was not injected`);
+  if (!out.includes('"@type":"BreadcrumbList"')) fail(`${path}: breadcrumb markup is missing`);
+  if (!out.includes(`"url":"${url}"`)) fail(`${path}: WebPage markup does not carry ${url}`);
+  if (!out.includes(`<h1>${escapeHtml(title)}</h1>`)) fail(`${path}: no-JS summary does not carry the page title`);
+  return out;
+}
+
 for (const [key, route] of Object.entries(pageMeta)) {
   if (route.path === "/") continue; // the root document already is this page
   const en = route.meta.en;
-  const page = rewriteHead(indexHtml, {
-    path: route.path,
-    title: en.title,
-    description: en.description,
-  });
+  const page = injectSeo(
+    rewriteHead(indexHtml, {
+      path: route.path,
+      title: en.title,
+      description: en.description,
+    }),
+    { key, path: route.path, title: en.title, description: en.description },
+  );
 
   /* Assert the rewrite landed, and that the root canonical is gone: a
    * sub-page still claiming to be the home page is the bug being fixed. */
