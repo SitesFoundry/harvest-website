@@ -2392,3 +2392,12 @@
     justify-content: center;
   }
 }
+
+/*
+ * The product pages' buyer-support strip links to /products/#b2b-supply, and the
+ * anchor has to clear the sticky header the same way the module groups do. Without
+ * this the section opens with its eyebrow hidden behind the header.
+ */
+#b2b-supply {
+  scroll-margin-top: 6.5rem;
+}
