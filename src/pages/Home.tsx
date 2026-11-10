@@ -4,7 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import JsonLd from "@/components/JsonLd";
 import { assets, company, content, languages, moduleSpecs, productCardImages, productLines, type Language, type ProductLineKey } from "@/lib/siteContent";
-import { faqPageSchema, productItemList } from "@/lib/seo";
+import { faqPageSchema, productPageList } from "@/lib/seo";
 import { submitInquiry } from "@/lib/form";
 /*
  * Page paths and per-language head metadata live in one JSON file so that the
@@ -753,21 +753,21 @@ function SolarModulesContent({ languageBundle }: { languageBundle: ReturnType<ty
   const modules = moduleSpecs[language];
 
   /*
-   * ItemList markup for the four module types. Names, descriptions and every
-   * additionalProperty come from the rendered specification rows, so a number
-   * changed on the page changes the markup with it. No offers block: the price
-   * depends on the bin, quantity and destination.
+   * ItemList markup for the four product pages.
+   *
+   * These are ListItems, not Product objects: Google rejects a Product without
+   * offers/review/aggregateRating, and a B2B quotation has no fixed price. The
+   * visible specification table still carries every number; this markup only
+   * tells Google which pages exist, what they cover and where their image is.
    */
-  const productSchema = productItemList(
+  const productSchema = productPageList(
     modules.title,
     modules.groups.flatMap((group, groupIndex) =>
       group.variants.map((variant, variantIndex) => ({
         name: `${variant.power} ${group.name}`,
         description: variant.finish,
-        category: group.name,
         url: `/products/solar-modules/#${moduleGroupIds[groupIndex]}`,
         image: moduleImages[groupIndex][variantIndex],
-        specs: variant.specs,
       })),
     ),
   );
@@ -844,17 +844,19 @@ function ProductLineContent({ lineKey, languageBundle }: { lineKey: ProductLineK
   const { language, t } = languageBundle;
   const line = productLines[lineKey][language];
 
-  /* ItemList markup built from the same cards the visitor sees. */
-  const productSchema = productItemList(
+  /*
+   * ItemList markup built from the same cards the visitor sees. ListItems, not
+   * Products: no fixed price exists to put in an `offers` block, and Google
+   * marks a Product without one as invalid.
+   */
+  const productSchema = productPageList(
     line.title,
     line.groups.flatMap((group) =>
       group.cards.map((card) => ({
         name: card.name,
         description: card.description,
-        category: group.name,
         url: productLinePaths[lineKey],
         image: productCardImages[card.key],
-        specs: card.specs,
       })),
     ),
   );

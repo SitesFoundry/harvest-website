@@ -71,6 +71,13 @@
          lets the browser start before the JavaScript bundle runs. -->
     <link rel="preload" href="/images/harvest-hero-solar-ai.webp" as="image" fetchpriority="high" />
 
+    <!--
+      No Product markup here on purpose. Google's Product rich result requires an
+      offer, a review or an aggregateRating; this is a B2B supplier whose price
+      depends on model, quantity and destination. Publishing a fake price or a
+      rating would mislead buyers, so the catalogue is expressed as an ItemList of
+      product pages on each product page instead. See src/lib/seo.ts.
+    -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -111,17 +118,7 @@
           "Photovoltaic cables",
           "MC4 connectors",
           "International trade and logistics"
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Solar, inverter, storage and system accessories",
-          "itemListElement": [
-            { "@type": "Product", "name": "N-type TOPCon bifacial solar modules, 450–720 W", "url": "https://www.harvest.cn/products/solar-modules/" },
-            { "@type": "Product", "name": "Single-phase hybrid solar inverters, 6.2–15 kW", "url": "https://www.harvest.cn/products/inverters/" },
-            { "@type": "Product", "name": "Battery energy storage systems, 1 kWh–5 MWh", "url": "https://www.harvest.cn/products/bess/" },
-            { "@type": "Product", "name": "FRP module frames, PV cables and MC4 connectors", "url": "https://www.harvest.cn/products/system-accessories/" }
-          ]
-        }
+        ]
       }
     </script>
     <script type="application/ld+json">
